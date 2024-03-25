@@ -59,7 +59,7 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 | Login | Valida as credenciais do usuário          | Não possui       |
 | Cadastre-se             | Redireciona o usuário para a tela de cadastro          | Não possui       |
 
-### Usuário
+### User Story
 
 |  User Story                                        | Critério de aceitação                                 |
 | ------------------------------------------------- | ----------------------------------------------------- |
