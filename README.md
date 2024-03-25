@@ -70,7 +70,6 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 |User Story|Critério de Avaliação|
 |    --    |         ---         |
 |Como um administrador, eu quero cadastrar novos produtos, para que eles possam ser disponibilizados na página principal|O produto cadastrado deve aparecer corretamente e estar disponível para compra|
-
 ---
 ## RF05 - Visualizar Página Principal
 
