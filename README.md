@@ -6,7 +6,7 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 ### Definindo os requisitos e seus colaboradores.
 ---
 #### Primeira Iteração
-- RF01 - Realizar Login do Usuário. Por [Wanderson Almeida de Mello](https://github.com/sadMello)
+- [X] RF01 - Realizar Login do Usuário. Por [Wanderson Almeida de Mello](https://github.com/sadMello)
 
 - RF02 - Realizar Cadastro do Usuário. Por [Micael Ribeiro dos Santos](https://github.com/messiribeiro)
 
@@ -15,7 +15,55 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 - RF04 - Visualizar Produto. Por [João Pedro Oliveira Barbosa](https://github.com/Iohanan-Cephas)
 
 - [X] RF05 - Visualizar Página Principal. Por [Antonio André Barcelos Chagas](https://github.com/andrebarceloschagas) Revisado por @Iohanan-Cephas
+---
+## **RF01 - Realizar Login do Usuário**
 
+### Atributos
+
+| Item            | Descrição                                                                           |
+| --------------- | ----------------------------------------------------------------------------------- |
+| Caso de uso     | Realizar login do usuário                                                       |
+| Resumo          | Realizar  login do usuário |
+| Ator principal  | Usuário                                                    |
+| Ator secundário | -                                                                             |
+| Pré-condição    | O usuário deve ter um cadastro no sistema.                         |
+| Pós-condição    | Os dados do usuário devem estar corretos                                                                                      |
+
+### Fluxo principal
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | O usuário informa seus dados           |
+| Passo 2 | A verificação das credenciais é efetuada |
+| Passo 3 | A sessão é iniciada caso de login esteja correto. |
+
+### Fluxo alternativo
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | O usuário informa seus dados            |
+| Passo 2 | A verificação das credenciais é efetuada |
+| Passo 3 | A sessão não é iniciada e o usuário é redirecionado para a tela de login. |
+
+### Campos do formulário
+
+| Campo            | Obrigatório? | Editável? | Formato      |
+| ---------------- | ------------ | --------- | ------------ |
+| Email             | Sim          | Sim       | Email         |
+| Senha            | Sim          | Sim       | Password        |
+
+### Opções dos usuários
+
+| Opção            | Descrição | Atalho |
+| ---------------- | ------------ | --------- |
+| Login | Valida as credenciais do usuário          | Não possui       |
+| Cadastre-se             | Redireciona o usuário para a tela de cadastro          | Não possui       |
+
+### User Story
+
+|  User Story                                        | Critério de aceitação                                 |
+| ------------------------------------------------- | ----------------------------------------------------- |
+| Como um **usuário**, eu preciso ser capaz de **realizar login** na plataforma BudStrike, para que **eu possa ter acesso as ofertas** | Certificar que o usuário **consegue fazer login com sucesso e acessar a plataforma**. |
 ---
 
 # RF02 - Realizar Cadastro do Usuário
