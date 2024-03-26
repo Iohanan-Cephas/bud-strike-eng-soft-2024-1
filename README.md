@@ -65,6 +65,67 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 | ------------------------------------------------- | ----------------------------------------------------- |
 | Como um **usuário**, eu preciso ser capaz de **realizar login** na plataforma BudStrike, para que **eu possa ter acesso as ofertas** | Certificar que o usuário **consegue fazer login com sucesso e acessar a plataforma**. |
 ---
+
+# RF02 - Realizar Cadastro do Usuário
+
+## Atributos
+
+| Item            | Descrição                                           |
+|-----------------|-----------------------------------------------------|
+| Caso de Uso     | Realizar Cadastro do Usuário                        |
+| Resumo          | Permite que novos usuários se cadastrem na plataforma |
+| Ator principal  | Visitante do site                                   |
+| Ator secundário | Sistema de gerenciamento de usuários                |
+| Pré-condição    | Visitante acessa a página de registro               |
+| Pós-condição    | Usuário registrado e capaz de acessar a plataforma |
+
+## Fluxo Principal
+
+| Passos | Descrição                                           |
+|--------|-----------------------------------------------------|
+| Passo 1 | O visitante acessa a página de registro do site     |
+| Passo 2 | Preenche o formulário de cadastro com suas informações pessoais |
+| Passo 3 | Submete o formulário de cadastro                    |
+| Passo 4 | O sistema valida e registra o novo usuário          |
+
+## Fluxo Alternativo
+
+| Passos | Descrição                                           |
+|--------|-----------------------------------------------------|
+| Passo 1 | Se as informações fornecidas são inválidas, o sistema exibe mensagens de erro |
+| Passo 2 | Se o usuário já está cadastrado, o sistema informa ao visitante para evitar duplicidade |
+| Passo 3 | Visitante corrige os dados e ressubmete o formulário |
+| Passo 4 | Se o visitante cancelar, o sistema descarta as informações |
+
+## Campos
+
+| Campo           | Obrigatório | Editável | Formato   |
+|-----------------|-------------|----------|-----------|
+| Nome            | Sim         | Sim      | Texto     |
+| Sobrenome       | Sim         | Sim      | Texto     |
+| E-mail          | Sim         | Não      | E-mail    |
+| Senha           | Sim         | Não      | Texto     |
+| Confirmação de Senha | Sim     | Não      | Texto     |
+| País            | Sim         | Sim      | Texto     |
+| Cidade          | Sim         | Sim      | Texto     |
+| Endereço        | Sim         | Sim      | Texto     |
+| CEP             | Sim         | Sim      | Numérico  |
+
+## Opções de usuário
+
+| Opção          | Descrição                                              |
+|----------------|--------------------------------------------------------|
+| Registrar      | Criar uma conta na plataforma para acessar recursos   |
+
+## User Story
+
+Como um visitante, eu quero me cadastrar na plataforma para poder acessar seus recursos.
+
+## Critério de Avaliação
+
+O usuário cadastrado deve ser capaz de acessar a plataforma após o registro.
+
+
 ## RF03 - Realizar Cadastro do Produto
 
 ### Atributos
