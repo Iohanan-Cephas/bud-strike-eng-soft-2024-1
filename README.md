@@ -6,13 +6,13 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 ### Definindo os requisitos e seus colaboradores.
 ---
 #### Primeira Iteração
-- [X] RF01 - Realizar Login do Usuário. Por [Wanderson Almeida de Mello](https://github.com/sadMello)
+- [X] RF01 - Realizar Login do Usuário. Por [Wanderson Almeida de Mello](https://github.com/sadMello) Revisado por @messiribeiro
 
-- RF02 - Realizar Cadastro do Usuário. Por [Micael Ribeiro dos Santos](https://github.com/messiribeiro)
+- [X] RF02 - Realizar Cadastro do Usuário. Por [Micael Ribeiro dos Santos](https://github.com/messiribeiro) Revisado por @sadMello
 
-- [X] RF03 - Realizar Cadastro do Produto. Por [Laura Barbosa Henrique](https://github.com/tinywin)
+- [X] RF03 - Realizar Cadastro do Produto. Por [Laura Barbosa Henrique](https://github.com/tinywin) Revisado por @andrebarceloschagas
 
-- RF04 - Visualizar Produto. Por [João Pedro Oliveira Barbosa](https://github.com/Iohanan-Cephas)
+- [X] RF04 - Visualizar Produto. Por [João Pedro Oliveira Barbosa](https://github.com/Iohanan-Cephas) Revisado por @tinywin
 
 - [X] RF05 - Visualizar Página Principal. Por [Antonio André Barcelos Chagas](https://github.com/andrebarceloschagas) Revisado por @Iohanan-Cephas
 ---
