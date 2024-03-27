@@ -6,15 +6,15 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 ### Definindo os requisitos e seus colaboradores.
 ---
 #### Primeira Iteração
-- [X] RF01 - Realizar Login do Usuário. Por [Wanderson Almeida de Mello](https://github.com/sadMello)
+- [X] RF01 - Realizar Login do Usuário. Por [Wanderson Almeida de Mello](https://github.com/sadMello) Revisado por [Micael](https://github.com/messiribeiro)
 
-- RF02 - Realizar Cadastro do Usuário. Por [Micael Ribeiro dos Santos](https://github.com/messiribeiro)
+- [X] RF02 - Realizar Cadastro do Usuário. Por [Micael Ribeiro dos Santos](https://github.com/messiribeiro) Revisado por [Wanderson](https://github.com/sadMello)
 
-- [X] RF03 - Realizar Cadastro do Produto. Por [Laura Barbosa Henrique](https://github.com/tinywin)
+- [X] RF03 - Realizar Cadastro do Produto. Por [Laura Barbosa Henrique](https://github.com/tinywin) Revisado por [André Barcelos](https://github.com/andrebarceloschagas)
 
-- RF04 - Visualizar Produto. Por [João Pedro Oliveira Barbosa](https://github.com/Iohanan-Cephas)
+- [X] RF04 - Visualizar Produto. Por [João Pedro Oliveira Barbosa](https://github.com/Iohanan-Cephas) Revisado por [Laura](https://github.com/tinywin)
 
-- [X] RF05 - Visualizar Página Principal. Por [Antonio André Barcelos Chagas](https://github.com/andrebarceloschagas) Revisado por @Iohanan-Cephas
+- [X] RF05 - Visualizar Página Principal. Por [Antonio André Barcelos Chagas](https://github.com/andrebarceloschagas) Revisado por [João Pedro](https://github.com/Iohanan-Cephas)
 ---
 ## **RF01 - Realizar Login do Usuário**
 
@@ -119,11 +119,9 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 
 ## User Story
 
-Como um visitante, eu quero me cadastrar na plataforma para poder acessar seus recursos.
-
-## Critério de Avaliação
-
-O usuário cadastrado deve ser capaz de acessar a plataforma após o registro.
+|User Story|Critério de Avaliação|
+|---|---|
+|Como um visitante, eu quero me cadastrar na plataforma para poder acessar seus recursos.|O usuário cadastrado deve ser capaz de acessar a plataforma após o registro.|
 
 
 ## RF03 - Realizar Cadastro do Produto
@@ -180,6 +178,49 @@ O usuário cadastrado deve ser capaz de acessar a plataforma após o registro.
 |    --    |         ---         |
 |Como um administrador, eu quero cadastrar novos produtos, para que eles possam ser disponibilizados na página principal|O produto cadastrado deve aparecer corretamente e estar disponível para compra|
 ---
+
+## RF04 - Visualizar Produto
+
+### Atributos
+
+| Item            | Descrição                                                                           |
+| --------------- | ----------------------------------------------------------------------------------- |
+| Caso de uso     | Visualizar detalhes de um produto                                                       |
+| Resumo          | Visualizar informações detalhadas de um produto |
+| Ator principal  | Usuário                                                    |
+| Ator secundário | -                                                                             |
+| Pré-condição    | -                         |
+| Pós-condição    | O usuário visualiza as informações detalhadas do produto.                                                                                      |
+
+### Fluxo principal
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | O usuário navega para a página de detalhes do produto.           |
+| Passo 2 | O sistema exibe as informações detalhadas do produto. |
+| Passo 3 | O usuário pode interagir com as informações ou tomar ações relacionadas ao produto, como adicionar ao carrinho ou realizar a compra. |
+
+### Fluxo alternativo
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | O usuário navega para a página de detalhes do produto.            |
+| Passo 2 | O sistema não encontra as informações detalhadas do produto ou ocorre um erro. |
+| Passo 3 | O usuário recebe uma mensagem de erro ou é redirecionado para a página anterior. |
+
+### Opções dos usuários
+
+|Opção|Descrição|
+|---|---|
+|Colocar no carrinho|Adiciona o produto em visualização ao carrinho atual de compras|
+|Comprar|Redireciona o usuário à página de processamento da compra do produto visualizado|
+|Calcular frete|Calcula o frete da entrega com base no CEP fornecido pelo usuário|
+
+### User Story
+
+|  User Story                                        | Critério de aceitação                                 |
+| ------------------------------------------------- | ----------------------------------------------------- |
+| Como um usuário, eu preciso ser capaz de visualizar detalhes de um produto na plataforma BudStrike, para que eu possa tomar decisões informadas sobre a compra | Certificar que o usuário consegue visualizar as informações detalhadas do produto. |
 ## RF05 - Visualizar Página Principal
 
 ### Atributos
