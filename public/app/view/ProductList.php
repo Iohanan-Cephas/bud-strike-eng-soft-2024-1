@@ -34,7 +34,7 @@ try {
         }
     
         if ($success) {
-            header("Location: index.php");
+            header("Location: productlist.php");
             exit;
         }
     }    
@@ -45,7 +45,7 @@ try {
         $productController->delete($_POST['id']);
 
         // Opcional: Redireciona para a mesma página para atualizar a lista de produtos após a exclusão
-        header('Location: /index.php');
+        header('Location: productlist.php');
         exit;
     }
 
@@ -125,17 +125,19 @@ try {
                     <td><img src="<?php echo htmlspecialchars($product['imagem']); ?>" alt="Imagem do Produto" style="max-width: 100px;"></td>
                     <td class="actions">
                         <!-- Formulário para exclusão -->
-                        <form method="POST" action="/index.php">
+                        <form method="POST" action="productlist.php">
                             <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
                             <button type="submit" onclick="return confirm('Tem certeza que deseja excluir este produto?')">Excluir</button>
                         </form>
+                        <!-- Link para atualizar -->
+                        <a href="update.php?id=<?php echo $product['id']; ?>">Atualizar</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
     <h2>Adicionar Novo Produto</h2>
-    <form method="POST" action="/index.php">
+    <form method="POST" action="productlist.php">
         <label for="nome">Nome:</label><br>
         <input type="text" id="nome" name="nome"><br>
 

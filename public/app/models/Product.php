@@ -1,8 +1,10 @@
 <?php
 require_once dirname(__DIR__) . '/config/config.php';
 
+
 class Product {
     private $pdo;
+
 
     public function __construct(PDO $pdo) {
         $this->pdo = $pdo;
@@ -23,19 +25,19 @@ class Product {
             $products[] = $row;
         }
 
+
         return $products;
     }
+
 
     public function delete($productId) {
         $stmt = $this->pdo->prepare('DELETE FROM produtos WHERE id = :id');
         $stmt->execute(['id' => $productId]);
     }
-
     public function update($productId, $nome, $descricao, $preco, $quantidade, $imagem) {
         $stmt = $this->pdo->prepare('UPDATE produtos SET nome = :nome, descricao = :descricao, preco = :preco, quantidade = :quantidade, imagem = :imagem WHERE id = :id');
         return $stmt->execute(['id' => $productId, 'nome' => $nome, 'descricao' => $descricao, 'preco' => $preco, 'quantidade' => $quantidade, 'imagem' => $imagem]);
     }
-
     public function getDetailsById($productId) {
         $stmt = $this->pdo->prepare("SELECT * FROM produtos WHERE id = ?");
         $stmt->execute([$productId]);
