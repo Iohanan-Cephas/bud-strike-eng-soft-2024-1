@@ -124,9 +124,6 @@ try {
                     <td><?php echo htmlspecialchars($product['quantidade']); ?></td>
                     <td><img src="<?php echo htmlspecialchars($product['imagem']); ?>" alt="Imagem do Produto" style="max-width: 100px;"></td>
                     <td class="actions">
-                        <!-- Link para a página de atualização -->
-                        <a href="/update.php?id=<?php echo $product['id']; ?>">Atualizar</a>
-                        
                         <!-- Formulário para exclusão -->
                         <form method="POST" action="/index.php">
                             <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
