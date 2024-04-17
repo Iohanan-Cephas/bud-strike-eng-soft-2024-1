@@ -1,0 +1,85 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  
+}
+
+main {
+  width: 100vw;
+  height: 95vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+main h1 {
+  font-size: 20px;
+}
+footer {
+  display: flex;
+  height: 5vh;
+  align-items: end;
+  padding-bottom: 30px;
+  justify-content: center;
+  font-size: 10px;
+  
+}
+
+#form-container {
+  background-color: aliceblue;
+  width: 250px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 10px;
+  gap: 10px;
+  margin-top: 30px;
+}
+#form-container label {
+  font-size: 12px;
+}
+#form-container input {
+  height: 40px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid rgba(187, 115, 255, 0.37);
+  padding: 0 10px;
+  margin-top: 5px;
+  outline: none;
+}
+
+#form-container textarea {
+  width: 100%;
+  resize: none;
+  padding: 5px 10px;
+  border: transparent;
+  margin-top: 5px;
+  border: 1px solid rgba(187, 115, 255, 0.37);
+  border-radius: 5px;
+
+
+}
+
+button {
+  margin-top: 30px;
+  height: 40px;
+  width: 150px;
+  border: none;
+  background-color: rgb(187, 115, 255);
+  color: white;
+  font-weight: 700;
+  border-radius: 10px;
+  transition: width .4s;
+  cursor: pointer;
+}
+
+button:hover {
+  width: 160px;
+}

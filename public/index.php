@@ -49,11 +49,13 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>Listagem de Produtos</title>
-    <!-- Estilos CSS aqui -->
+    
 </head>
 <body>
-    <h1>Listagem de Produtos</h1>
+    
+    <div id="list" >
     <table>
         <thead>
             <tr>
@@ -89,25 +91,35 @@ try {
             <?php endforeach; ?>
         </tbody>
     </table>
-
+    </div>
+    <div id="add">
     <h2>Adicionar Novo Produto</h2>
     <form method="POST" action="index.php">
-        <label for="nome">Nome:</label><br>
-        <input type="text" id="nome" name="nome" required><br>
+        <div if="form-container"></div>
+        <div>
+            <label for="nome">Nome:</label><br>
+            <input type="text" id="nome" name="nome" required><br>
+        </div>
+        <div>
+            <label for="descricao">Descrição:</label><br>
+            <textarea id="descricao" name="descricao" required></textarea><br>
+        </div>
 
-        <label for="descricao">Descrição:</label><br>
-        <textarea id="descricao" name="descricao" required></textarea><br>
-
-        <label for="preco">Preço (R$):</label><br>
-        <input type="text" id="preco" name="preco" required><br>
-
-        <label for="quantidade">Quantidade:</label><br>
-        <input type="text" id="quantidade" name="quantidade" required><br>
-
-        <label for="imagem">URL da Imagem:</label><br>
-        <input type="text" id="imagem" name="imagem" required><br>
-
+        <div>
+            <label for="preco">Preço (R$):</label><br>
+            <input type="text" id="preco" name="preco" required><br>
+        </div>
+        <div>
+            <label for="quantidade">Quantidade:</label><br>
+            <input type="text" id="quantidade" name="quantidade" required><br>
+        </div>
+        <div>
+            <label for="imagem">URL da Imagem:</label><br>
+            <input type="text" id="imagem" name="imagem" required><br>
+        </div>
         <button type="submit" name="add">Adicionar Produto</button>
+
     </form>
+    </div>
 </body>
 </html>
