@@ -3,23 +3,21 @@
 require_once 'app/controllers/ProductController.php';
 require_once 'app/models/Product.php';
 
-
 // Parâmetros de conexão com o banco de dados
 $db_name = 'budstrike';
 $db_host = 'db';
 $db_user = 'root';
 $db_password = 'root';
 
-
 try {
     // Cria uma nova instância do PDO para conexão com o banco de dados
     $pdo = new PDO("mysql:host={$db_host};dbname={$db_name}", $db_user, $db_password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-
     // Cria uma instância do controlador ProductController, passando a conexão PDO como argumento
     $productController = new ProductController($pdo);
 
+    // Verifica se foi feita uma requisição para adicionar um produto
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nome = $_POST['nome'];
         $descricao = $_POST['descricao'];
@@ -27,31 +25,32 @@ try {
         $quantidade = $_POST['quantidade'];
         $imagem = $_POST['imagem'];
     
-        $success = $productModel->create($nome, $descricao, $preco, $quantidade, $imagem);
+        try {
+            $productController->create($nome, $descricao, $preco, $quantidade, $imagem);
+            $success = true;
+        } catch (Exception $e) {
+            $success = false;
+            echo "Erro ao adicionar produto: " . $e->getMessage();
+        }
     
         if ($success) {
             header("Location: index.php");
             exit;
-        } else {
-            echo "Erro ao adicionar produto.";
         }
-    }
+    }    
 
     // Verifica se foi feita uma requisição para excluir um produto
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
         // Chama o método de exclusão do controlador
         $productController->delete($_POST['id']);
 
-
         // Opcional: Redireciona para a mesma página para atualizar a lista de produtos após a exclusão
         header('Location: /index.php');
         exit;
     }
 
-
     // Obtém todos os produtos usando o método index() do controlador ProductController
     $products = $productController->index(); // Este método deve chamar $productModel->all()
-
 
 } catch (PDOException $e) {
     // Trata qualquer erro de conexão com o banco de dados
@@ -59,7 +58,6 @@ try {
     exit;
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -126,6 +124,10 @@ try {
                     <td><?php echo htmlspecialchars($product['quantidade']); ?></td>
                     <td><img src="<?php echo htmlspecialchars($product['imagem']); ?>" alt="Imagem do Produto" style="max-width: 100px;"></td>
                     <td class="actions">
+                        <!-- Link para a página de atualização -->
+                        <a href="/update.php?id=<?php echo $product['id']; ?>">Atualizar</a>
+                        
+                        <!-- Formulário para exclusão -->
                         <form method="POST" action="/index.php">
                             <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
                             <button type="submit" onclick="return confirm('Tem certeza que deseja excluir este produto?')">Excluir</button>
