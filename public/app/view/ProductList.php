@@ -20,23 +20,6 @@ try {
     // Cria uma instância do controlador ProductController, passando a conexão PDO como argumento
     $productController = new ProductController($pdo);
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $nome = $_POST['nome'];
-        $descricao = $_POST['descricao'];
-        $preco = $_POST['preco'];
-        $quantidade = $_POST['quantidade'];
-        $imagem = $_POST['imagem'];
-    
-        $success = $productModel->create($nome, $descricao, $preco, $quantidade, $imagem);
-    
-        if ($success) {
-            header("Location: index.php");
-            exit;
-        } else {
-            echo "Erro ao adicionar produto.";
-        }
-    }
-
     // Verifica se foi feita uma requisição para excluir um produto
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
         // Chama o método de exclusão do controlador

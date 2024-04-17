@@ -10,7 +10,6 @@ $db_host = 'db';
 $db_user = 'root';
 $db_password = 'root';
 
-
 try {
     // Cria uma nova instância do PDO para conexão com o banco de dados
     $pdo = new PDO("mysql:host={$db_host};dbname={$db_name}", $db_user, $db_password);
@@ -19,25 +18,6 @@ try {
 
     // Cria uma instância do controlador ProductController, passando a conexão PDO como argumento
     $productController = new ProductController($pdo);
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $nome = $_POST['nome'];
-        $descricao = $_POST['descricao'];
-        $preco = $_POST['preco'];
-        $quantidade = $_POST['quantidade'];
-        $imagem = $_POST['imagem'];
-    
-        $success = $productController->create($nome, $descricao, $preco, $quantidade, $imagem);
-
-    
-        if ($success) {
-            header("Location: index.php");
-            exit;
-        } else {
-            echo "Erro ao adicionar produto.";
-        }
-    }
-
 
     // Verifica se foi feita uma requisição para excluir um produto
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
@@ -59,6 +39,27 @@ try {
     // Trata qualquer erro de conexão com o banco de dados
     echo "Erro de conexão: " . $e->getMessage();
     exit;
+}
+
+try{
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $nome = $_POST['nome'];
+        $descricao = $_POST['descricao'];
+        $preco = $_POST['preco'];
+        $quantidade = $_POST['quantidade'];
+        $imagem = $_POST['imagem'];
+
+        $success = $productController->create($nome, $descricao, $preco, $quantidade, $imagem);
+
+        if ($success) {
+            header("Location: index.php");
+            exit;
+        } else {
+            echo "Erro ao adicionar produto.";
+        }
+    }
+} catch (PDOException $e) {
+    echo "Erro ao criar produto". $e->getMessage();
 }
 ?>
 
@@ -146,10 +147,10 @@ try {
         <textarea id="descricao" name="descricao"></textarea><br>
 
         <label for="preco">Preço (R$):</label><br>
-        <input type="text" id="preco" name="preco"><br>
+        <input type="number" id="preco" name="preco"><br>
 
         <label for="quantidade">Quantidade:</label><br>
-        <input type="text" id="quantidade" name="quantidade"><br>
+        <input type="number" id="quantidade" name="quantidade"><br>
 
         <label for="imagem">URL da Imagem:</label><br>
         <input type="text" id="imagem" name="imagem"><br>
