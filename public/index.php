@@ -27,14 +27,18 @@ try {
         $quantidade = $_POST['quantidade'];
         $imagem = $_POST['imagem'];
     
-        $success = $productController->create($nome, $descricao, $preco, $quantidade, $imagem);
-
+        // Verifique se os campos obrigatórios não estão vazios
+        if (!empty($nome) && !empty($descricao) && !empty($preco) && !empty($quantidade) && !empty($imagem)) {
+            $success = $productController->create($nome, $descricao, $preco, $quantidade, $imagem);
     
-        if ($success) {
-            header("Location: index.php");
-            exit;
+            if ($success) {
+                header("Location: index.php");
+                exit;
+            } else {
+                echo "Erro ao adicionar produto.";
+            }
         } else {
-            echo "Erro ao adicionar produto.";
+            echo "Por favor, preencha todos os campos obrigatórios.";
         }
     }
 
