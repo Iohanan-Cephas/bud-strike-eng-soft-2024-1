@@ -34,26 +34,6 @@ try {
         exit;
     }
 
-    // Verifica se foi feita uma requisição para atualizar um produto
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
-        // Lógica para atualizar o produto
-        $productId = $_POST['id'];
-        $nome = $_POST['nome'];
-        $descricao = $_POST['descricao'];
-        $preco = $_POST['preco'];
-        $quantidade = $_POST['quantidade'];
-        $imagem = $_POST['imagem'];
-
-        $success = $productController->update($productId, $nome, $descricao, $preco, $quantidade, $imagem);
-
-        if ($success) {
-            header("Location: index.php");
-            exit;
-        } else {
-            echo "Erro ao atualizar produto.";
-        }
-    }
-
     // Obtém todos os produtos usando o método index() do controlador ProductController
     $products = $productController->index(); 
 
@@ -71,38 +51,6 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listagem de Produtos</title>
     <!-- Estilos CSS aqui -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        h1 {
-            text-align: center;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        .actions {
-            display: flex;
-            justify-content: space-around;
-        }
-        .actions button {
-            cursor: pointer;
-            padding: 5px 10px;
-        }
-    </style>
 </head>
 <body>
     <h1>Listagem de Produtos</h1>
@@ -161,6 +109,6 @@ try {
 
         <button type="submit" name="add">Adicionar Produto</button>
     </form>
-
 </body>
 </html>
+
