@@ -85,7 +85,10 @@ try {
                         </form>
 
                         <!-- Link para a página de atualização -->
-                        <a href="update.php?id=<?php echo $product['id']; ?>">Atualizar</a>
+                        <a href="update.php?id=<?php echo $product['id']; ?>">
+                            <button>Atualizar</button>
+                        </a>
+                        
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -93,32 +96,32 @@ try {
     </table>
     </div>
     <div id="add">
-    <h2>Adicionar Novo Produto</h2>
-    <form method="POST" action="index.php">
-        <div if="form-container"></div>
-        <div>
-            <label for="nome">Nome:</label><br>
-            <input type="text" id="nome" name="nome" required><br>
-        </div>
-        <div>
-            <label for="descricao">Descrição:</label><br>
-            <textarea id="descricao" name="descricao" required></textarea><br>
-        </div>
+        <h2>Adicionar Produto</h2>
+        <form method="POST" action="index.php">
+            <div id="form-container">
+            <div>
+                <label for="nome">Nome:</label><br>
+                <input type="text" id="nome" name="nome" required><br>
+            </div>
+            <div>
+                <label for="descricao">Descrição:</label><br>
+                <textarea id="descricao" name="descricao" required></textarea><br>
+            </div>
 
-        <div>
-            <label for="preco">Preço (R$):</label><br>
-            <input type="text" id="preco" name="preco" required><br>
+            <div>
+                <label for="preco">Preço (R$):</label><br>
+                <input type="text" id="preco" name="preco" required><br>
+            </div>
+            <div>
+                <label for="quantidade">Quantidade:</label><br>
+                <input type="text" id="quantidade" name="quantidade" required><br>
+            </div>
+            <div>
+                <label for="imagem">URL da Imagem:</label><br>
+                <input type="text" id="imagem" name="imagem" required><br>
+            </div>
+            <button type="submit" name="add">Adicionar Produto</button>
         </div>
-        <div>
-            <label for="quantidade">Quantidade:</label><br>
-            <input type="text" id="quantidade" name="quantidade" required><br>
-        </div>
-        <div>
-            <label for="imagem">URL da Imagem:</label><br>
-            <input type="text" id="imagem" name="imagem" required><br>
-        </div>
-        <button type="submit" name="add">Adicionar Produto</button>
-
     </form>
     </div>
 </body>
