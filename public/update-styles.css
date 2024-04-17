@@ -30,7 +30,12 @@ footer {
   font-size: 10px;
   
 }
-
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
 #form-container {
   background-color: aliceblue;
   width: 250px;

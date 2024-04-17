@@ -66,35 +66,37 @@ try {
 <body>
     <main>
     <h1>Editar Produto</h1>
-    <form id="form-container" method="POST" action="update.php?id=<?php echo $productId; ?>">
-    <div>
-        <label for="nome">Nome</label>
-        <input type="text" id="nome" name="nome" value="<?php echo htmlspecialchars($productDetails['nome']); ?>">
-    </div>
-    <div>
-        <label for="descricao">Descrição</label>
-        <textarea id="descricao" name="descricao"><?php echo htmlspecialchars($productDetails['descricao']); ?></textarea>
-    </div>
-        
-    <div>
-        <label for="preco">Preço (R$)</label>
-        <input type="text" id="preco" name="preco" value="<?php echo $productDetails['preco']; ?>">
-    </div>
-        
-    <div>
-        <label for="quantidade">Quantidade</label>
-        <input type="text" id="quantidade" name="quantidade" value="<?php echo $productDetails['quantidade']; ?>">
-    </div>
-        
-    <div>
-        <label for="imagem">URL da Imagem</label>
-        <input type="text" id="imagem" name="imagem" value="<?php echo htmlspecialchars($productDetails['imagem']); ?>">
-    </div>
-        
+   
+        <form  method="POST" action="update.php?id=<?php echo $productId; ?>">
+            <div id="form-container" >
+                <div>
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" name="nome" value="<?php echo htmlspecialchars($productDetails['nome']); ?>">
+                </div>
+                <div>
+                    <label for="descricao">Descrição</label>
+                    <textarea id="descricao" name="descricao"><?php echo htmlspecialchars($productDetails['descricao']); ?></textarea>
+                </div>
+                    
+                <div>
+                    <label for="preco">Preço (R$)</label>
+                    <input type="text" id="preco" name="preco" value="<?php echo $productDetails['preco']; ?>">
+                </div>
+                    
+                <div>
+                    <label for="quantidade">Quantidade</label>
+                    <input type="text" id="quantidade" name="quantidade" value="<?php echo $productDetails['quantidade']; ?>">
+                </div>
+                    
+                <div>
+                    <label for="imagem">URL da Imagem</label>
+                    <input type="text" id="imagem" name="imagem" value="<?php echo htmlspecialchars($productDetails['imagem']); ?>">
+                </div>
+            </div>
+            <button type="submit">Atualizar Produto</button>
 
-    </form>
-    <button type="submit">Atualizar Produto</button>
-
+        </form>
+   
     </main>
     <footer>
         Budstrike &copy 2024
