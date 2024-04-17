@@ -27,9 +27,10 @@ try {
         $quantidade = $_POST['quantidade'];
         $imagem = $_POST['imagem'];
     
+        // Chama a função create() do controlador e verifica o sucesso da operação
         $success = $productController->create($nome, $descricao, $preco, $quantidade, $imagem);
-
     
+        // Verifica se a operação foi bem-sucedida e redireciona conforme necessário
         if ($success) {
             header("Location: index.php");
             exit;
