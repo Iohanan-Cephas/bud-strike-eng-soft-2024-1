@@ -10,6 +10,10 @@ class ProductController {
         $this->pdo = $pdo;
     }
 
+    public function create($name, $description, $price, $quantity, $image) {
+        $productModel = new Product($this->pdo);
+        $productModel->create($name, $description, $price, $quantity, $image);
+    }
 
     public function index() {
         $productModel = new Product($this->pdo);

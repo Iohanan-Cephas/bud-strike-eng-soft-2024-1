@@ -10,6 +10,11 @@ class Product {
         $this->pdo = $pdo;
     }
 
+    public function create($name, $description, $price, $quantity, $image) {
+        $stmt = $this->pdo->prepare('INSERT INTO produtos (nome, descricao, preco, quantidade, imagem) VALUES (?, ?, ?, ?, ?)');
+        $stmt->execute([$name, $description, $price, $quantity, $image]);
+    }
+    
 
     public function all() {
         $stmt = $this->pdo->query('SELECT * FROM produtos');

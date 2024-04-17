@@ -20,6 +20,22 @@ try {
     // Cria uma instância do controlador ProductController, passando a conexão PDO como argumento
     $productController = new ProductController($pdo);
 
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $nome = $_POST['nome'];
+        $descricao = $_POST['descricao'];
+        $preco = $_POST['preco'];
+        $quantidade = $_POST['quantidade'];
+        $imagem = $_POST['imagem'];
+    
+        $success = $productModel->create($nome, $descricao, $preco, $quantidade, $imagem);
+    
+        if ($success) {
+            header("Location: index.php");
+            exit;
+        } else {
+            echo "Erro ao adicionar produto.";
+        }
+    }
 
     // Verifica se foi feita uma requisição para excluir um produto
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
@@ -119,5 +135,24 @@ try {
             <?php endforeach; ?>
         </tbody>
     </table>
+    <h2>Adicionar Novo Produto</h2>
+    <form method="POST" action="/index.php">
+        <label for="nome">Nome:</label><br>
+        <input type="text" id="nome" name="nome"><br>
+
+        <label for="descricao">Descrição:</label><br>
+        <textarea id="descricao" name="descricao"></textarea><br>
+
+        <label for="preco">Preço (R$):</label><br>
+        <input type="text" id="preco" name="preco"><br>
+
+        <label for="quantidade">Quantidade:</label><br>
+        <input type="text" id="quantidade" name="quantidade"><br>
+
+        <label for="imagem">URL da Imagem:</label><br>
+        <input type="text" id="imagem" name="imagem"><br>
+
+        <button type="submit">Adicionar Produto</button>
+    </form>
 </body>
 </html>
