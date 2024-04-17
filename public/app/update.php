@@ -17,11 +17,16 @@ try {
     // Cria uma instância do controlador ProductController, passando a conexão PDO como argumento
     $productController = new ProductController($pdo);
 
-    // Verifica se foi passado o ID do produto a ser atualizado
-    if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
-        // Obtém o ID do produto da URL
-        $productId = $_GET['id'];
+    // Obtém o ID do produto da URL ou do formulário, caso disponível
+    $productId = $_GET['id'] ?? $_POST['id'] ?? null;
 
+    if (!$productId) {
+        header("Location: index.php"); // Redireciona se não houver ID
+        exit;
+    }
+
+    // Verifica se foi passado o ID do produto a ser atualizado
+    if ($_SERVER["REQUEST_METHOD"] == "GET") {
         // Obtém os detalhes do produto com base no ID
         $productDetails = $productController->getProductDetails($productId);
 
@@ -38,10 +43,6 @@ try {
             header("Location: index.php");
             exit;
         }
-    } else {
-        // Se o ID do produto não foi fornecido, redireciona para a página de listagem
-        header("Location: index.php");
-        exit;
     }
 
     // Verifica se o formulário foi submetido para atualização
@@ -124,6 +125,7 @@ try {
 <body>
     <h1>Atualização de Produto</h1>
     <form method="POST" action="update.php">
+        <input type="hidden" name="id" value="<?php echo htmlspecialchars($productId); ?>">
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" value="<?php echo htmlspecialchars($nome); ?>"><br>
 
