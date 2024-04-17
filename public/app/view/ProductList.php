@@ -1,14 +1,49 @@
 <?php
+// Inclui os arquivos necessários
+require_once 'app/controllers/ProductController.php';
 require_once 'app/models/Product.php';
-// simplesmente não consigo só usar o require_once 'app/config/config.php';
-$pdo = new PDO("mysql:host=db;dbname=budstrike","root","root");
 
-// Instancia o modelo Product passando a conexão PDO
-$productModel = new Product($pdo);
 
-// Obtém todos os produtos
-$products = $productModel->all();
+// Parâmetros de conexão com o banco de dados
+$db_name = 'budstrike';
+$db_host = 'db';
+$db_user = 'root';
+$db_password = 'root';
+
+
+try {
+    // Cria uma nova instância do PDO para conexão com o banco de dados
+    $pdo = new PDO("mysql:host={$db_host};dbname={$db_name}", $db_user, $db_password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+
+    // Cria uma instância do controlador ProductController, passando a conexão PDO como argumento
+    $productController = new ProductController($pdo);
+
+
+    // Verifica se foi feita uma requisição para excluir um produto
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
+        // Chama o método de exclusão do controlador
+        $productController->delete($_POST['id']);
+
+
+        // Opcional: Redireciona para a mesma página para atualizar a lista de produtos após a exclusão
+        header('Location: /index.php');
+        exit;
+    }
+
+
+    // Obtém todos os produtos usando o método index() do controlador ProductController
+    $products = $productController->index(); // Este método deve chamar $productModel->all()
+
+
+} catch (PDOException $e) {
+    // Trata qualquer erro de conexão com o banco de dados
+    echo "Erro de conexão: " . $e->getMessage();
+    exit;
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -75,13 +110,9 @@ $products = $productModel->all();
                     <td><?php echo htmlspecialchars($product['quantidade']); ?></td>
                     <td><img src="<?php echo htmlspecialchars($product['imagem']); ?>" alt="Imagem do Produto" style="max-width: 100px;"></td>
                     <td class="actions">
-                        <form method="POST" action="/product/edit">
+                        <form method="POST" action="/index.php">
                             <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
-                            <button type="submit">Editar</button>
-                        </form>
-                        <form method="POST" action="/product/delete">
-                            <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
-                            <button type="submit">Excluir</button>
+                            <button type="submit" onclick="return confirm('Tem certeza que deseja excluir este produto?')">Excluir</button>
                         </form>
                     </td>
                 </tr>
