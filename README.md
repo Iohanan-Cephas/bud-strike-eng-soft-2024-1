@@ -1,14 +1,39 @@
 # Engenharia de Software - 2024.1 | Universidade Federal do Tocantins
 
+#### Curso: Ciência da Computação
+
+#### Professor: Edeilson Milhomem da Silva
+
+#### Monitor: João Gabriel Alves de Souza
+
+### Time: [Antonio André Barcelos Chagas](https://github.com/andrebarceloschagas), [João Pedro Oliveira Barbosa](https://github.com/Iohanan-Cephas), [Laura Barbosa Henrique](https://github.com/tinywin), [Micael Ribeiro dos Santos](https://github.com/messiribeiro), [Wanderson Almeida de Mello](https://github.com/sadMello)
+
+---
+
 ## BudStrike
 
 ### Descrição
 
 BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última geração. Nosso compromisso é proporcionar uma experiência de compra excepcional, impulsionando a velocidade de processamento de dados e garantindo entregas rápidas aos nossos clientes. Estamos constantemente refinando nossos processos para atingir a excelência, dando passos calculados em direção ao nosso objetivo.
 
-### Definindo os requisitos e seus colaboradores
+---
+### [Quadro Kanban](https://trello.com/invite/b/tPgaPmj9/ATTI9322d3ccbbdcf979852e4b31748fad8846F0ABED/budstrike)
 
 ---
+
+### [Event Storm](https://drive.google.com/file/d/1v-ndP5GvuhIqXTeI1m_8dL8Ox9ylKL4t/view)
+
+---
+
+### Histórico de Versões e Atualizações
+
+**v1.0.0** - Primeira Iteração: Levantamento de Rquisitos para o estudo compreenção dos Casos de Uso e User Story
+
+**v1.0.1** - Segunda Iteração: CRUD dos produtos a serem vendidos.
+
+---
+
+### Requisitos
 
 #### [Primeira Iteração](#primeira-iteração)
 
@@ -26,15 +51,21 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 
 #### [Segunda Iteração](#segunda-iteração)
 
-- [X] [RF06](#rf06---read) - Read. Por [Wanderson Almeida de Mello](https://github.com/sadMello) Revisado por [João Pedro](https://github.com/Iohanan-Cephas)
+- [X] [RF06](#rf06---visualizar-produto) - Visualizar Produto. Por [Wanderson Almeida de Mello](https://github.com/sadMello) Revisado por [João Pedro](https://github.com/Iohanan-Cephas)
 
-- [X] [RF07](#rf07---delete) - Delete. Por [Micael Ribeiro dos Santos](https://github.com/messiribeiro) Revisado por [Wanderson](https://github.com/sadMello)
+- [X] [RF07](#rf07---deletar-produto) - Deletar Produto. Por [Micael Ribeiro dos Santos](https://github.com/messiribeiro) Revisado por [Wanderson](https://github.com/sadMello)
 
-- [X] [RF08](#rf08---create) - Create. Por [João Pedro Oliveira Barbosa](https://github.com/Iohanan-Cephas) Revisado por [André Barcelos](https://github.com/andrebarceloschagas)
+- [X] [RF08](#rf08---cadastrar-produto) - Cadastrar Produto. Por [João Pedro Oliveira Barbosa](https://github.com/Iohanan-Cephas) Revisado por [André Barcelos](https://github.com/andrebarceloschagas)
 
-- [X] [RF09](#rf09---update) - Updade. Por [Laura Barbosa Henrique](https://github.com/tinywin) Revisado por [Laura](https://github.com/tinywin)
+- [X] [RF09](#rf09---atualizar-produto) - Atualizar Produto. Por [Laura Barbosa Henrique](https://github.com/tinywin) Revisado por [Laura](https://github.com/tinywin)
 
-- [X] [RF10](#rf10---documentação-foi-executado-a-atualização-do-readme-e-docstrings-nos-códigos) - Documentação. Por [Antonio André Barcelos Chagas](https://github.com/andrebarceloschagas) Revisado por [João Pedro](https://github.com/Iohanan-Cephas)
+- [X] [RF10](#rf10---fazer-a-documentação-do-produto) - Fazer a Documentação do Produto. Por [Antonio André Barcelos Chagas](https://github.com/andrebarceloschagas) Revisado por [João Pedro](https://github.com/Iohanan-Cephas)
+
+---
+
+#### Terceira Iteração
+
+- [X] [RF11]() - Atualizar a Documentação. Por [Antonio André Barcelos Chagas](https://github.com/andrebarceloschagas) Revisado por [](https://github.com/)
 
 ---
 
@@ -160,6 +191,7 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 |Pós-condição|Produto adicionado e disponível para visualização|
 
 ### Fluxo principal
+
 |Passos|Descrição|
 |  --  |    -    |
 |Passo 1|O administrador acessa a área de administração do site|
@@ -293,81 +325,241 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 
 ## **Segunda Iteração**
 
-Objeto dessa iteração, o CRUD é um acrônimo para as quatro operações básicas que você pode realizar em qualquer dado persistente em um banco de dados. As letras representam as seguintes operações:
+## RF06 - Visualizar Produto
 
-- **C**: Create (Criar) - Adiciona novos dados ao banco de dados.
-- **R**: Read (Ler) - Lê os dados existentes do banco de dados.
-- **U**: Update (Atualizar) - Modifica os dados existentes no banco de dados.
-- **D**: Delete (Deletar) - Remove dados do banco de dados.
+### Atributos
 
-Para esse iteração específica foi feito o CRUD dos produtos.
+| Item            | Descrição                                                                           |
+| --------------- | ----------------------------------------------------------------------------------- |
+| Caso de uso     | Visualizar detalhes de um produto                                                       |
+| Resumo          | Visualizar informações detalhadas de um produto |
+| Ator principal  | Usuário                                                    |
+| Ator secundário | -                                                                             |
+| Pré-condição    | -                         |
+| Pós-condição    | O usuário visualiza as informações detalhadas do produto.                                                                                      |
 
-## RF06 - Read
+### Fluxo principal
 
-## RF07 - Delete
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | O usuário navega para a página de detalhes do produto.           |
+| Passo 2 | O sistema exibe as informações detalhadas do produto. |
+| Passo 3 | O usuário pode interagir com as informações ou tomar ações relacionadas ao produto, como adicionar ao carrinho ou realizar a compra. |
 
-## RF08 - Create
+### Fluxo alternativo
 
-## RF09 - Update
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | O usuário navega para a página de detalhes do produto.            |
+| Passo 2 | O sistema não encontra as informações detalhadas do produto ou ocorre um erro. |
+| Passo 3 | O usuário recebe uma mensagem de erro ou é redirecionado para a página anterior. |
 
-## RF10 - Documentação
+### Opções dos usuários
 
-### Guia de Uso
+|Opção|Descrição|
+|---|---|
+|Colocar no carrinho|Adiciona o produto em visualização ao carrinho atual de compras|
+|Comprar|Redireciona o usuário à página de processamento da compra do produto visualizado|
+|Calcular frete|Calcula o frete da entrega com base no CEP fornecido pelo usuário|
 
-Features futuras.
+### User Story
 
-1. **Navegação**: Ao acessar o BudStrike, o usuário pode navegar pela seleção de dispositivos eletrônicos de última geração. Ele pode usar a barra de pesquisa para procurar por produtos específicos ou navegar pelas categorias para explorar a gama de produtos.
+|User Story|Critério de Avaliação|
+|    --    |         ---         |
+| Como um usuário, eu preciso ser capaz de visualizar detalhes de um produto na plataforma BudStrike, para que eu possa tomar decisões informadas sobre a compra | Certificar que o usuário consegue visualizar as informações detalhadas do produto. |
 
-2. **Seleção de Produtos**: Quando o usuário encontrar um produto que lhe interessa, ele pode clicar nele para ver mais detalhes. Aqui, ele pode ver informações detalhadas sobre o produto, incluindo especificações, preço e avaliações de outros clientes.
+### Protótipo
 
-3. **Adicionar ao Carrinho**: Se o usuário decidir comprar um produto, ele pode clicar no botão "Adicionar ao Carrinho". Ele pode continuar comprando e adicionar quantos itens quiser ao seu carrinho.
+## RF07 - Deletar Produto
 
-4. **Checkout**: Quando o usuário estiver pronto para finalizar a compra, ele pode ir para o seu carrinho e clicar em "Checkout". Aqui, ele pode revisar os itens no seu carrinho, adicionar ou remover itens e ver o total da sua compra.
+### Atributos
 
-5. **Pagamento**: Na página de checkout, o usuário também pode selecionar o seu método de pagamento preferido e inserir as informações necessárias. BudStrike aceita vários métodos de pagamento para sua conveniência.
+| Item            | Descrição                                                                           |
+| --------------- | ----------------------------------------------------------------------------------- |
+| Caso de uso     | Deletar um produto                                                       |
+| Resumo          | Deletar um produto da plataforma |
+| Ator principal  |                                                     |
+| Ator secundário | -                                                                             |
+| Pré-condição    | O usuário deve ter permissões adequadas para deletar um produto.                         |
+| Pós-condição    | O produto é removido da plataforma.                                                                                      |
 
-6. **Confirmação do Pedido**: Depois de confirmar o seu pedido, BudStrike processará o pedido do usuário e o enviará o mais rápido possível. O usuário receberá uma confirmação por e-mail com os detalhes do seu pedido e informações de rastreamento quando o seu pedido for enviado.
+### Fluxo principal
 
-7. **Suporte ao Cliente**: Se o usuário tiver qualquer problema ou dúvida durante o processo de compra, a equipe de suporte ao cliente está pronta para ajudar. O usuário pode entrar em contato com eles através da página de contato.
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | O usuário navega para a página de detalhes do produto.           |
+| Passo 2 | O usuário seleciona a opção para deletar o produto. |
+| Passo 3 | O sistema confirma a ação e deleta o produto. |
 
-### Guia de Instalação
+### Fluxo alternativo
 
-Para usuários em geral, o BudStrike funcionará em qualquer navegador atualizado e uma boa conexão com a internet.
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | O usuário navega para a página de detalhes do produto.            |
+| Passo 2 | O usuário seleciona a opção para deletar o produto. |
+| Passo 3 | O sistema não consegue deletar o produto ou ocorre um erro. |
+| Passo 4 | O usuário recebe uma mensagem de erro ou é redirecionado para a página anterior. |
 
-Aqui estão as instruções passo a passo para configurar o BudStrike no ambiente local dos desenvolvedores. As tecnologias necessárias incluem **PHP**, **HTML**, **CSS**, **Docker**, **MySQL**, **phpMyAdmin**, **Git**, **GitHub** e **GitFlow**.
+### Opções dos usuários
 
-1. **Instalação do PHP**: Primeiro, precisa ter o PHP instalado no sistema dele. Ele pode baixar o PHP do [site oficial](https://www.php.net/downloads.php) e seguir as instruções de instalação.
+|Opção|Descrição|
+|---|---|
+|Confirmar exclusão|Confirma a exclusão do produto|
+|Cancelar exclusão|Cancela a ação de exclusão do produto|
 
-2. **Instalação do Docker**: O Docker é usado para criar, implantar e executar aplicativos usando contêineres. Pode baixar o Docker do [site oficial](https://www.docker.com/products/docker-desktop) e seguir as instruções de instalação.
+### User Story
 
-3. **Instalação do MySQL**: O MySQL é o sistema de gerenciamento de banco de dados que usamos. Pode baixar o MySQL do [site oficial](https://dev.mysql.com/downloads/installer/) e seguir as instruções de instalação.
+|User Story|Critério de Avaliação|
+|    --    |         ---         |
+| Como um usuário, eu preciso ser capaz de deletar um produto na plataforma BudStrike, para que eu possa gerenciar os produtos disponíveis para venda | Certificar que o usuário consegue deletar um produto. |
 
-4. **Instalação do phpMyAdmin**: O phpMyAdmin é uma ferramenta gratuita e de código aberto que é usada para administrar o MySQL. O desenvolvedor pode baixar o phpMyAdmin do [site oficial](https://www.phpmyadmin.net/downloads/) e seguir as instruções de instalação.
+### Protótipo
 
-5. **Instalação do Git**: O Git é um sistema de controle de versão distribuído. Pode baixar o Git do [site oficial](https://git-scm.com/downloads) e seguir as instruções de instalação.
+## RF08 - Cadastrar Produto
 
-6. **Conta no GitHub**: O usuário precisa de uma conta no GitHub para contribuir para o projeto BudStrike. Se ele ainda não tem uma, pode criar uma no [site do GitHub](https://github.com/join).
+### Atributos
 
-### Contribuição
+|Item|Descrição|
+| -- |    -    |
+|Caso de Uso|Realizar Cadastro do Produto|
+|Resumo|Permite ao administrador adicionar novos produtos à plataforma|
+|Ator principal|Administrador do sistema|
+|Ator secundário|Sistema de gerenciamento de estoque|
+|Pré-condição|O administrador deve estar logado com privilégios de administrador|
+|Pós-condição|Produto adicionado e disponível para visualização|
 
-As seguintes diretrizes são usadas pela equipe de desenvolvimento:
+### Fluxo principal
 
-1. **Fork do Repositório**: O primeiro passo para um contribuinte é fazer um fork do repositório original [BudStrike](https://github.com/Iohanan-Cephas/bud-strike-eng-soft-2024-1) para a conta GitHub dele. Isso cria uma cópia do repositório que pode ser modificada sem afetar o projeto original.
+|Passos|Descrição|
+|  --  |    -    |
+|Passo 1|O administrador acessa a área de administração do site|
+|Passo 2|Seleciona a opção de adicionar novo produto|
+|Passo 3|Preenche as informações do produto no formulário de cadastro|
+|Passo 4|Submete o formulário de cadastro|
+|Passo 5|O sistema valida e registra o novo produto|
 
-2. **Clone do Repositório**: Depois de fazer o fork, o contribuinte clona o repositório para o ambiente local dele para que possa começar a fazer alterações.
+### Fluxo alternativo
 
-3. **Crie uma Branch**: Antes de começar a trabalhar, o contribuinte cria uma nova branch para as alterações dele. Isso ajuda a manter o trabalho dele separado e organizado.
+|Passos|Descrição|
+|  --  |    -    |
+|Passo 1|Se as informações são inválidas, o sistema mostra mensagens de erro|
+|Passo 2|Se o produto já está cadastrado, o sistema informa ao administrador para evitar duplicidade|
+|Passo 3|Administrador corrige os dados e ressubmete o formulário|
+|Passo 4|Se o administrador cancelar, o sistema descarta as informações|
 
-4. **Faça as suas Alterações**: Agora o contribuinte pode começar a fazer as alterações dele no código. Ele deve se certificar de seguir os padrões de codificação do projeto.
+### Campos
 
-5. **Teste as suas Alterações**: Antes de enviar as alterações, o contribuinte deve se certificar de que elas não quebram nada e que todos os testes passam.
+|Campo|Obrigatório|Editável|Formato|
+|  --  |     -     |   --   |   -   |
+|Nome do Produto|Sim|Sim|Texto|
+|Descrição|Sim|Sim|Texto|
+|Preço|Sim|Sim|Numérico|
+|Quantidade|Sim|Sim|Numérico|
+|Imagens|Sim|Sim|Arquivo|
+|Categoria|Sim|Sim|Texto|
 
-6. **Envie um Pull Request**: Depois de ter feito e testado as alterações, o contribuinte pode enviar um pull request para o repositório original. Isso permite que os mantenedores do projeto revisem as alterações dele e, se aprovadas, as integrem ao projeto.
+### Opções de usuário
 
-7. **Revisão**: O pull request do contribuinte será revisado pelos mantenedores do projeto. Eles podem solicitar alterações ou esclarecimentos sobre as alterações. Este é um processo normal e uma oportunidade para o contribuinte aprender e melhorar o código dele.
+|Opção|Descrição|
+|  --  |    -    |
+|Adicionar Produto|Cadastrar um novo produto no sistema|
 
-### Histórico de Versões e Atualizações
+### User Story
 
-1. **1.0.0** - Primeira Iteração: Levantamento de Rquisitos para o estudo compreenção dos Casos de Uso e User Story
+|User Story|Critério de Avaliação|
+|    --    |         ---         |
+|Como um administrador, eu quero cadastrar novos produtos, para que eles possam ser disponibilizados na página principal|O produto cadastrado deve aparecer corretamente e estar disponível para compra|
 
-2. **2.0.0** - Segunda Iteração: CRUD dos produtos a serem vendidos.
+### Protótipo
+
+## RF09 - Atualizar Produto
+
+### Atributos
+
+| Item            | Descrição                                                                           |
+| --------------- | ----------------------------------------------------------------------------------- |
+| Caso de uso     | Atualizar um produto                                                       |
+| Resumo          | Atualizar as informações de um produto na plataforma |
+| Ator principal  | Usuário                                                    |
+| Ator secundário | -                                                                             |
+| Pré-condição    | O usuário deve ter permissões adequadas para atualizar um produto.                         |
+| Pós-condição    | As informações do produto são atualizadas na plataforma.                                                                                      |
+
+### Fluxo principal
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | O usuário navega para a página de detalhes do produto.           |
+| Passo 2 | O usuário seleciona a opção para atualizar o produto. |
+| Passo 3 | O usuário insere as novas informações do produto. |
+| Passo 4 | O sistema confirma a ação e atualiza as informações do produto. |
+
+### Fluxo alternativo
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | O usuário navega para a página de detalhes do produto.            |
+| Passo 2 | O usuário seleciona a opção para atualizar o produto. |
+| Passo 3 | O sistema não consegue atualizar o produto ou ocorre um erro. |
+| Passo 4 | O usuário recebe uma mensagem de erro ou é redirecionado para a página anterior. |
+
+### Opções dos usuários
+
+|Opção|Descrição|
+|---|---|
+|Confirmar atualização|Confirma a atualização das informações do produto|
+|Cancelar atualização|Cancela a ação de atualização do produto|
+
+### User Story
+
+|User Story|Critério de Avaliação|
+|    --    |         ---         |
+| Como um usuário, eu preciso ser capaz de atualizar um produto na plataforma BudStrike, para que eu possa gerenciar os produtos disponíveis para venda | Certificar que o usuário consegue atualizar as informações de um produto. |
+
+### Protótipo
+
+## RF10 - Fazer a Documentação do Produto
+
+### Atributos
+
+| Item            | Descrição                                                                           |
+| --------------- | ----------------------------------------------------------------------------------- |
+| Caso de uso     | Documentação                                                       |
+| Resumo          | Criar e manter a documentação de um produto na plataforma |
+| Ator principal  | Usuário                                                    |
+| Ator secundário | -                                                                             |
+| Pré-condição    | O usuário deve ter permissões adequadas para criar e atualizar a documentação de um produto.                         |
+| Pós-condição    | A documentação do produto é criada ou atualizada na plataforma.                                                                                      |
+
+### Fluxo principal
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | O usuário navega para a página de documentação do produto.           |
+| Passo 2 | O usuário seleciona a opção para criar ou atualizar a documentação do produto. |
+| Passo 3 | O usuário insere as informações da documentação. |
+| Passo 4 | O sistema confirma a ação e cria ou atualiza a documentação do produto. |
+
+### Fluxo alternativo
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | O usuário navega para a página de documentação do produto.            |
+| Passo 2 | O usuário seleciona a opção para criar ou atualizar a documentação do produto. |
+| Passo 3 | O sistema não consegue criar ou atualizar a documentação do produto ou ocorre um erro. |
+| Passo 4 | O usuário recebe uma mensagem de erro ou é redirecionado para a página anterior. |
+
+### Opções dos usuários
+
+|Opção|Descrição|
+|---|---|
+|Confirmar criação/atualização|Confirma a criação ou atualização da documentação do produto|
+|Cancelar criação/atualização|Cancela a ação de criação ou atualização da documentação do produto|
+
+### User Story
+
+|User Story|Critério de Avaliação|
+|    --    |         ---         |
+| Como um usuário, eu preciso ser capaz de criar e atualizar a documentação de um produto na plataforma BudStrike, para que eu possa fornecer informações detalhadas e atualizadas sobre o produto | Certificar que o usuário consegue criar e atualizar a documentação de um produto. |
+
+### Protótipo
