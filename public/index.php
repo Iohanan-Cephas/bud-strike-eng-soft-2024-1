@@ -2,6 +2,13 @@
 // Inclui os arquivos necessários
 require_once 'app/controllers/ProductController.php';
 require_once 'app/models/Product.php';
+
+// Parâmetros de conexão com o banco de dados
+$db_name = 'budstrike';
+$db_host = 'db';
+$db_user = 'root';
+$db_password = 'root';
+
 require_once 'app/config/config.php';
 
 try {
@@ -41,6 +48,27 @@ try {
     // Trata qualquer erro de conexão com o banco de dados
     echo "Erro de conexão: " . $e->getMessage();
     exit;
+}
+
+try{
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $nome = $_POST['nome'];
+        $descricao = $_POST['descricao'];
+        $preco = $_POST['preco'];
+        $quantidade = $_POST['quantidade'];
+        $imagem = $_POST['imagem'];
+
+        $success = $productController->create($nome, $descricao, $preco, $quantidade, $imagem);
+
+        if ($success) {
+            header("Location: index.php");
+            exit;
+        } else {
+            echo "Erro ao adicionar produto.";
+        }
+    }
+} catch (PDOException $e) {
+    echo "Erro ao criar produto". $e->getMessage();
 }
 ?>
 

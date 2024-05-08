@@ -17,7 +17,7 @@ try {
     // Cria uma instância do controlador ProductController, passando a conexão PDO como argumento
     $productController = new ProductController($pdo);
 
-    // Verifica se foi feita uma requisição para adicionar um produto
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nome = $_POST['nome'];
         $descricao = $_POST['descricao'];
@@ -38,7 +38,7 @@ try {
             exit;
         }
     }    
-
+    
     // Verifica se foi feita uma requisição para excluir um produto
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
         // Chama o método de exclusão do controlador
