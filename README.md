@@ -73,7 +73,7 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 
 - [X] [RF11]() - Atualizar a Documentação. Por [Antonio André Barcelos Chagas](https://github.com/andrebarceloschagas) Revisado por [João Pedro](https://github.com/Iohanan-Cephas)
 
-- [X] [RF12]() - Atualizar Cadastro. Por [Micael Ribeiro dos Santos](https://github.com/messiribeiro) Revisado por [Laura](https://github.com/tinywin)
+- [X] [RF12]() - Realizar Cadastro do Usuário Por [Micael Ribeiro dos Santos](https://github.com/messiribeiro) Revisado por [Laura](https://github.com/tinywin)
 
 - [X] [RF13](#rf13---realizar-login-do-usuário) - Realizar Login do Usuário. Por [Laura Barbosa Henrique](https://github.com/tinywin) Revisado po [Micael](https://github.com/messiribeiro)
 
@@ -425,7 +425,7 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 |    --    |         ---         |
 | Como um usuário, eu preciso ser capaz de deletar um produto na plataforma BudStrike, para que eu possa gerenciar os produtos disponíveis para venda | Certificar que o usuário consegue deletar um produto. |
 
-### Protótipo
+### Protótipoda
 
 ## RF08 - Cadastrar Produto
 
@@ -530,6 +530,8 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 
 ### Protótipo
 
+## **Terceira Iteração**
+
 ## RF10 - Fazer a Documentação do Produto
 
 ### Atributos
@@ -574,66 +576,57 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 |    --    |         ---         |
 | Como um usuário, eu preciso ser capaz de criar e atualizar a documentação de um produto na plataforma BudStrike, para que eu possa fornecer informações detalhadas e atualizadas sobre o produto | Certificar que o usuário consegue criar e atualizar a documentação de um produto. |
 
-### Protótipo
-
 ---
 
-## RF12 - Cadastrar Produto
+## RF12 - Realizar Cadastro do Usuário
 
 ### Atributos
 
-|Item|Descrição|
-| -- |    -    |
-|Caso de Uso|Realizar Cadastro do Produto|
-|Resumo|Permite ao administrador adicionar novos produtos à plataforma|
-|Ator principal|Administrador do sistema|
-|Ator secundário|Sistema de gerenciamento de estoque|
-|Pré-condição|O administrador deve estar logado com privilégios de administrador|
-|Pós-condição|Produto adicionado e disponível para visualização|
+| Item            |Descrição                                   |
+| --------------- | -------------------------------------------|
+| Caso de uso     | Realizar cadastro do usuário               |
+| Resumo          | Realizar  cadastro do usuário              |
+| Ator principal  | Usuário                                    |
+| Ator secundário | -                                          |
+| Pré-condição    | O usuário deve ter um cadastro no sistema. |
+| Pós-condição    | Os dados do usuário devem estar corretos   |
 
 ### Fluxo principal
 
-|Passos|Descrição|
-|  --  |    -    |
-|Passo 1|O administrador acessa a área de administração do site|
-|Passo 2|Seleciona a opção de adicionar novo produto|
-|Passo 3|Preenche as informações do produto no formulário de cadastro|
-|Passo 4|Submete o formulário de cadastro|
-|Passo 5|O sistema valida e registra o novo produto|
+| Passos  | Descrição                                         |
+| ------- | ------------------------------------------------- |
+| Passo 1 | O usuário informa seus dados                      |
+| Passo 2 | A verificação das credenciais é efetuada          |
+| Passo 3 | O cadastro é efetuado e a sessão é iniciada       |
 
 ### Fluxo alternativo
 
-|Passos|Descrição|
-|  --  |    -    |
-|Passo 1|Se as informações são inválidas, o sistema mostra mensagens de erro|
-|Passo 2|Se o produto já está cadastrado, o sistema informa ao administrador para evitar duplicidade|
-|Passo 3|Administrador corrige os dados e ressubmete o formulário|
-|Passo 4|Se o administrador cancelar, o sistema descarta as informações|
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | O usuário informa seus dados                        |
+| Passo 2 | A verificação das credenciais é efetuada            |
+| Passo 3 | A sessão não é iniciada e o usuário n é cadastrado  |  
 
-### Campos
+### Campos do formulário
 
-|Campo|Obrigatório|Editável|Formato|
-|  --  |     -     |   --   |   -   |
-|Nome do Produto|Sim|Sim|Texto|
-|Descrição|Sim|Sim|Texto|
-|Preço|Sim|Sim|Numérico|
-|Quantidade|Sim|Sim|Numérico|
-|Imagens|Sim|Sim|Arquivo|
-|Categoria|Sim|Sim|Texto|
+| Campo            | Obrigatório? | Editável? | Formato      |
+| ---------------- | ------------ | --------- | ------------ |
+| Username         | Sim          | Sim       | Text        |
+| Senha            | Sim          | Sim       | Password     |
 
-### Opções de usuário
+### Opções dos usuários
 
-|Opção|Descrição|
-|  --  |    -    |
-|Adicionar Produto|Cadastrar um novo produto no sistema|
+| Opção            | Descrição | Atalho |
+| ---------------- | ------------ | --------- |
+| Cadastre-se      | Efetua o cadastro do usuário e o redireciona para a home com a sessão ativa | Não possui       |
 
 ### User Story
 
 |User Story|Critério de Avaliação|
 |    --    |         ---         |
-|Como um administrador, eu quero cadastrar novos produtos, para que eles possam ser disponibilizados na página principal|O produto cadastrado deve aparecer corretamente e estar disponível para compra|
+| Como um **usuário**, eu preciso ser capaz de **realizar cadastro** na plataforma BudStrike, para que **eu possa conseguir efetuar o login na plataforma** | Certificar que o usuário **consegue efetuar o cadastro com sucesso com sucesso e acessar a plataforma**. |
 
-### Protótipo
+### [Protótipo](https://www.figma.com/design/LhzyN0WpcDhjSS0pwQD3PM/Untitled?node-id=0-1&t=qVwaQpORi8sfLeux-0)
 
 ## RF13 - Realizar Login do Usuário
 
@@ -684,4 +677,4 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 |    --    |         ---         |
 | Como um **usuário**, eu preciso ser capaz de **realizar login** na plataforma BudStrike, para que **eu possa ter acesso as ofertas** | Certificar que o usuário **consegue fazer login com sucesso e acessar a plataforma**. |
 
-### Protótipo
+### [Protótipo](https://www.figma.com/design/LhzyN0WpcDhjSS0pwQD3PM/Untitled?node-id=0-1&t=qVwaQpORi8sfLeux-0)
