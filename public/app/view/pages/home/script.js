@@ -1,8 +1,10 @@
-const cartButton = document.querySelector("#cart");
 
-console.log(cartButton)
+const logoutButton = document.querySelector('#logout');
 
-cartButton.addEventListener("click", () => {
-    window.location.href = "../cart"
-})
 
+console.log("teste" + logoutButton);
+
+document.querySelector('#logout').addEventListener('click', function() {
+    // Redirecionar para o arquivo de logout
+    window.location.href = 'logout.php';
+});

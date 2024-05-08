@@ -85,6 +85,12 @@ main {
     border: 1px solid #bd59d6;
 
 }
+p#alert {
+    color: rgba(255, 0, 0, 0.651);
+    font-size: 12px;
+    width: 90%;
+    margin-top: 5px;
+}
 
 .alert {
     border: 1px solid #ff2424 !important;
