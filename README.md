@@ -35,7 +35,7 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 
 **v1.0.1** - Segunda Iteração: CRUD dos produtos a serem vendidos.
 
-**v1.0.3** - Terceira Iteração: Atualizações, Login e Controle de Sessão.
+**v1.0.2** - Terceira Iteração: Atualizações, Login e Controle de Sessão.
 
 ---
 
