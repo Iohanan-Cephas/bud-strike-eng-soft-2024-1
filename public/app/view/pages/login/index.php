@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input name="password" type="password" id="password-input" placeholder="senha" required>
                 </div>
                 <?php if (isset($login_error)) { ?>
-                    <p style="color: red;"><?php echo $login_error; ?></p>
+                    <p id="alert"><?php echo $login_error; ?></p>
                 <?php } ?>
                 <p id="register-msg">Não tem uma conta? <a href="../register/">Cadastre-se</a></p>
 
