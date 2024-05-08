@@ -147,7 +147,7 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 
 ### Fluxo Principal
 
-| Passos | Descrição                                           |
+| Passos | Descrihttps://www.figma.com/design/LhzyN0WpcDhjSS0pwQD3PM/Untitled?node-id=0-1&t=qVwaQpORi8sfLeux-0ção                                           |
 |--------|-----------------------------------------------------|
 | Passo 1 | O visitante acessa a página de registro do site     |
 | Passo 2 | Preenche o formulário de cadastro com suas informações pessoais |
@@ -573,6 +573,65 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 |User Story|Critério de Avaliação|
 |    --    |         ---         |
 | Como um usuário, eu preciso ser capaz de criar e atualizar a documentação de um produto na plataforma BudStrike, para que eu possa fornecer informações detalhadas e atualizadas sobre o produto | Certificar que o usuário consegue criar e atualizar a documentação de um produto. |
+
+### Protótipo
+
+---
+
+## RF12 - Cadastrar Produto
+
+### Atributos
+
+|Item|Descrição|
+| -- |    -    |
+|Caso de Uso|Realizar Cadastro do Produto|
+|Resumo|Permite ao administrador adicionar novos produtos à plataforma|
+|Ator principal|Administrador do sistema|
+|Ator secundário|Sistema de gerenciamento de estoque|
+|Pré-condição|O administrador deve estar logado com privilégios de administrador|
+|Pós-condição|Produto adicionado e disponível para visualização|
+
+### Fluxo principal
+
+|Passos|Descrição|
+|  --  |    -    |
+|Passo 1|O administrador acessa a área de administração do site|
+|Passo 2|Seleciona a opção de adicionar novo produto|
+|Passo 3|Preenche as informações do produto no formulário de cadastro|
+|Passo 4|Submete o formulário de cadastro|
+|Passo 5|O sistema valida e registra o novo produto|
+
+### Fluxo alternativo
+
+|Passos|Descrição|
+|  --  |    -    |
+|Passo 1|Se as informações são inválidas, o sistema mostra mensagens de erro|
+|Passo 2|Se o produto já está cadastrado, o sistema informa ao administrador para evitar duplicidade|
+|Passo 3|Administrador corrige os dados e ressubmete o formulário|
+|Passo 4|Se o administrador cancelar, o sistema descarta as informações|
+
+### Campos
+
+|Campo|Obrigatório|Editável|Formato|
+|  --  |     -     |   --   |   -   |
+|Nome do Produto|Sim|Sim|Texto|
+|Descrição|Sim|Sim|Texto|
+|Preço|Sim|Sim|Numérico|
+|Quantidade|Sim|Sim|Numérico|
+|Imagens|Sim|Sim|Arquivo|
+|Categoria|Sim|Sim|Texto|
+
+### Opções de usuário
+
+|Opção|Descrição|
+|  --  |    -    |
+|Adicionar Produto|Cadastrar um novo produto no sistema|
+
+### User Story
+
+|User Story|Critério de Avaliação|
+|    --    |         ---         |
+|Como um administrador, eu quero cadastrar novos produtos, para que eles possam ser disponibilizados na página principal|O produto cadastrado deve aparecer corretamente e estar disponível para compra|
 
 ### Protótipo
 
