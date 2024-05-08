@@ -1,8 +1,8 @@
 <?php
 // Inclui os arquivos necessários
-require_once 'app/controllers/ProductController.php';
-require_once 'app/models/Product.php';
-require_once 'app/config/config.php';
+require_once '../../../controllers/ProductController.php';
+require_once '../../../models/Product.php';
+require_once '../../../config/config.php';
 
 try {
     // Cria uma nova instância do controlador ProductController, passando a conexão PDO como argumento
