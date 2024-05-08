@@ -25,6 +25,10 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 
 ---
 
+### [Prototipação](https://www.figma.com/design/LhzyN0WpcDhjSS0pwQD3PM/Untitled?node-id=0-1&t=qVwaQpORi8sfLeux-0)
+
+---
+
 ### Histórico de Versões e Atualizações
 
 **v1.0.0** - Primeira Iteração: Levantamento de Rquisitos para o estudo compreenção dos Casos de Uso e User Story
