@@ -5,7 +5,6 @@ include('../../../config/config.php');
 
 
 if (isset($_SESSION['user_id'])) {
-    // Se uma sessão estiver ativa, redireciona para a página inicial
     header("Location: ../home");
     exit();
 }
@@ -20,15 +19,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($user) {
-        // Login bem-sucedido, cria uma sessão para o usuário
-        $_SESSION['user_id'] = $user['id']; // Supondo que 'id' é o campo de identificação do usuário
+        
+        $_SESSION['user_id'] = $user['id']; 
         $_SESSION['username'] = $user['username'];
 
-        // Redireciona para a página inicial após o login
+        
         header("Location: ../home");
         exit();
     } else {
-        // Login falhou, exibe uma mensagem de erro
+        
         $login_error = "Nome de usuário ou senha incorretos.";
     }
 }

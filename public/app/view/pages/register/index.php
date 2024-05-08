@@ -1,30 +1,34 @@
 <?php
-// Inclua o arquivo de conexão com o banco de dados
+
 include('../../../config/config.php');
 
-// Verifique se o formulário foi enviado
+
+
+
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Verifique se todos os campos obrigatórios foram preenchidos
+    
     if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['password_confirm']) && isset($_POST['terms'])) {
         
-        // Obtenha os valores do formulário
+       
         $username = $_POST['username'];
         $password = $_POST['password'];
         $password_confirm = $_POST['password_confirm'];
         
-        // Verifique se as senhas coincidem
+        
         if ($password !== $password_confirm) {
             echo "As senhas não coincidem. Por favor, tente novamente.";
         } else {
-            // Preparar e executar a query SQL para inserir dados no banco de dados
+            
             $sql = "INSERT INTO usuarios (username, password) VALUES (:username, :password)";
             $stmt = $pdo->prepare($sql);
 
-            // Bind dos parâmetros
+           
             $stmt->bindParam(':username', $username);
             $stmt->bindParam(':password', $password);
 
-            // Executa a query
+        
             if ($stmt->execute()) {
                 header("Location: ../home");
                 exit;
