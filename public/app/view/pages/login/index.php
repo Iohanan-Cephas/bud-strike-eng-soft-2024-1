@@ -24,7 +24,7 @@
                     <img src="../../assets/lock.svg" alt="">
                     <input type="password" id="password-input" placeholder="senha">
                 </div>
-                <p id="register-msg">Não tem uma conta? <a href="../register/">Cadastre-se</a></p>
+                <p id="register-msg">Não tem uma conta?<a href="../register/">Cadastre-se</a></p>
                 <div class="login-button">
                     <button type="submit">Entrar</button>
                 </div>
