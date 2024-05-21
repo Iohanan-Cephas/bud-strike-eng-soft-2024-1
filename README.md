@@ -107,7 +107,7 @@ Planejamento e Execução:
 
 - [ ] RF16 - Readequar o View. Por []() Revisado por []()
 
-- [ ] RF17 - Readequar o Controller. Por []() Revisado por []()
+- [X] RF17 - Readequar o Controller. Por [Wanderson Almeida de Mello](https://github.com/sadMello) Revisado por [André Barcelos](https://github.com/andrebarceloschagas)
 
 - [ ] RF18 - Readequar o Model. Por []() Revisado por []()
 
