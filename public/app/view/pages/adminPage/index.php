@@ -14,16 +14,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $success = $productController->create($name, $description, $price, $quantity, $image);
         if ($success) {
-            header("Location: AdminPage.php");
+            header("Location: index.php");
             exit;
         } else {
-            echo "Erro ao adicionar produto.";
+            // echo "Erro ao adicionar produto.";
         }
     }
 
     if (isset($_POST['delete'])) {
         $productController->delete($_POST['id']);
-        header('Location: AdminPage.php');
+        header('Location: index.php');
         exit;
     }
 }
@@ -35,7 +35,7 @@ $products = $productController->index();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="styles.css">
     <title>Listagem de Produtos</title>
 </head>
 <body>
@@ -62,11 +62,11 @@ $products = $productController->index();
                         <td><?php echo htmlspecialchars($product['quantidade']); ?></td>
                         <td><img src="<?php echo htmlspecialchars($product['imagem']); ?>" alt="Imagem do Produto" style="max-width: 100px;"></td>
                         <td class="actions">
-                            <form method="POST" action="AdminPage.php">
+                            <form method="POST" action="index.php">
                                 <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
                                 <button type="submit" name="delete" onclick="return confirm('Tem certeza que deseja excluir este produto?')">Excluir</button>
                             </form>
-                            <a href="update.php?id=<?php echo $product['id']; ?>">
+                            <a href="../productUpdate/index.php?id=<?php echo $product['id']; ?>">
                                 <button>Atualizar</button>
                             </a>
                         </td>
@@ -77,7 +77,7 @@ $products = $productController->index();
     </div>
     <div id="add">
         <h2>Adicionar Produto</h2>
-        <form method="POST" action="AdminPage.php">
+        <form method="POST" action="index.php">
             <div id="form-container">
                 <div>
                     <label for="name">Nome:</label><br>
