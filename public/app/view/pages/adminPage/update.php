@@ -1,8 +1,9 @@
 <?php
 // Inclui os arquivos necessários
-require_once 'app/controllers/ProductController.php';
-require_once 'app/models/Product.php';
-require_once 'app/config/config.php';
+require_once(__DIR__ . '/../../../controllers/ProductController.php');
+require_once(__DIR__ . '/../../../models/Product.php');
+require_once(__DIR__ . '/../../../config/config.php');
+
 
 // Verifica se foi passado o ID do produto na URL
 if (!isset($_GET['id'])) {
@@ -38,7 +39,7 @@ try {
         $success = $productController->update($productId, $nome, $descricao, $preco, $quantidade, $imagem);
 
         if ($success) {
-            header("Location: index.php");
+            header("Location: AdminPage.php");
             exit;
         } else {
             echo "Erro ao atualizar produto.";
