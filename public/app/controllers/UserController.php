@@ -23,7 +23,7 @@ class UserController {
                 $password_confirm = $_POST['password_confirm'];
     
                 if ($password !== $password_confirm) {
-                    echo "As senhas não coincidem. Por favor, tente novamente.";
+                    // echo "As senhas não coincidem. Por favor, tente novamente.";
                 } else {
                     $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
                     $userModel = new User($this->pdo);
@@ -32,7 +32,7 @@ class UserController {
                         header("Location: index.php?controller=home&action=index");
                         exit;
                     } else {
-                        echo "Erro ao registrar usuário. Tente novamente.";
+                        // echo "Erro ao registrar usuário. Tente novamente.";
                     }
                 }
             }
