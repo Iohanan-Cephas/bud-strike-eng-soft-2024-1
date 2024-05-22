@@ -105,17 +105,17 @@ Planejamento e Execução:
 
 - [X] RF15 - Readequar o README.md. Por [Antonio André Barcelos Chagas](https://github.com/andrebarceloschagas) Revisado por [João Pedro](https://github.com/Iohanan-Cephas)
 
-- [ ] RF16 - Readequar o View. Por [Micael Ribeiro dos Santos](https://github.com/messiribeiro) Revisado por [Wanderson Almeida de Mello](https://github.com/sadMello)
+- [X] RF16 - Readequar o View. Por [Micael Ribeiro dos Santos](https://github.com/messiribeiro) Revisado por [Wanderson Almeida de Mello](https://github.com/sadMello)
 
 - [X] RF17 - Readequar o Controller. Por [Wanderson Almeida de Mello](https://github.com/sadMello) Revisado por [André Barcelos](https://github.com/andrebarceloschagas)
 
-- [ ] RF18 - Readequar o Model. Por []() Revisado por []()
+- [X] RF18 - Readequar o Model. Por [João Pedro Oliveira Barbosa](https://github.com/Iohanan-Cephas) Revisado por [Laura Barbosa Henrique](https://github.com/tinywin)
 
 ---
 
 ### **Quinta Iteração**
 
-Valor: 
+Valor: Implementação de API
 
 Planejamento e Execução:
 
@@ -123,6 +123,6 @@ Planejamento e Execução:
 
 ### **Sexta Iteração**
 
-Valor: 
+Valor: Implementação de Teste Unitários
 
 Planejamento e Execução:
