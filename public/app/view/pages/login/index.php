@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <?php if (isset($login_error)) { ?>
                     <p id="alert"><?php echo $login_error; ?></p>
                 <?php } ?>
-                <p id="register-msg">Não tem uma conta? <a href="../register/">Cadastre-se</a></p>
+                <p id="register-msg">Não tem uma conta? <a href="../register/index.php">Cadastre-se</a></p>
 
                 <div class="login-button">
                     <button type="submit">Entrar</button>

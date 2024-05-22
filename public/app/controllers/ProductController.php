@@ -1,10 +1,9 @@
 <?php
-require_once '../models/Product.php';
+require_once(__DIR__ . '/../models/Product.php');
 
 
 class ProductController {
     private $pdo;
-
 
     public function __construct(PDO $pdo) {
         $this->pdo = $pdo;
@@ -20,19 +19,19 @@ class ProductController {
         return $productModel->all();
     }
 
-
     public function delete($productId) {
         $productModel = new Product($this->pdo);
         $productModel->delete($productId);
     }
+
     public function update($productId, $nome, $descricao, $preco, $quantidade, $imagem) {
         $productModel = new Product($this->pdo);
         return $productModel->update($productId, $nome, $descricao, $preco, $quantidade, $imagem);
     }
+
     public function getProductDetails($productId) {
-        $stmt = $this->pdo->prepare("SELECT * FROM produtos WHERE id = ?");
-        $stmt->execute([$productId]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $productModel = new Product($this->pdo);
+        return $productModel->getDetailsById($productId);
     }
 }
 ?>
