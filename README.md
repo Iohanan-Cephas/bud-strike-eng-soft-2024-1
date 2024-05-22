@@ -105,7 +105,7 @@ Planejamento e Execução:
 
 - [X] RF15 - Readequar o README.md. Por [Antonio André Barcelos Chagas](https://github.com/andrebarceloschagas) Revisado por [João Pedro](https://github.com/Iohanan-Cephas)
 
-- [ ] RF16 - Readequar o View. Por []() Revisado por []()
+- [ ] RF16 - Readequar o View. Por [Micael Ribeiro dos Santos](https://github.com/messiribeiro) Revisado por [Wanderson Almeida de Mello](https://github.com/sadMello)
 
 - [X] RF17 - Readequar o Controller. Por [Wanderson Almeida de Mello](https://github.com/sadMello) Revisado por [André Barcelos](https://github.com/andrebarceloschagas)
 
