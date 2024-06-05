@@ -49,9 +49,9 @@ function routeRequest($uri, $method, $routes) {
                 break;
             case 'PUT':
                 if ($action === 'update') {
-                    // Atualizar um produto existente
-                    // Você precisará obter os dados do corpo da solicitação ($_POST, $_GET ou JSON)
-                    // e passá-los para o método update do controlador de produtos
+                    $data = json_decode(file_get_contents('php://input'), true);
+                    $response = $productController->update($data);
+                    echo json_encode($response);
                 }
                 break;
             case 'DELETE':
