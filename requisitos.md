@@ -597,12 +597,6 @@
 |    --    |         ---         |
 | Como um **usuário**, eu preciso ser capaz de **realizar login** na plataforma BudStrike, para que **eu possa ter acesso as ofertas** | Certificar que o usuário **consegue fazer login com sucesso e acessar a plataforma**. |
 
-### [Protótipo](https://www.figma.com/design/LhzyN0WpcDhjSS0pwQD3PM/Untitled?node-id=0-1&t=qVwaQpORi8sfLeux-0)
-
----
-
-## **Quarta Iteração**
-
 ## RF14 - Controle de Sessão
 
 ### Atributos
@@ -644,7 +638,11 @@
 |    --    |         ---         |
 |Como **sistema**, eu preciso de um **controle de sessão eficiente**, para que **as informações do usuário sejam mantidas seguras e a sessão não seja perdida durante o uso do sistema** | Certificar que o controle de sessão **funciona corretamente e mantém a segurança das informações do usuário**. |
 
+### [Protótipo](https://www.figma.com/design/LhzyN0WpcDhjSS0pwQD3PM/Untitled?node-id=0-1&t=qVwaQpORi8sfLeux-0)
+
 ---
+
+## **Quarta Iteração**
 
 ## RF15 - Readequar o README.md
 
