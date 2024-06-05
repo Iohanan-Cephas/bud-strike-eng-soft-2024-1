@@ -43,6 +43,8 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 
 [**v2.0.0**](https://github.com/Iohanan-Cephas/bud-strike-eng-soft-2024-1/releases/tag/v2.0.0) - Quarta Iteração: Readequação do projeto para o modelo arquitetural MVC e Readequação da Documentação.
 
+[**v2.1.0**](https://github.com/Iohanan-Cephas/bud-strike-eng-soft-2024-1/releases/tag/v2.1.0) - Quinta Iteração: Implementação de uma API RESTful para gerenciar produtos. Isso inclui a criação de endpoints para listar, criar, atualizar e deletar produtos.
+
 ---
 
 ### [**Primeira Iteração**](/requisitos.md) - 13/03 - 27/03
@@ -97,7 +99,7 @@ Planejamento e Execução:
 
 ---
 
-### **Quarta Iteração**  08/05 - 22/05
+### [**Quarta Iteração**](/requisitos.md)  08/05 - 22/05
 
 Valor: Readequação do projeto para o modelo arquitetural MVC e Readequação da Documentação.
 
@@ -113,16 +115,16 @@ Planejamento e Execução:
 
 ---
 
-### **Quinta Iteração** 22/05–05/06
+### [**Quinta Iteração**](/requisitos.md) 22/05–05/06
 
 Valor: Implementação de uma API RESTful para gerenciar produtos. Isso inclui a criação de endpoints para listar, criar, atualizar e deletar produtos.
 
 Planejamento e Execução:
 
-* [X] RF19 - Criação de Endpoints para Listar Produtos. Por [Micael Ribeiro dos Santos](https://github.com/messiribeiro) Revisado por [Wanderson Almeida de Mello](https://github.com/sadMello)
-* [X] RF20 - Criação de Endpoints para Criar Produtos. Por [Antonio André Barcelos Chagas](https://github.com/andrebarceloschagas) Revisado por [Laura Barbosa Henrique](https://github.com/tinywin)
-* [X] RF21 - Criação de Endpoints para Atualizar Produtos. Por [João Pedro Oliveira Barbosa](https://github.com/Iohanan-Cephas) Revisado por [Antonio André Barcelos Chagas](https://github.com/andrebarceloschagas)
-* [X] RF22 - Criação de Endpoints para Deletar Produtos. Por [Wanderson Almeida de Mello](https://github.com/sadMello) Revisado por [Antonio André Barcelos Chagas](https://github.com/andrebarceloschagas)
+- [X] RF19 - Criação de Endpoints para Listar Produtos. Por [Micael Ribeiro dos Santos](https://github.com/messiribeiro) Revisado por [Wanderson Almeida de Mello](https://github.com/sadMello)
+- [X] RF20 - Criação de Endpoints para Criar Produtos. Por [Antonio André Barcelos Chagas](https://github.com/andrebarceloschagas) Revisado por [Laura Barbosa Henrique](https://github.com/tinywin)
+- [X] RF21 - Criação de Endpoints para Atualizar Produtos. Por [João Pedro Oliveira Barbosa](https://github.com/Iohanan-Cephas) Revisado por [Antonio André Barcelos Chagas](https://github.com/andrebarceloschagas)
+- [X] RF22 - Criação de Endpoints para Deletar Produtos. Por [Wanderson Almeida de Mello](https://github.com/sadMello) Revisado por [Antonio André Barcelos Chagas](https://github.com/andrebarceloschagas)
 
 ---
 
