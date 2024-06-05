@@ -113,11 +113,16 @@ Planejamento e Execução:
 
 ---
 
-### **Quinta Iteração**
+### **Quinta Iteração** 22/05–05/06
 
-Valor: Implementação de API
+Valor: Implementação de uma API RESTful para gerenciar produtos. Isso inclui a criação de endpoints para listar, criar, atualizar e deletar produtos.
 
 Planejamento e Execução:
+
+* [X] RF19 - Criação de Endpoints para Listar Produtos. Por [Micael Ribeiro dos Santos](https://github.com/messiribeiro) Revisado por [Wanderson Almeida de Mello](https://github.com/sadMello)
+* [X] RF20 - Criação de Endpoints para Criar Produtos. Por [Antonio André Barcelos Chagas](https://github.com/andrebarceloschagas) Revisado por [Laura Barbosa Henrique](https://github.com/tinywin)
+* [X] RF21 - Criação de Endpoints para Atualizar Produtos. Por [João Pedro Oliveira Barbosa](https://github.com/Iohanan-Cephas) Revisado por [Antonio André Barcelos Chagas](https://github.com/andrebarceloschagas)
+* [X] RF22 - Criação de Endpoints para Deletar Produtos. Por [Wanderson Almeida de Mello](https://github.com/sadMello) Revisado por [Antonio André Barcelos Chagas](https://github.com/andrebarceloschagas)
 
 ---
 

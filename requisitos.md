@@ -598,3 +598,387 @@
 | Como um **usuário**, eu preciso ser capaz de **realizar login** na plataforma BudStrike, para que **eu possa ter acesso as ofertas** | Certificar que o usuário **consegue fazer login com sucesso e acessar a plataforma**. |
 
 ### [Protótipo](https://www.figma.com/design/LhzyN0WpcDhjSS0pwQD3PM/Untitled?node-id=0-1&t=qVwaQpORi8sfLeux-0)
+
+---
+
+## **Quarta Iteração**
+
+## RF14 - Controle de Sessão
+
+### Atributos
+
+| Item            | Descrição                               |
+| --------------- | --------------------------------------- |
+| Caso de uso     | Controle de Sessão                      |
+| Resumo          | Implementar funcionalidades de controle de sessão para o sistema de login |
+| Ator principal  | Sistema                                  |
+| Ator secundário | -                                       |
+| Pré-condição    | O usuário deve estar autenticado        |
+| Pós-condição    | A sessão do usuário é mantida de forma segura |
+
+### Fluxo principal
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | O sistema verifica se o usuário está autenticado   |
+| Passo 2 | Se autenticado, o sistema inicia a sessão do usuário |
+| Passo 3 | A sessão é mantida enquanto o usuário estiver ativo |
+
+### Fluxo alternativo
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | Se o usuário não estiver autenticado, a sessão não é iniciada |
+| Passo 2 | Se a sessão expirar ou o usuário se desconectar, ele será redirecionado para a página de login |
+
+### Funcionalidades de Controle de Sessão
+
+- Iniciar sessão: Iniciar uma nova sessão para um usuário autenticado.
+- Manter sessão ativa: Garantir que a sessão do usuário permaneça ativa enquanto estiver usando o sistema.
+- Encerrar sessão: Permitir que o usuário encerre sua sessão e se desconecte do sistema.
+- Verificar sessão: Verificar se a sessão do usuário ainda está ativa e válida.
+
+### User Story
+
+|User Story|Critério de Avaliação|
+|    --    |         ---         |
+|Como **sistema**, eu preciso de um **controle de sessão eficiente**, para que **as informações do usuário sejam mantidas seguras e a sessão não seja perdida durante o uso do sistema** | Certificar que o controle de sessão **funciona corretamente e mantém a segurança das informações do usuário**. |
+
+---
+
+## RF15 - Readequar o README.md
+
+### Atributos
+
+| Item            | Descrição                               |
+| --------------- | --------------------------------------- |
+| Caso de uso     | Readequar o README.md                   |
+| Resumo          | Atualizar o README.md para refletir as mudanças e estrutura do projeto |
+| Ator principal  | Desenvolvedor                           |
+| Ator secundário | -                                       |
+| Pré-condição    | Ter acesso ao projeto                   |
+| Pós-condição    | O README.md atualizado e disponível no repositório |
+
+### Fluxo principal
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | Acessar o repositório do projeto                    |
+| Passo 2 | Abrir o arquivo README.md                           |
+| Passo 3 | Atualizar as seções do README.md com informações relevantes ao modelo MVC |
+
+### Fluxo alternativo
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | Se o arquivo README.md não existe, criar um novo    |
+| Passo 2 | Adicionar as seções necessárias e informações relevantes |
+| Passo 3 | Salvar e confirmar as alterações no repositório     |
+
+### Seções do README.md
+
+| Seção              | Obrigatório? | Descrição                         |
+| ------------------ | ------------ | --------------------------------- |
+| Descrição do Projeto | Sim          | Breve descrição do projeto         |
+| Estrutura do Projeto | Sim          | Descrição da estrutura MVC         |
+| Requisitos         | Sim          | Requisitos para rodar o projeto    |
+| Instruções de Instalação | Sim          | Passos para instalar o projeto      |
+| Instruções de Uso  | Sim          | Como usar o projeto                |
+| Contribuição       | Não          | Como contribuir para o projeto     |
+| Licença            | Não          | Licença do projeto                 |
+
+### User Story
+
+|User Story|Critério de Avaliação|
+|    --    |         ---         |
+|Como um **desenvolvedor**, eu preciso que o **README.md** esteja atualizado, para que **eu possa entender a estrutura do projeto e contribuir com ele** | Certificar que o README.md **reflete com precisão a estrutura e funcionalidade do projeto**. |
+
+---
+
+## RF16 - Readequar o View
+
+### Atributos
+
+| Item            | Descrição                               |
+| --------------- | --------------------------------------- |
+| Caso de uso     | Readequar a View                        |
+| Resumo          | Ajustar a camada de visualização para o modelo MVC |
+| Ator principal  | Desenvolvedor                           |
+| Ator secundário | -                                       |
+| Pré-condição    | Ter acesso ao código fonte              |
+| Pós-condição    | As Views estão ajustadas para o modelo MVC |
+
+### Fluxo principal
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | Identificar todas as Views no projeto               |
+| Passo 2 | Reestruturar as Views de acordo com o modelo MVC    |
+| Passo 3 | Testar as Views para garantir que funcionam corretamente |
+
+### Fluxo alternativo
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | Se uma View não funcionar corretamente após reestruturação, corrigir os erros |
+| Passo 2 | Retestar para garantir que a View funcione corretamente |
+
+### Seções da View
+
+| Seção              | Obrigatório? | Descrição                         |
+| ------------------ | ------------ | --------------------------------- |
+| Estrutura HTML     | Sim          | Estrutura básica de cada View     |
+| Inclusão de Templates | Sim       | Uso de templates para partes comuns |
+| Estilos CSS        | Sim          | Aplicação de estilos adequados    |
+| Scripts JS         | Sim          | Inclusão de scripts necessários   |
+
+### User Story
+
+|User Story|Critério de Avaliação|
+|    --    |         ---         |
+|Como um **desenvolvedor**, eu preciso que as **Views estejam estruturadas de acordo com o modelo MVC**, para que **o código seja mais organizado e fácil de manter** | Certificar que as Views **funcionam corretamente e estão organizadas conforme o modelo MVC**. |
+
+---
+
+## RF17 - Readequar o Controller
+
+### Atributos
+
+| Item            | Descrição                               |
+| --------------- | --------------------------------------- |
+| Caso de uso     | Readequar o Controller                  |
+| Resumo          | Ajustar a camada de controle para o modelo MVC |
+| Ator principal  | Desenvolvedor                           |
+| Ator secundário | -                                       |
+| Pré-condição    | Ter acesso ao código fonte              |
+| Pós-condição    | Os Controllers estão ajustados para o modelo MVC |
+
+### Fluxo principal
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | Identificar todos os Controllers no projeto         |
+| Passo 2 | Reestruturar os Controllers de acordo com o modelo MVC |
+| Passo 3 | Testar os Controllers para garantir que funcionam corretamente |
+
+### Fluxo alternativo
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | Se um Controller não funcionar corretamente após reestruturação, corrigir os erros |
+| Passo 2 | Retestar para garantir que o Controller funcione corretamente |
+
+### Seções do Controller
+
+| Seção              | Obrigatório? | Descrição                         |
+| ------------------ | ------------ | --------------------------------- |
+| Métodos de Controle| Sim          | Métodos para cada ação do usuário |
+| Validação de Dados | Sim          | Validação dos dados de entrada    |
+| Redirecionamentos  | Sim          | Redirecionamentos após ações      |
+
+### User Story
+
+|User Story|Critério de Avaliação|
+|    --    |         ---         |
+|Como um **desenvolvedor**, eu preciso que os **Controllers estejam estruturados de acordo com o modelo MVC**, para que **o código seja mais organizado e fácil de manter** | Certificar que os Controllers **funcionam corretamente e estão organizados conforme o modelo MVC**. |
+
+---
+
+## RF18 - Readequar o Model
+
+### Atributos
+
+| Item            | Descrição                               |
+| --------------- | --------------------------------------- |
+| Caso de uso     | Readequar o Model                       |
+| Resumo          | Ajustar a camada de modelo para o modelo MVC |
+| Ator principal  | Desenvolvedor                           |
+| Ator secundário | -                                       |
+| Pré-condição    | Ter acesso ao código fonte              |
+| Pós-condição    | Os Models estão ajustados para o modelo MVC |
+
+### Fluxo principal
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | Identificar todos os Models no projeto              |
+| Passo 2 | Reestruturar os Models de acordo com o modelo MVC   |
+| Passo 3 | Testar os Models para garantir que funcionam corretamente |
+
+### Fluxo alternativo
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | Se um Model não funcionar corretamente após reestruturação, corrigir os erros |
+| Passo 2 | Retestar para garantir que o Model funcione corretamente |
+
+### Seções do Model
+
+| Seção              | Obrigatório? | Descrição                         |
+| ------------------ | ------------ | --------------------------------- |
+| Atributos          | Sim          | Definição de atributos do modelo  |
+| Métodos CRUD       | Sim          | Métodos para criar, ler, atualizar e deletar registros |
+| Relacionamentos    | Sim          | Definição de relacionamentos entre modelos |
+
+### User Story
+
+|User Story|Critério de Avaliação|
+|    --    |         ---         |
+|Como um **desenvolvedor**, eu preciso que os **Models estejam estruturados de acordo com o modelo MVC**, para que **o código seja mais organizado e fácil de manter** | Certificar que os Models **funcionam corretamente e estão organizados conforme o modelo MVC**. |
+
+---
+## **Quinta Iteração**
+
+## RF19 - Criação de Endpoints para Listar Produtos
+
+### Atributos
+
+| Item            | Descrição                                     |
+| --------------- | --------------------------------------------- |
+| Caso de uso     | Listar produtos                               |
+| Resumo          | Criar endpoints para listar produtos na base de dados |
+| Ator principal  | Desenvolvedor                                 |
+| Ator secundário | Sistema de gerenciamento de produtos          |
+| Pré-condição    | Ter produtos cadastrados na base de dados     |
+| Pós-condição    | Os produtos são listados conforme solicitado  |
+
+### Fluxo principal
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | O desenvolvedor acessa o endpoint de listagem de produtos |
+| Passo 2 | O sistema recupera todos os produtos da base de dados |
+| Passo 3 | O sistema retorna a lista de produtos em formato JSON |
+
+### Fluxo alternativo
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | O desenvolvedor acessa o endpoint de listagem de produtos |
+| Passo 2 | O sistema não encontra produtos cadastrados         |
+| Passo 3 | O sistema retorna uma resposta indicando que não há produtos disponíveis |
+
+### User Story
+
+|User Story|Critério de Avaliação|
+|    --    |         ---         |
+| Como um **desenvolvedor**, eu preciso de um **endpoint para listar produtos**, para que **eu possa visualizar todos os produtos cadastrados na base de dados** | Certificar que o endpoint **retorna todos os produtos cadastrados corretamente**. |
+
+---
+
+## RF20 - Criação de Endpoints para Criar Produtos
+
+### Atributos
+
+| Item            | Descrição                                     |
+| --------------- | --------------------------------------------- |
+| Caso de uso     | Criar produtos                                |
+| Resumo          | Criar endpoints para adicionar novos produtos na base de dados |
+| Ator principal  | Desenvolvedor                                 |
+| Ator secundário | Sistema de gerenciamento de produtos          |
+| Pré-condição    | Ter as informações necessárias para criar um novo produto |
+| Pós-condição    | O produto é adicionado à base de dados        |
+
+### Fluxo principal
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | O desenvolvedor envia uma requisição POST com os dados do novo produto |
+| Passo 2 | O sistema valida os dados do produto                |
+| Passo 3 | O sistema insere o novo produto na base de dados    |
+| Passo 4 | O sistema retorna uma resposta de sucesso com os detalhes do produto criado |
+
+### Fluxo alternativo
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | O desenvolvedor envia uma requisição POST com os dados do novo produto |
+| Passo 2 | O sistema valida os dados do produto                |
+| Passo 3 | O sistema detecta dados inválidos                   |
+| Passo 4 | O sistema retorna uma resposta de erro indicando quais dados estão incorretos |
+
+### User Story
+
+|User Story|Critério de Avaliação|
+|    --    |         ---         |
+| Como um **desenvolvedor**, eu preciso de um **endpoint para criar produtos**, para que **eu possa adicionar novos produtos na base de dados** | Certificar que o endpoint **permite a criação de novos produtos e retorna os detalhes do produto criado corretamente**. |
+
+---
+
+## RF21 - Criação de Endpoints para Atualizar Produtos
+
+### Atributos
+
+| Item            | Descrição                                     |
+| --------------- | --------------------------------------------- |
+| Caso de uso     | Atualizar produtos                            |
+| Resumo          | Criar endpoints para atualizar produtos existentes na base de dados |
+| Ator principal  | Desenvolvedor                                 |
+| Ator secundário | Sistema de gerenciamento de produtos          |
+| Pré-condição    | Ter um produto existente na base de dados     |
+| Pós-condição    | O produto é atualizado com os novos dados     |
+
+### Fluxo principal
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | O desenvolvedor envia uma requisição PUT com os dados atualizados do produto |
+| Passo 2 | O sistema valida os novos dados do produto          |
+| Passo 3 | O sistema atualiza o produto na base de dados       |
+| Passo 4 | O sistema retorna uma resposta de sucesso com os detalhes do produto atualizado |
+
+### Fluxo alternativo
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | O desenvolvedor envia uma requisição PUT com os dados atualizados do produto |
+| Passo 2 | O sistema valida os novos dados do produto          |
+| Passo 3 | O sistema detecta dados inválidos                   |
+| Passo 4 | O sistema retorna uma resposta de erro indicando quais dados estão incorretos |
+
+### User Story
+
+|User Story|Critério de Avaliação|
+|    --    |         ---         |
+| Como um **desenvolvedor**, eu preciso de um **endpoint para atualizar produtos**, para que **eu possa modificar os dados de produtos existentes na base de dados** | Certificar que o endpoint **permite a atualização de produtos e retorna os detalhes do produto atualizado corretamente**. |
+
+---
+
+## RF22 - Criação de Endpoints para Deletar Produtos
+
+### Atributos
+
+| Item            | Descrição                                     |
+| --------------- | --------------------------------------------- |
+| Caso de uso     | Deletar produtos                              |
+| Resumo          | Criar endpoints para remover produtos da base de dados |
+| Ator principal  | Desenvolvedor                                 |
+| Ator secundário | Sistema de gerenciamento de produtos          |
+| Pré-condição    | Ter um produto existente na base de dados     |
+| Pós-condição    | O produto é removido da base de dados         |
+
+### Fluxo principal
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | O desenvolvedor envia uma requisição DELETE com o ID do produto |
+| Passo 2 | O sistema valida a existência do produto            |
+| Passo 3 | O sistema remove o produto da base de dados         |
+| Passo 4 | O sistema retorna uma resposta de sucesso indicando que o produto foi deletado |
+
+### Fluxo alternativo
+
+| Passos  | Descrição                                           |
+| ------- | --------------------------------------------------- |
+| Passo 1 | O desenvolvedor envia uma requisição DELETE com o ID do produto |
+| Passo 2 | O sistema valida a existência do produto            |
+| Passo 3 | O sistema não encontra o produto na base de dados   |
+| Passo 4 | O sistema retorna uma resposta de erro indicando que o produto não foi encontrado |
+
+### User Story
+
+|User Story|Critério de Avaliação|
+|    --    |         ---         |
+| Como um **desenvolvedor**, eu preciso de um **endpoint para deletar produtos**, para que **eu possa remover produtos indesejados da base de dados** | Certificar que o endpoint **permite a remoção de produtos e retorna uma confirmação de que o produto foi deletado corretamente**. |
+
+---
