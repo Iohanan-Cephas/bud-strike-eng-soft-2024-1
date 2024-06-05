@@ -56,9 +56,12 @@ function routeRequest($uri, $method, $routes) {
                 break;
             case 'DELETE':
                 if ($action === 'delete') {
-                    // Deletar um produto existente
-                    // Você precisará obter o ID do produto da solicitação e passá-lo para o método delete do controlador de produtos
-                }
+                    if ($action === 'delete') {
+                        $data = json_decode(file_get_contents('php://input'), true);
+                        $response = $productController->delete($data);
+                        echo json_encode($response);
+                    }
+                }    
                 break;
             default:
                 // Método não suportado
