@@ -4,6 +4,13 @@
     padding: 0;
 }
 
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px rgb(226, 226, 226) inset; /* Substitua 'white' pela cor desejada */
+  }
+  input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 30px rgb(226, 226, 226) inset; /* Substitua 'white' pela cor desejada */
+  }
+
 body {
     display: grid;
     height: 100vh;
@@ -84,6 +91,12 @@ main {
 .user-container-selected {
     border: 1px solid #bd59d6;
 
+}
+p#alert {
+    color: rgba(255, 0, 0, 0.651);
+    font-size: 12px;
+    width: 90%;
+    margin-top: 5px;
 }
 
 .alert {
