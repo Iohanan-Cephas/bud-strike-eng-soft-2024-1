@@ -11,7 +11,7 @@ class Product {
     }
 
     public function create($name, $description, $price, $quantity, $image) {
-        $stmt = $this->pdo->prepare('INSERT INTO produtos (name, description, price, quantity, image) VALUES (?, ?, ?, ?, ?)');
+        $stmt = $this->pdo->prepare('INSERT INTO produtos (nome, descricao, preco, quantidade, imagem) VALUES (?, ?, ?, ?, ?)');
         $success = $stmt->execute([$name, $description, $price, $quantity, $image]);
         return $success;
     }
