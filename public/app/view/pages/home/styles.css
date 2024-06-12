@@ -22,13 +22,16 @@ header #options {
     padding: 0 2%;
     display: flex;
     align-items: center;
-    background-color: #bd59d6;
-    color: white;
+    background-color: white;
+    color: black;
 
 }
 
 header #options h1 {
     font-size: 1.8em;
+    font-family: "League Spartan", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
 }
 
 
@@ -38,62 +41,73 @@ main {
     padding: 5%;
     width: 100vw;
 }
+main h2 {
+    
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+      
+}
 
 #products {
-    width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    margin-top: 6%;
-    justify-content: center;
-    align-items: center;
-}
+    gap: 1em;
 
-#product{
-    width: 160px;
-    height: 190px;
-    background-color: #EEEEEE;
-    border-radius: 10px;
-    padding: 5%;
-    justify-self: center;
-    margin-top: 13%;
 }
-
-#product #img-and-title {
+#product {
+    width: 100%;
+    height: 200px;
     display: flex;
     flex-direction: column;
-    gap: 10%;
+    border: none;
+    box-shadow: 0px 4px 28.1px -8px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-#product #img-and-title p{
-    font-size: .8em
-}
-
-#product #img-and-title img {
-    width: 70%;
-    align-self: center;
-}
-
-#product #stars-and-price {
-    display: flex;
-    gap: 10%;
-    margin-top: 10%;
-}
-
-#product #stars-and-price #stars p {
-    font-size: .6em;
-    margin-left: 4px;
-}
-
-#product #stars-and-price #price {
-    font-size: 1em;
-    color: #00C767;
-    font-weight: 800;
-    align-self: center;
-}
-
-#stars {
+#img-container {
+    width: 100%;
+    height: 60%;
+    background-color: #EBEBEB;
+    border: none;
     display: flex;
     align-items: center;
+    justify-content: center;
+
+}
+#img-container img{
+    width: 50%;
+}
+
+#informations-container{
+    width: 100%;
+    height: 40%;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 10px;
+}
+
+#informations-container p {
+    font-size: .8em;
+    
+}
+#stars {
+    display: flex;
+}
+#stars-and-price {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+p#price {
+    color: #00C767;
+    font-weight: bold;
 }
 
 #logout{
