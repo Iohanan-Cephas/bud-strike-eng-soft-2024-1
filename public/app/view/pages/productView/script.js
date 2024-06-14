@@ -12,8 +12,6 @@ closeSide.addEventListener('click', () => {
 
 })
 
-
-
 menuButton.addEventListener('click', () => {
     menu.classList.remove('menu-closed');
     menu.classList.add('menu-opened');
