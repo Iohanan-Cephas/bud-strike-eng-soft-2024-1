@@ -12,59 +12,47 @@ require_once(__DIR__ . '/../../../controllers/CartController.php');
 
 
 try {
-      // Instanciar o controlador de produto passando a conexão PDO
       $productController = new ProductController($pdo);
 
-      // Obter o ID do produto da query string
       $productId = $_GET['id'] ?? null;
 
-      // Obter os detalhes do produto usando o método getProductDetails do ProductController
       $productDetails = $productController->getProductDetails($productId);
     } catch (PDOException $e) {
-      // Em caso de erro na conexão PDO
       echo 'Erro de conexão: ' . $e->getMessage();
       exit;
     } catch (Exception $e) {
-      // Em caso de outras exceções
       echo 'Erro: ' . $e->getMessage();
       exit;
     }
 
 
-    //adicionando ao carrinho
 
-    // Verificar se o formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
   try {
-      // Obtém o ID do usuário da sessão
       $user_id = $_SESSION['user_id'];
 
-      // Obtém o ID do produto a ser adicionado ao carrinho
       $product_id = $_POST['product_id'];
 
-      // Cria uma instância do controlador de carrinho
       $cartController = new CartController($pdo);
 
-      // Quantidade padrão para adicionar ao carrinho
+      
       $quantity = 1;
 
-      // Chama o método insert do controlador de carrinho para adicionar o produto ao carrinho
+      
       $success = $cartController->insert($user_id, $product_id, $quantity);
 
       if ($success) {
-          // Redireciona de volta para esta página com o ID do produto na URL
           header("Location: {$_SERVER['PHP_SELF']}?id=$product_id");
           exit();
       } else {
-          // Tratar falha ao adicionar ao carrinho
-          // Você pode exibir uma mensagem de erro, se necessário
+          
       }
   } catch (PDOException $e) {
       // Em caso de erro na conexão PDO
-      // echo '<p>Erro de conexão: ' . $e->getMessage() . '</p>';
+      
   } catch (Exception $e) {
       // Em caso de outras exceções
-      // echo '<p>Erro: ' . $e->getMessage() . '</p>';
+      
   }
 }
 ?>
