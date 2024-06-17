@@ -25,5 +25,12 @@ class User {
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getUserById($id) {
+        $stmt = $this->pdo->prepare('SELECT * FROM usuarios WHERE id = ?');
+        $stmt->execute([$id]);
+        $userDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $userDetails;
+    }
 }
 ?>

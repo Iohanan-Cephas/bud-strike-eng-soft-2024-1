@@ -35,25 +35,11 @@ body {
     }
   }
 
-header img {
+  #banner{
     width: 100vw;
-}
-header #options {
-    width: 100%;
-    height: 5vh;
-    justify-content: space-between;
-    padding: 0 2%;
-    display: flex;
-    align-items: center;
-    background-color: white;
-    color: black;
-}
-header #options h1 {
-    font-size: 1.5em;
-    font-family: "League Spartan", sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
-}
+  }
+
+
 main {
     display: flex;
     flex-direction: column;
@@ -127,79 +113,4 @@ footer {
     justify-content: center;
     font-size: 10px !important;
 }
-#menu {
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    font-size: 1.2em;
-    display: none;
-}
-.menu-opened {
-    animation: open-menu .2s ease;
-    transform: translateX(0);
-    display: grid !important;
-}
-.menu-closed {
-    animation: close-menu .2s ease;
-    transform: translateX(-100%);
-    display: grid !important;
-}
-@keyframes open-menu {
-    from {
-        transform: translateX(-100%);
-    }
-    to {
-        transform: translateX(0);
-    }
-}
-@keyframes close-menu {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(-100%);
-    }
-}
-#menu-side {
-    background-color: #ffffff;
-    box-shadow: 0px 4px 28.1px -8px rgba(0, 0, 0, 0.25);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-#close-side {
-}
-.hidden {
-    display: none !important;
-}
-#menu #username {
-    background-color: #7a2592;
-    height: 8%;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    padding-left: 10%;
-    color: white;
-    font-weight: bold;
-    border-radius: 10px 10px 0 0;
-}
-#menu nav {
-    margin-top: 15%;
-    padding-left: 10%;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-}
-#menu nav ul {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    list-style: none;
-}
-#menu nav ul li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+

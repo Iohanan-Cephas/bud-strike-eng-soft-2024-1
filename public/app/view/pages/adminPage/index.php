@@ -39,6 +39,7 @@ $products = $productController->index();
     <title>Listagem de Produtos</title>
 </head>
 <body>
+    
     <div id="list">
         <table>
             <thead>

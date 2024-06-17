@@ -14,11 +14,10 @@ body {
 }
 
 header {
-  background-color: #bd59d6;
+  background-color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 20px;
   color: white;
 }
 
@@ -39,7 +38,7 @@ main {
 }
 
 main h2 {
-  font-size: .8em;
+  font-size: 1em;
 }
 main h3 {
   font-size: .7em;

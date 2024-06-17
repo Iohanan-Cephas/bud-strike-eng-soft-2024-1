@@ -101,5 +101,14 @@ class UserController {
             header('Location: index.php?controller=user&action=login');
         }
     }
+
+    public function getUserDetails(){
+        if (isset($_SESSION['user_id'])) {
+            $userModel = new User($this->pdo);
+            $userDetails = $userModel->getUserbyId($_SESSION['user_id']);
+
+            return $userDetails;
+        }
+    }
 }
 ?>
