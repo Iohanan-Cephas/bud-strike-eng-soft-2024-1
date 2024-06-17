@@ -15,13 +15,11 @@
 </head>
 
 <body>
-    <header>
-        
-        <h1>BS</h1>
-        
-    </header>
+    <?php include_once(__DIR__ . '../../../templates/header/index.php'); ?>
+
+    <?php include_once(__DIR__ . '../../../templates/menu/index.php'); ?>
     <main>
-        <h2>Termos e Condições de Uso - BudStrike</h2>
+        <h2>Termos e Condições de Uso</h2>
         <h3>Antes de utilizar os nossos serviços, por favor, leia atentamente estes Termos e Condições de Uso. Ao acessar ou usar o nosso site, você concorda com os termos descritos abaixo.</h3>
         <p>
           Cadastro e Conta de Usuário<br>

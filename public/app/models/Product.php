@@ -11,7 +11,7 @@ class Product {
     }
 
     public function create($name, $description, $price, $quantity, $image) {
-        $stmt = $this->pdo->prepare('INSERT INTO produtos (name, description, price, quantity, image) VALUES (?, ?, ?, ?, ?)');
+        $stmt = $this->pdo->prepare('INSERT INTO produtos (nome, descricao, preco, quantidade, imagem) VALUES (?, ?, ?, ?, ?)');
         $success = $stmt->execute([$name, $description, $price, $quantity, $image]);
         return $success;
     }
@@ -35,7 +35,7 @@ class Product {
         $stmt->execute(['id' => $productId]);
     }
     public function update($productId, $nome, $descricao, $preco, $quantidade, $imagem) {
-        $stmt = $this->pdo->prepare('UPDATE produtos SET name = :nome, description = :descricao, price = :preco, quantity = :quantidade, image = :imagem WHERE id = :id');
+        $stmt = $this->pdo->prepare('UPDATE produtos SET nome = :nome, descricao = :descricao, preco = :preco, quantidade = :quantidade, imagem = :imagem WHERE id = :id');
         return $stmt->execute(['id' => $productId, 'nome' => $nome, 'descricao' => $descricao, 'preco' => $preco, 'quantidade' => $quantidade, 'imagem' => $imagem]);
     }
     public function getDetailsById($productId) {
