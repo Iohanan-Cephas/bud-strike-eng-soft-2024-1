@@ -29,45 +29,27 @@ $products = $controller->index();
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
-</head>
-
-<title>BudStrike</title>
+    <title>BudStrike</title>
 </head>
 
 <body>
-    <header>
-        <div id="options">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="feather feather-menu">
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
-            <h1>BudStrike</h1>
-            <a href="../cart/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                    fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="feather feather-shopping-cart">
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg></a>
+    <?php include_once(__DIR__ . '../../../templates/header/index.php'); ?>
 
-        </div>
-        <img src="../../../../assets/banner.webp" alt="">
-    </header>
+    <?php include_once(__DIR__ . '../../../templates/menu/index.php'); ?>
+    
+    <img id="banner" src="../../../../assets/banner.webp" alt="">
     <main>
         <h2>Mais vendidos</h2>
         <div id="products">
             <?php foreach ($products as $product) { ?>
-                <div id="product">
-                    <div id="img-container">
+                <a href="../productView?id=<?php echo $product['id']; ?>" class="product">
+                    <div class="img-container">
                         <img src="<?php echo $product['imagem']; ?>" alt="">
                     </div>
-                    <div id="informations-container">
+                    <div class="informations-container">
                         <p><?php echo htmlspecialchars($product['nome']); ?></p>
-                        <div id="stars-and-price">
-                            <div id="stars">
+                        <div class="stars-and-price">
+                            <div class="stars">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
                                     fill="orange" stroke="orange" stroke-width="1" stroke-linecap="round"
                                     stroke-linejoin="round" class="feather feather-star">
@@ -77,10 +59,10 @@ $products = $controller->index();
                                 </svg>
                                 <p>5.0</p>
                             </div>
-                            <p id="price">R$ <?php echo number_format($product['preco'], 2, ',', '.'); ?></p>
+                            <p class="price">R$ <?php echo number_format($product['preco'], 2, ',', '.'); ?></p>
                         </div>
                     </div>
-                </div>
+                </a>
             <?php } ?>
         </div>
     </main>
