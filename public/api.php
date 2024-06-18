@@ -56,14 +56,7 @@ function routeRequest($uri, $method, $routes) {
             case 'PUT':
                 if ($action === 'update') {
                     $data = json_decode(file_get_contents('php://input'), true);
-                    $response = $productController->update(
-                        $data['productId'],
-                        $data['nome'],
-                        $data['descricao'],
-                        $data['preco'],
-                        $data['quantidade'],
-                        $data['imagem']
-                );
+                    $response = $productController->update($data);
                     echo json_encode($response);
                 }
                 break;
