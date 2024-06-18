@@ -30,7 +30,7 @@ body {
       width: 100vw;
       height: 100vh;
     }
-    header, main, footer {
+    header, main, footer, section {
       display: none !important;
     }
   }
