@@ -6,6 +6,7 @@
   grid-template-columns: 2fr 1fr;
   font-size: 1em;
   display: none;
+  z-index: 2;
 }
 .menu-opened {
   animation: open-menu .2s ease;

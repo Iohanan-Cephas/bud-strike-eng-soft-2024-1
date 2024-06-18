@@ -1,0 +1,109 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-rows: 1fr 15fr 1fr;
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+/* Media query para largura maior que 400px */
+@media (min-width: 431px) {
+  body {
+    background-color: white;
+  }
+  
+  body::before {
+    content: "Infelizmente a versão para PC ainda não está disponível";
+    font-size: 1.5em;
+    text-align: center;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+  }
+  header, main, footer, section {
+    display: none !important;
+  }
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  height: 95vh;
+}
+
+section#address{
+  box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.11);
+  padding: 20px;
+  margin-bottom: 30px;
+  height: 20%;
+}
+
+h2{
+  margin-bottom: 5px;
+  font-size: 1.2em;
+}
+
+ 
+#address-informations {
+  display: flex;
+  font-size: .8em;
+  flex-direction: column;
+  gap: 2px;
+}
+
+section#summary{
+  padding: 20px;
+  height: 20%;
+
+}
+
+#summary-details {
+  display: flex;
+  font-size: .8em;
+  flex-direction: column;
+  gap: 2px;
+}
+
+section#payment {
+  padding: 20px;
+  font-size: 0.8em;
+  height: 45%;
+
+}
+
+section#payment #msg {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+div#confirm {
+  display: flex;
+  justify-content: center;
+  height: 25%;
+  align-items: end;
+  padding: 50px;
+}
+div#confirm button {
+  border: none;
+  background-color: #7a2592;
+  color: white;
+  width: 200px;
+  height: 40px;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: .8em;
+  
+
+}
+
+

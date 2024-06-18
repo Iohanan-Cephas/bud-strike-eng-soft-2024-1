@@ -2,11 +2,9 @@
     session_start(); // Inicie a sessão se ainda não estiver iniciada
 
     // Verifique se o usuário está logado e se o user_id está na sessão
-    if (!isset($_SESSION['user_id'])) {
-        // Redirecione ou tome outra ação se o usuário não estiver logado
-        // Por exemplo, redirecione para a página de login
-        header("Location: /login.php");
-        exit;
+    if (!(isset($_SESSION['user_id']))) {
+        header("Location: ../login");
+        exit();
     }
 
     $user_id = $_SESSION['user_id']; // Recupere o user_id da sessão
@@ -22,6 +20,7 @@
             $product_id = $_POST['increase_quantity'];
             $increaseResult = $cartController->updateQuantity($user_id, $product_id, 1);
             header("Location: ./index.php");
+            include_once(__DIR__ . '/total.php');
             exit;
         }
     
@@ -29,6 +28,7 @@
             $product_id = $_POST['decrease_quantity'];
             $increaseResult = $cartController->updateQuantity($user_id, $product_id, -1);
             header("Location: ./index.php");
+            include_once(__DIR__ . '/total.php');
             exit;
         }
     
@@ -36,6 +36,7 @@
             $product_id = $_POST['delete_product'];
             $deleteResult = $cartController->delete($user_id, $product_id);
             header("Location: ./index.php");
+            include_once(__DIR__ . '/total.php');
             exit;
         }
     }

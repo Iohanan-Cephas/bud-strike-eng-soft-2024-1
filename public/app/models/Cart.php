@@ -163,6 +163,23 @@ class Cart {
         }
     }
     
+    public function cleanCart($user_id) {
+        try {
+            $this->pdo->beginTransaction();
+
+            // Deleta todos os produtos do carrinho para o user_id especificado
+            $stmt = $this->pdo->prepare('DELETE FROM carrinho WHERE user_id = ?');
+            $stmt->execute([$user_id]);
+
+            $this->pdo->commit();
+
+            return true; // Indica que a limpeza foi bem-sucedida
+        } catch (PDOException $e) {
+            $this->pdo->rollBack();
+            // Tratar exceção ou relatar erro
+            throw new Exception("Erro ao acessar o banco de dados: " . $e->getMessage());
+        }
+    }
     
 }
 
