@@ -1,0 +1,1 @@
+{"version":1,"defects":{"ProductControllerTest::testCreate":8,"UserControllerTest::testProfile":8,"UserControllerTest::testGetUserDetails":8},"times":{"ProductControllerTest::testCreate":0.028,"UserControllerTest::testProfile":0,"UserControllerTest::testGetUserDetails":0}}
