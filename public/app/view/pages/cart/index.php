@@ -63,6 +63,8 @@
     <?php include_once(__DIR__ . '../../../templates/header/index.php'); ?>
 
     <?php include_once(__DIR__ . '../../../templates/menu/index.php'); ?>
+    <?php include_once(__DIR__ . '/total.php'); ?>
+
     <main>
         <h2>Meu carrinho</h2>
         <section id="products">
@@ -110,7 +112,7 @@
 </section>
     </main>
     <footer>
-        BudStrike &copy; 2024
+        <!-- BudStrike &copy; 2024 -->
     </footer>
 <script src="./script.js"></script>
 </body>

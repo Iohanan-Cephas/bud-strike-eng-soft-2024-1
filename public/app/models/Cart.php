@@ -137,6 +137,31 @@ class Cart {
             return false;
         }
     }
+
+    public function getCartTotalValue($user_id) {
+        try {
+            $this->pdo->beginTransaction();
+            
+            // Seleciona os detalhes dos produtos no carrinho para o user_id específico
+            $stmt = $this->pdo->prepare("
+                SELECT SUM(produtos.preco * carrinho.quantity) AS total_value
+                FROM carrinho
+                INNER JOIN produtos ON carrinho.product_id = produtos.id
+                WHERE carrinho.user_id = ?
+            ");
+            $stmt->execute([$user_id]);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            $this->pdo->commit();
+            
+            // Retorna o valor total ou 0 se nenhum item for encontrado
+            return isset($result['total_value']) ? $result['total_value'] : 0;
+        } catch (PDOException $e) {
+            $this->pdo->rollBack();
+            // Tratar exceção ou relatar erro
+            throw new Exception("Erro ao acessar o banco de dados: " . $e->getMessage());
+        }
+    }
     
     
 }

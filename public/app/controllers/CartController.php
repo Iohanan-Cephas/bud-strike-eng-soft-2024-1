@@ -34,5 +34,10 @@ function updateQuantity($user_id, $product_id, $change) {
     return $cartModel->updateQuantity($user_id, $product_id, $change);
 }
     
+function getCartTotalValue($user_id, $product_id) {
+    $cartModel = new Cart($this->pdo);
+    return $cartModel->getCartTotalValue($user_id, $product_id);
+}
+
 }
 ?>
