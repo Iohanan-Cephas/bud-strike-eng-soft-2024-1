@@ -17,14 +17,79 @@ body{
 }
 
 div#list {
-  background-color: aliceblue;
   padding: 20px;
   border-radius: 10px;
+  width: 800px;
+  height:60vh;
+
+  overflow-y: scroll;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+#description{
+  max-width: 50%;
+  max-height: 50%;
+  overflow-y: scroll;
+}
+
+div#product{
+  display: flex;
+  font-size: .8em;
+  justify-content: space-between;
+  box-shadow: 0px 4px 28.1px -8px rgba(0, 0, 0, 0.25);
+  align-items: center;
+  padding: 20px;
+
+}
+
+.id{
+  width: 5%;
+}
+
+.name{
+  width: 10%;
+}
+
+.show-description{
+  width: 35%;
+}
+.price{
+  width: 15%;
+}
+
+.quantity{
+  width: 5%;
+}
+
+.productImage{
+  width: 30%;
+}
+
+div#product img{
+  width: 100%;
 }
 
 div#list thead {
   margin-bottom: 10px;
   
+}
+
+#description{
+  width: 100%;
+}
+
+tbody {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+thead{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 div#add h2{
@@ -38,6 +103,7 @@ div#add {
   display: flex;
   align-items: center;
   flex-direction: column;
+  height: 70vh;
 }
 
 div#add input {
@@ -53,13 +119,11 @@ div#add input {
 div#add textarea {
   margin-top: 5px;
   resize: none;
-  width: 180px;
-  height: 40px;
   border-radius: 5px;
   border: 1px solid rgba(187, 115, 255, 0.37);;
   outline: none;
   padding: 10px;
-
+  height: 60px;
 }
 
 #form-container {
@@ -71,7 +135,17 @@ div#add textarea {
   padding: 20px;
   border-radius: 10px;
 }
-
+#list button {
+  width: 60px;
+  height: 20px;
+  border: none;
+  background-color: rgb(188, 118, 253);
+  border-radius: 2px;
+  color: white;
+  font-weight: bold;
+  margin-top: 5px;
+  font-size: .9em;
+}
 #form-container button {
   width: 150px;
   height: 30px;
@@ -81,3 +155,4 @@ div#add textarea {
   color: white;
   font-weight: bold;
 }
+
