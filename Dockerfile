@@ -1,16 +1,9 @@
-# Use a imagem oficial do PHP 8.3 com Apache
-FROM php:8.3-apache
+# Use a imagem oficial do PHP
+FROM php:7.4-apache
 
 # Instale extensões do PHP necessárias
 RUN docker-php-ext-install mysqli pdo pdo_mysql
-RUN apt-get update && apt-get install -y \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    imagemagick \
-    libmagickwand-dev \
-    && pecl install imagick \
-    && docker-php-ext-enable imagick
+
 # Copie os arquivos do seu projeto para o contêiner
 COPY . /var/www/html
 
