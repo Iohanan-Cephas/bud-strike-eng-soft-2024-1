@@ -1,27 +1,77 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use App\Controllers\ProductController;
-use App\Models\Product;
+require_once __DIR__ . '/../public/app/controllers/ProductController.php';
+require_once __DIR__ . '/../public/app/models/Product.php';
 
 class ProductControllerTest extends TestCase
 {
-    public function testCreate()
+    private $pdoMock;
+    private $productController;
+
+    public function setUp(): void
     {
-        // Crie um mock do PDO
-        $pdo = $this->createMock(PDO::class);
+        $this->pdoMock = $this->prophesize(PDO::class);
+        $this->productController = new ProductController($this->pdoMock->reveal());
+    }
 
-        // Crie um mock do Product
-        $product = $this->createMock(Product::class);
+    public function testCreateProductSuccess()
+    {
+        $name = "Test Product";
+        $description = "This is a test description";
+        $price = 19.99;
+        $quantity = 10;
+        $image = "image.jpg";
 
-        // Defina o método create do mock para retornar true
-        $product->method('create')->willReturn(true);
+        $this->pdoMock->createStmt(Argument::any())->shouldBeCalledOnce()->willReturn(true);
 
-        // Substitua a instância de Product no ProductController pelo mock
-        $productController = new ProductController($pdo, $product);
+        $result = $this->productController->create($name, $description, $price, $quantity, $image);
 
-        // Teste o método create
-        $result = $productController->create('Nome', 'Descrição', 100, 50, 'imagem.jpg');
-        $this->assertTrue($result);
+        $this->assertEquals("Product created successfully!", $result); // Assert the expected message
+    }
+
+    public function testCreateProductFail()
+    {
+        $name = "Test Product";
+        $description = "This is a test description";
+        $price = 19.99;
+        $quantity = 10;
+        $image = "image.jpg";
+
+        $this->pdoMock->createStmt(Argument::any())->shouldBeCalledOnce()->willReturn(false);
+
+        $result = $this->productController->create($name, $description, $price, $quantity, $image);
+
+        $this->assertEquals("Error creating product.", $result); // Assert the expected message
+    }
+
+    public function testIndexRetrievesProducts()
+    {
+        $products = [
+            ["id" => 1, "name" => "Product 1"],
+            ["id" => 2, "name" => "Product 2"],
+        ];
+
+        $this->pdoMock->query(Argument::any())->shouldBeCalledOnce()->willReturnStatement(
+            $this->prophesize(\PDOStatement::class)->reveal()
+                ->setFetchMode(\PDO::FETCH_ASSOC)
+                ->fetchAll(\PDO::FETCH_ASSOC)
+                ->willReturn($products)
+        );
+
+        $result = $this->productController->index();
+
+        $this->assertEquals($products, $result); // Assert the expected array of products
+    }
+
+    public function testDeleteProduct()
+    {
+        $productId = 1;
+
+        $this->pdoMock->prepare(Argument::any())->shouldBeCalledOnce()->willReturn(true);
+
+        $result = $this->productController->delete($productId);
+
+        $this->assertEquals("Product deleted successfully.", $result); // Assert the expected message
     }
 }
