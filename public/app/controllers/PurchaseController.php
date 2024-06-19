@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ . '/../models/Purshase.php');
+require_once(__DIR__ . '/../models/Purchase.php');
 
 
 class PurchaseController {
