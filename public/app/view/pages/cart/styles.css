@@ -30,7 +30,7 @@ body {
       width: 100vw;
       height: 100vh;
     }
-    header, main, footer {
+    header, main, footer, section {
       display: none !important;
     }
   }
@@ -218,4 +218,131 @@ main h2 {
 #message{
     font-size: 0.8em;
 }
+
+
+/* estilo do total */
+
+section.total {
+    box-shadow: 3px 0px 46px -6px rgba(0, 0, 0, 0.25);
+    position: fixed;
+
+    display: flex;
+    align-self: flex-end;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100vw;
+    height: 11%;
+    border-radius: 15px 15px 0 0 ;
+    padding: 5%;
+    transition: .5s ease;
+
+
+}
+
+section.total-open {
+    box-shadow: 3px 0px 46px -6px rgba(0, 0, 0, 0.25);
+    position: fixed;
+    display: flex;
+    align-self: flex-end;
+    flex-direction: column;
+    justify-content: space-between;
+
+    width: 100vw;
+    height: 25%;
+    border-radius: 15px 15px 0 0 ;
+    padding: 5%;
+    transition:  .5s ease;
+}
+
+
+
+#total-container{
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-self: flex-end;
+    width: 90vw;
+    bottom: 24%;
+
+}
+
+#price-and-see-more{
+    display: flex;
+    align-items: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    gap: 5px;
+
+}
+
+button#continue {
+    border: none;
+    border-radius: 25px;
+    width: 120px;
+    height: 45px;
+    color: white;
+    background-color: #7a2592;
+    font-size: .8em;
+    font-weight: bold;
+}
+
+#see-more{
+    background: none;
+    border: none;
+}
+
+#details {
+    width: 100%;
+    transform: translateY(150%)
+}
+
+.details-close {
+    width: 100%;
+    animation: details-close 0.5s ease;
+    transform: translateY(150%) !important;
+    transition: 0.5s ease;
+}
+
+@keyframes details-open {
+    from{
+        transform: translateY(10%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes details-close {
+    from{
+        transform: translateY(0%);
+        
+        opacity: 1;
+    }
+    to {
+        transform: translateY(10%);
+        opacity: 0;
+    }
+}
+
+
+.details-open {
+    width: 100%;
+    animation: details-open 0.5s ease;
+    transform: translateY(0%) !important;
+
+}
+
+p#total-price{
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#subtotal-and-shipping {
+    font-weight: 400;
+}
+
+
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -35,4 +35,4 @@
                 </svg></a>
         </div>
         <img src="../../../../assets/banner.webp" alt="">
-    </header>
+    </header> -->
