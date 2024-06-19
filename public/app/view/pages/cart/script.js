@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 const seeMore = document.querySelector("#see-more")
 const section = document.querySelector('.total')
 const details = document.querySelector('#details')
@@ -21,7 +21,7 @@ seeMore.addEventListener("click", ()=>{
   }
    
 })
-=======
+
 // const minus = document.querySelector("#minus");
 // const plus = document.querySelector("#plus");
 // const count = document.querySelector("#count");
@@ -44,4 +44,4 @@ seeMore.addEventListener("click", ()=>{
 
 
 
->>>>>>> c0faefe70406094744d5a620589e5a3e2be4e545
+

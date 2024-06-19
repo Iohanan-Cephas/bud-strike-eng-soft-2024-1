@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +16,6 @@
 </head>
 <body>
     <header>
-        <!-- Seu código HTML do cabeçalho continua aqui -->
         <div id="options">
             <svg id="menuButton" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                 fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -57,59 +56,3 @@
     </header>
 </body>
 </html>
-=======
-<!DOCTYPE html>
-<html lang="en">
-
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="stylesheet" href="../../templates/header/styles.css">
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
-          rel="stylesheet">
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
-      <title>BudStrike</title>
-  </head>
-
-  <body>
-      <header>
-          <div id="options">
-              <svg id="menuButton" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                  stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                  class="feather feather-menu">
-                  <line x1="3" y1="12" x2="21" y2="12"></line>
-                  <line x1="3" y1="6" x2="21" y2="6"></line>
-                  <line x1="3" y1="18" x2="21" y2="18"></line>
-              </svg>
-              <a href="../../pages/home/index.php"><h1> BudStrike</h1></a>
-              <a href="../cart/">
-                <?php
-                    require_once(__DIR__ . '/../../../controllers/CartController.php');
-                    $user_id = $_SESSION['user_id'];
-                    $cartController = new CartController($pdo);
-                    $quantity = $cartController->getQuantityById($user_id);
-                    if($quantity){
-                        ?><div id="cart-count" ><?php echo($quantity)?></div>
-                    
-                    <?php
-                }
-                ?>
-                
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                      fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                      class="feather feather-shopping-cart">
-                      <circle cx="9" cy="21" r="1"></circle>
-                      <circle cx="20" cy="21" r="1"></circle>
-                      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                  </svg>
-              </a>
-          </div>
-          
-      </header>
-</body>
-</html>
->>>>>>> c0faefe70406094744d5a620589e5a3e2be4e545
