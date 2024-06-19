@@ -1,0 +1,348 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-rows: 1fr 15fr 1fr;
+    font-family: "Roboto Mono", monospace;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+/* Media query para largura maior que 400px */
+@media (min-width: 431px) {
+    body {
+      background-color: white;
+    }
+    
+    body::before {
+      content: "Infelizmente a versão para PC ainda não está disponível";
+      font-size: 1.5em;
+      text-align: center;
+      color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 100vh;
+    }
+    header, main, footer, section {
+      display: none !important;
+    }
+  }
+
+header img {
+    width: 100vw;
+}
+header #options {
+    width: 100%;
+    height: 5vh;
+    justify-content: space-between;
+    padding: 0 2%;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    color: black;
+}
+header #options h1 {
+    font-size: 1.5em;
+    font-family: "League Spartan", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+footer {
+    display: flex;
+    align-items: end;
+    padding-bottom: 20px;
+    justify-content: center;
+    font-size: 10px !important;
+}
+#menu {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    font-size: 1.2em;
+    display: none;
+}
+.menu-opened {
+    animation: open-menu .2s ease;
+    transform: translateX(0);
+    display: grid !important;
+}
+.menu-closed {
+    animation: close-menu .2s ease;
+    transform: translateX(-100%);
+    display: grid !important;
+}
+@keyframes open-menu {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+@keyframes close-menu {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+#menu-side {
+    background-color: #ffffff;
+    box-shadow: 0px 4px 28.1px -8px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#close-side {
+}
+.hidden {
+    display: none !important;
+}
+#menu #username {
+    background-color: #7a2592;
+    height: 8%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding-left: 10%;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px 10px 0 0;
+}
+#menu nav {
+    margin-top: 15%;
+    padding-left: 10%;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+#menu nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    list-style: none;
+}
+#menu nav ul li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+
+main{
+    margin: 8% 5%;
+    
+}
+
+main h2 {
+    font-size: 1.3em;
+}
+
+#products {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#product {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 4px 28.1px -8px rgba(0, 0, 0, 0.25);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#product #informations{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 70%;
+}
+#product #informations #name{
+    font-size: .8em;
+}
+
+#product #informations #price {
+    font-size: .9em;
+    font-weight: bold;
+    color: #00C767;
+}
+
+#img {
+    width: 20%;
+}
+ img {
+    width: 90%;
+}
+
+#quantity{
+    display: flex;
+    font-weight: bold;
+    align-items: center;
+    gap: 5px;
+    
+}
+
+#quantity button{
+    border: none;
+    border-radius: 20px;
+    width: 20px;
+    height: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#delete {
+    border: none;
+    background: none;
+}
+
+#message{
+    font-size: 0.8em;
+}
+
+
+/* estilo do total */
+
+section.total {
+    box-shadow: 3px 0px 46px -6px rgba(0, 0, 0, 0.25);
+    position: fixed;
+
+    display: flex;
+    align-self: flex-end;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 100vw;
+    height: 11%;
+    border-radius: 15px 15px 0 0 ;
+    padding: 5%;
+    transition: .5s ease;
+
+
+}
+
+section.total-open {
+    box-shadow: 3px 0px 46px -6px rgba(0, 0, 0, 0.25);
+    position: fixed;
+    display: flex;
+    align-self: flex-end;
+    flex-direction: column;
+    justify-content: space-between;
+
+    width: 100vw;
+    height: 25%;
+    border-radius: 15px 15px 0 0 ;
+    padding: 5%;
+    transition:  .5s ease;
+}
+
+
+
+#total-container{
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-self: flex-end;
+    width: 90vw;
+    bottom: 24%;
+
+}
+
+#price-and-see-more{
+    display: flex;
+    align-items: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    gap: 5px;
+
+}
+
+button#continue {
+    border: none;
+    border-radius: 25px;
+    width: 120px;
+    height: 45px;
+    color: white;
+    background-color: #7a2592;
+    font-size: .8em;
+    font-weight: bold;
+}
+
+#see-more{
+    background: none;
+    border: none;
+}
+
+#details {
+    width: 100%;
+    transform: translateY(150%)
+}
+
+.details-close {
+    width: 100%;
+    animation: details-close 0.5s ease;
+    transform: translateY(150%) !important;
+    transition: 0.5s ease;
+}
+
+@keyframes details-open {
+    from{
+        transform: translateY(10%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes details-close {
+    from{
+        transform: translateY(0%);
+        
+        opacity: 1;
+    }
+    to {
+        transform: translateY(10%);
+        opacity: 0;
+    }
+}
+
+
+.details-open {
+    width: 100%;
+    animation: details-open 0.5s ease;
+    transform: translateY(0%) !important;
+
+}
+
+p#total-price{
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#subtotal-and-shipping {
+    font-weight: 400;
+}
+
+
+

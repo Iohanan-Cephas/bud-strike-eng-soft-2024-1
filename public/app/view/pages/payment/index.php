@@ -9,16 +9,7 @@
 
     $user_id = $_SESSION['user_id']; // Recupere o user_id da sessão
 
-    require_once(__DIR__ . '/../../../controllers/CartController.php');
-    $cartController = new CartController($pdo);
     
-    try{
-      $cartController->cleanCart($user_id);
-    }catch(err){
-
-    }
-
-
 
 ?>
 
@@ -56,7 +47,7 @@
 
     </main>
     <footer>
-        <!-- BudStrike &copy; 2024 -->
+        BudStrike &copy; 2024
     </footer>
 <script src="./script.js"></script>
 </body>

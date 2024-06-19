@@ -13,7 +13,7 @@
     require_once(__DIR__ . '/../../../controllers/CartController.php');
     $cartController = new CartController($pdo);
     $products = $cartController->index($user_id);
-
+    
     // Verifique se a requisição para excluir um produto foi feita
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['increase_quantity'])) {
