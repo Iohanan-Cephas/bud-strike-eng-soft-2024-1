@@ -1,6 +1,0 @@
-{
-  "require": {
-      "endroid/qr-code": "^4.0",
-      "chillerlan/php-qrcode": "^4.3"
-  }
-}
