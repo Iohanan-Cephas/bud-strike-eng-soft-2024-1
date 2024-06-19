@@ -7,11 +7,11 @@ class User {
     }
 
     // Cria um novo usuário
-    public function create($username, $password) {
-        $stmt = $this->pdo->prepare('INSERT INTO usuarios (username, password) VALUES (?, ?)');
-        return $stmt->execute([$username, $password]);
+    public function create($username, $hashedPassword, $lastName, $address, $city, $uf, $telefone, $email) {
+        $stmt = $this->pdo->prepare('INSERT INTO usuarios (username, password, lastName, address, city, uf, telefone, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+        return $stmt->execute([$username, $hashedPassword, $lastName, $address, $city, $uf, $telefone, $email]);
     }
-
+    
     // Encontra um usuário pelo nome de usuário
     public function findByUsername($username) {
         $stmt = $this->pdo->prepare('SELECT * FROM usuarios WHERE username = ?');
@@ -24,6 +24,13 @@ class User {
         $stmt = $this->pdo->prepare('SELECT * FROM usuarios WHERE id = ?');
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getUserById($id) {
+        $stmt = $this->pdo->prepare('SELECT * FROM usuarios WHERE id = ?');
+        $stmt->execute([$id]);
+        $userDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $userDetails;
     }
 }
 ?>

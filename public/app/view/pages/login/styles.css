@@ -21,6 +21,26 @@ body {
     overflow: hidden;
 }
 
+@media (min-width: 431px) {
+    body {
+      background-color: white;
+    }
+    
+    body::before {
+      content: "Infelizmente a versão para PC ainda não está disponível";
+      font-size: 1.5em;
+      text-align: center;
+      color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 100vh;
+    }
+    header, main, footer {
+      display: none !important;
+    }
+  }
 header {
     display: flex;
     align-items: end;
@@ -28,7 +48,7 @@ header {
     font-weight: 700;
     font-size: 20px;
     animation: open-login .5s ease-out;
-
+    padding-bottom: 30px;
 
 }
 

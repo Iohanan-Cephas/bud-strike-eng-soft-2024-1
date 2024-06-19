@@ -4,6 +4,13 @@ require_once(__DIR__ . '/../../../controllers/ProductController.php');
 require_once(__DIR__ . '/../../../models/Product.php');
 require_once(__DIR__ . '/../../../config/config.php');
 
+session_start(); // Certifique-se de iniciar a sessão antes de acessar $_SESSION
+$user_id = $_SESSION['user_id'] ?? null;
+
+if ($user_id !== 1) {
+    header("Location: ../home/index.php"); // Redireciona para a home se não for admin
+    exit;
+}
 
 // Verifica se foi passado o ID do produto na URL
 if (!isset($_GET['id'])) {

@@ -1,0 +1,133 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-rows: 1fr 15fr 1fr;
+    font-family: "Roboto Mono", monospace;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+@media (min-width: 431px) {
+    body {
+      background-color: white;
+    }
+    
+    body::before {
+      content: "Infelizmente a versão para PC ainda não está disponível";
+      font-size: 1.5em;
+      text-align: center;
+      color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 100vh;
+    }
+    header, main, footer, section {
+      display: none !important;
+    }
+  }
+
+
+
+main{
+    margin: 8% 5%;
+    display: flex;
+    flex-direction: column;
+   
+    
+}
+
+main h2 {
+    font-size: 1.3em;
+}
+
+#products {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.product {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 4px 28.1px -8px rgba(0, 0, 0, 0.25);
+    padding: 15px;
+    border-radius: 10px;
+
+}
+
+.product .informations{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 70%;
+}
+.product .informations .name{
+    font-size: .8em;
+}
+.price-and-name{
+    display: grid;
+}
+.product .informations .price {
+    font-size: .7em;
+    font-weight: bold;
+    color: #00C767;
+}
+
+.img {
+    width: 20%;
+}
+ img {
+    width: 90%;
+}
+
+.price-and-name{
+    display: grid;
+    grid-template-columns: 2.2fr 1fr;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.details {
+    display: flex;
+    flex-direction: row;
+    font-size: 0.6em;
+    gap: 5px;
+}
+
+footer {
+    display: flex;
+    align-items: end;
+    padding-bottom: 20px;
+    justify-content: center;
+    font-size: 10px !important;
+}
+
+
+
+.message{
+    font-size: 0.8em;
+}
+
+button{
+    border: none;
+    background-color:#7a2592; 
+    width: 50%;
+    height: 25px;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 0.6em;
+}
+

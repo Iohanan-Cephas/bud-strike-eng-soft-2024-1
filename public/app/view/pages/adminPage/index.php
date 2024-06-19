@@ -4,6 +4,15 @@ require_once(__DIR__ . '/../../../controllers/ProductController.php'); // Altera
 
 $productController = new ProductController($pdo);
 
+// Verificação do usuário
+session_start(); // Certifique-se de iniciar a sessão antes de acessar $_SESSION
+$user_id = $_SESSION['user_id'] ?? null;
+
+if ($user_id !== 1) {
+    header("Location: ../home/index.php"); // Redireciona para a home se não for admin
+    exit;
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['add'])) {
         $name = $_POST['name'];
@@ -39,6 +48,7 @@ $products = $productController->index();
     <title>Listagem de Produtos</title>
 </head>
 <body>
+    
     <div id="list">
         <table>
             <thead>
@@ -105,4 +115,3 @@ $products = $productController->index();
     </div>
 </body>
 </html>
-

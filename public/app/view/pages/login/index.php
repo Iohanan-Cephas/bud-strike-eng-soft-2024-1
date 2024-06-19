@@ -3,7 +3,6 @@ session_start(); // Inicia a sessão
 
 include('../../../config/config.php');
 
-
 if (isset($_SESSION['user_id'])) {
     header("Location: ../home");
     exit();
@@ -13,21 +12,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Consulta SQL para buscar usuário pelo nome de usuário e senha
-    $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE username = ? AND password = ?");
-    $stmt->execute([$username, $password]);
+    // Consulta SQL para buscar usuário pelo nome de usuário
+    $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE username = ?");
+    $stmt->execute([$username]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($user) {
-        
+    // Verifica se o usuário existe e a senha está correta
+    if ($user && password_verify($password, $user['password'])) {
         $_SESSION['user_id'] = $user['id']; 
         $_SESSION['username'] = $user['username'];
 
-        
         header("Location: ../home");
         exit();
     } else {
-        
         $login_error = "Nome de usuário ou senha incorretos.";
     }
 }
@@ -52,11 +49,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="login-container">
             <form class="login-form" method="POST" action="">
                 <div class="user-container">
-                    <img src="../../assets/user.svg" alt="">
+                    <img src="../../../../assets/user.svg" alt="">
                     <input name="username" id="user-input" placeholder="usuário" type="text" required>
                 </div>
                 <div id="passwordContainer" class="user-password">
-                    <img src="../../assets/lock.svg" alt="">
+                    <img src="../../../../assets/lock.svg" alt="">
                     <input name="password" type="password" id="password-input" placeholder="senha" required>
                 </div>
                 <?php if (isset($login_error)) { ?>
