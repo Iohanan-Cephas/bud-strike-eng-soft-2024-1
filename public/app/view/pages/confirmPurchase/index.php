@@ -9,12 +9,33 @@
 
     $user_id = $_SESSION['user_id']; // Recupere o user_id da sessão
     require_once(__DIR__ . '/../../../controllers/CartController.php');
+    require_once(__DIR__ . '/../../../controllers/productController.php');
+
+    $productController = new ProductController($pdo);
     $cartController = new CartController($pdo);
-    $total = $cartController->getCartTotalValue($user_id);
-    if($total==0){
-      header("Location: ../home");
+
+    if (isset($_GET['id']) && !empty($_GET['id'])) {
+        $product_id = $_GET['id'];
+
+        $productDetails = $productController->getProductDetails($product_id);
+        $total = $productDetails["preco"];
+        $_SESSION['buyNow'] = true;
+        $_SESSION['product_id'] = $product_id;
+
+
+    } else {
+        $total = $cartController->getCartTotalValue($user_id);
+
+        if ($total == 0) {
+            header("Location: ../home");
+            exit();
+        }
+        $_SESSION['buyNow'] = false;
 
     }
+    
+    $formattedTotal = number_format($total, 2, ',', '.');
+    
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +71,7 @@
         <section id="summary">
             <h2 id="summary-title">Resumo</h2>
             <div id="summary-details">
-                <p>Subtotal: R$ 469,98</p>
+                <p class="subtotal" >Subtotal: R$ <?php echo($formattedTotal)?></p>
                 <p>Frete: R$ 00,00</p>
             </div>
         </section>

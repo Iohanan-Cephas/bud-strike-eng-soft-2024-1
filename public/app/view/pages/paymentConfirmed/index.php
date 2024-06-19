@@ -1,4 +1,5 @@
 <?php
+
     session_start(); // Inicie a sessão se ainda não estiver iniciada
 
     // Verifique se o usuário está logado e se o user_id está na sessão
@@ -7,11 +8,35 @@
         exit();
     }
 
-    $user_id = $_SESSION['user_id']; // Recupere o user_id da sessão
-    
+    $user_id = (int)$_SESSION['user_id']; // Recupere o user_id da sessão
+    $buyNow = $_SESSION['buyNow'];
+    $product_id = (int)$_SESSION['product_id'];
+
+    require_once(__DIR__ . '/../../../controllers/PurchaseController.php');
     require_once(__DIR__ . '/../../../controllers/CartController.php');
-    $cartController = new CartController($pdo);
-    $total = $cartController->index($user_id);
+
+
+    $purchaseController = new PurchaseController($pdo);
+
+    if($buyNow){
+        $purchaseController->insertOne($user_id, $product_id, 1);
+    }else{
+        try{
+            $purchaseController->insertAllCart($user_id);
+        }catch(err){
+    
+        }
+    
+        $cartController = new CartController($pdo);
+        
+        try{
+          $cartController->cleanCart($user_id);
+        }catch(err){
+            
+        }
+    }
+
+    
 
 
 ?>
@@ -38,12 +63,16 @@
     <main id="container" >
         <img src="../../../../assets/verified.png" alt="">
         <p>Seu pagamento foi confirmado, obrigado.</p>
-        <button>Ver meus produtos</button>
-
+        <button id="button" >Ver meus produtos</button>
     </main>
     <footer>
         <!-- BudStrike &copy; 2024 -->
     </footer>
-<script src="./script.js"></script>
+<script>
+    const button = document.querySelector("#button");
+    button.addEventListener("click", ()=>{
+        window.location = "../myProducts/index.php"
+    })
+</script>
 </body>
 </html>
