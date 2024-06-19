@@ -14,7 +14,7 @@ body {
 }
 
 /* Media query para largura maior que 400px */
-@media (min-width: 431px) {
+/* @media (min-width: 431px) {
   body {
     background-color: white;
   }
@@ -33,7 +33,7 @@ body {
   header, main, footer, section {
     display: none !important;
   }
-}
+} */
 
 main {
   display: flex;

@@ -2,6 +2,7 @@ const minutesElement = document.querySelector("#minutes");
 const expiredMessage = document.querySelector("#expired-message");
 const main = document.querySelector("#container"); // Supondo que você tenha um elemento com id "container"
 const totalTimeInSeconds = 30 * 60;
+
 let remainingTimeInSeconds = totalTimeInSeconds - 1; // Começa em 29:59
 
 function updateTimer() {
@@ -31,4 +32,4 @@ const timerInterval = setInterval(updateTimer, 1000);
 
 setTimeout(()=> {
   window.location = "../paymentConfirmed/index.php"
-}, 4000)
+}, 15000)
