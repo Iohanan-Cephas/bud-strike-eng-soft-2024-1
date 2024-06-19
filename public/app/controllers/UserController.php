@@ -3,9 +3,15 @@ require_once(__DIR__ . '/../models/User.php');
 
 class UserController {
     private $pdo;
+    private $userModel;
 
     public function __construct(PDO $pdo) {
         $this->pdo = $pdo;
+        $this->userModel = new User($this->pdo); // Adiciona o modelo User
+    }
+
+    public function setUserModel($userModel) {
+        $this->userModel = $userModel;
     }
 
     // Exibe a página de registro
@@ -16,37 +22,27 @@ class UserController {
     // Processa o registro do usuário
     public function handleRegister() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // Verificar se todos os campos necessários estão presentes
             if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['password_confirm']) && !empty($_POST['terms'])) {
                 $username = trim($_POST['username']);
                 $password = trim($_POST['password']);
                 $password_confirm = trim($_POST['password_confirm']);
                 $terms = $_POST['terms'];
 
-                // Verificar se as senhas coincidem
                 if ($password !== $password_confirm) {
                     echo "As senhas não coincidem. Por favor, tente novamente.";
                 } else {
-                    // Verificar se os termos foram aceitos
                     if ($terms != 'on') {
                         echo "Você deve aceitar os termos e condições.";
                     } else {
-                        // Verificar se o nome de usuário já existe
-                        $userModel = new User($this->pdo);
-                        if ($userModel->findByUsername($username)) {
+                        if ($this->userModel->findByUsername($username)) {
                             echo "Nome de usuário já existe. Por favor, escolha outro.";
                         } else {
-                            // Hash da senha
                             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-                            // Tentar criar o usuário
                             try {
-                                if ($userModel->create($username, $hashedPassword)) {
-                                    // Iniciar a sessão e definir a variável de sessão
+                                if ($this->userModel->create($username, $hashedPassword)) {
                                     session_start();
-                                    $_SESSION['user_id'] = $userModel->findByUsername($username)['id'];
-                                    
-                                    // Redirecionar para a página inicial em caso de sucesso
+                                    $_SESSION['user_id'] = $this->userModel->findByUsername($username)['id'];
                                     header("Location: ../home");
                                     exit;
                                 } else {
@@ -71,8 +67,7 @@ class UserController {
 
     // Processa o login do usuário
     public function handleLogin($username, $password) {
-        $userModel = new User($this->pdo);
-        $user = $userModel->findByUsername($username);
+        $user = $this->userModel->findByUsername($username);
         if ($user && password_verify($password, $user['password'])) {
             session_start();
             $_SESSION['user_id'] = $user['id'];
@@ -94,8 +89,7 @@ class UserController {
     public function profile() {
         session_start();
         if (isset($_SESSION['user_id'])) {
-            $userModel = new User($this->pdo);
-            $user = $userModel->findById($_SESSION['user_id']);
+            $user = $this->userModel->findById($_SESSION['user_id']);
             include '../views/pages/profile/profile.php';
         } else {
             header('Location: index.php?controller=user&action=login');
@@ -104,9 +98,7 @@ class UserController {
 
     public function getUserDetails(){
         if (isset($_SESSION['user_id'])) {
-            $userModel = new User($this->pdo);
-            $userDetails = $userModel->getUserbyId($_SESSION['user_id']);
-
+            $userDetails = $this->userModel->getUserbyId($_SESSION['user_id']);
             return $userDetails;
         }
     }
