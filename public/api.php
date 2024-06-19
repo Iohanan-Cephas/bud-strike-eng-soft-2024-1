@@ -42,23 +42,37 @@ function routeRequest($uri, $method, $routes) {
                 break;
             case 'POST':
                 if ($action === 'create') {
-                    // Criar um novo produto
-                    // Você precisará obter os dados do corpo da solicitação ($_POST, $_GET ou JSON)
-                    // e passá-los para o método create do controlador de produtos
+                    $data = json_decode(file_get_contents('php://input'), true);
+                    $response = $productController->create(
+                        $data['name'], 
+                        $data['description'], 
+                        $data['price'], 
+                        $data['quantity'], 
+                        $data['image']
+                    );
+                    echo json_encode($response);
                 }
                 break;
             case 'PUT':
                 if ($action === 'update') {
-                    // Atualizar um produto existente
-                    // Você precisará obter os dados do corpo da solicitação ($_POST, $_GET ou JSON)
-                    // e passá-los para o método update do controlador de produtos
+                    $data = json_decode(file_get_contents('php://input'), true);
+                    $response = $productController->update(
+                        $data['productId'],
+                        $data['nome'],
+                        $data['descricao'],
+                        $data['preco'],
+                        $data['quantidade'],
+                        $data['imagem']
+                    );
+                    echo json_encode($response);
                 }
                 break;
             case 'DELETE':
                 if ($action === 'delete') {
-                    // Deletar um produto existente
-                    // Você precisará obter o ID do produto da solicitação e passá-lo para o método delete do controlador de produtos
-                }
+                    $data = json_decode(file_get_contents('php://input'), true);
+                    $response = $productController->delete($data);
+                    echo json_encode($response);
+                }    
                 break;
             default:
                 // Método não suportado
