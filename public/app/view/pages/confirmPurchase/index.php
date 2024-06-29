@@ -1,12 +1,8 @@
 <?php 
-session_start(); 
+session_start(); // Inicie a sessão se ainda não estiver iniciada
 
-
+// Verifique se o usuário está logado e se o user_id está na sessão
 if (!isset($_SESSION['user_id'])) {
-    
-    $_SESSION['redirect_url'] = $_SERVER['REQUEST_URI'];
-
-    
     header("Location: ../login");
     exit();
 }

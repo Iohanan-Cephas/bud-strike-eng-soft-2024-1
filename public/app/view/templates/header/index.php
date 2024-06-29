@@ -28,27 +28,22 @@
                 <h1> BudStrike</h1>
             </a>
             <a href="../cart/">
-                    <?php
-                        
-
-                        if (isset($_SESSION['user_id'])) {
-                            require_once(__DIR__ . '/../../../controllers/CartController.php');
-                            $user_id = $_SESSION['user_id'];
-                            $cartController = new CartController($pdo);
-                            $quantity = $cartController->getQuantityById($user_id);
-                        } else {
-                            $quantity = 0;
-                            if (isset($_SESSION['products']) && is_array($_SESSION['products'])) {
-                                foreach ($_SESSION['products'] as $item) {
-                                    $quantity += $item['quantity'];
-                                }
-                            }
-                        }
-
-                        if ($quantity > 0) {
-                            ?>
-                            <div id="cart-count"><?php echo $quantity; ?></div>
-                    <?php } ?>
+                <?php
+                // Verifica se $_SESSION['user_id'] está definida antes de usá-la
+                if (isset($_SESSION['user_id'])) {
+                    require_once(__DIR__ . '/../../../controllers/CartController.php');
+                    $user_id = $_SESSION['user_id'];
+                    $cartController = new CartController($pdo);
+                    $quantity = $cartController->getQuantityById($user_id);
+                    if ($quantity) {
+                        ?>
+                        <div id="cart-count"><?php echo $quantity; ?></div>
+                <?php
+                    }
+                } else {
+                    // Faça alguma outra ação se $_SESSION['user_id'] não estiver definida
+                }
+                ?>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                     fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="feather feather-shopping-cart">
