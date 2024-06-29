@@ -1,9 +1,9 @@
-
-const seeMore = document.querySelector("#see-more")
 const section = document.querySelector('.total')
 const details = document.querySelector('#details')
 
 var control = false;
+const seeMore = document.querySelector("#see-more")
+
 seeMore.addEventListener("click", ()=>{
   if(!control){
     section.classList.remove("total")
@@ -21,6 +21,11 @@ seeMore.addEventListener("click", ()=>{
   }
    
 })
+
+
+document.getElementById('continue').addEventListener('click', function() {
+  window.location.href = '../confirmPurchase/index.php';
+});
 
 // const minus = document.querySelector("#minus");
 // const plus = document.querySelector("#plus");

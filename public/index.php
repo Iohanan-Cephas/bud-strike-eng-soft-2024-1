@@ -11,7 +11,7 @@
 </head>
 <body>
     <script>
-        window.location.href = './app/view/pages/login';
+        window.location.href = './app/view/pages/home';
     </script>
 </body>
 </html>

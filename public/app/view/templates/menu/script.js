@@ -1,5 +1,4 @@
 
-const logoutButton = document.querySelector('#logout');
 const menuButton = document.querySelector('#menuButton');
 const closeSide = document.querySelector("#close-side")
 const menu = document.querySelector('#menu');
@@ -21,8 +20,11 @@ menuButton.addEventListener('click', () => {
 
 
 
+const logoutButton = document.querySelector('#logout');
 
-document.querySelector('#logout').addEventListener('click', function() {
-    // Redirecionar para o arquivo de logout
-    window.location.href = '../../pages/home/logout.php';
-});
+if(logoutButton) {
+    logoutButton.addEventListener('click', function() {
+        // Redirecionar para o arquivo de logout
+        window.location.href = '../../pages/home/logout.php';
+    });
+}

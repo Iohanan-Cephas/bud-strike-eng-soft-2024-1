@@ -1,45 +1,122 @@
 <?php
-    session_start(); // Inicie a sessão se ainda não estiver iniciada
-
-    // Verifique se o usuário está logado e se o user_id está na sessão
-    if (!(isset($_SESSION['user_id']))) {
-        header("Location: ../login");
-        exit();
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
     }
 
-    $user_id = $_SESSION['user_id']; // Recupere o user_id da sessão
-
-    // Agora você pode chamar o controlador passando $user_id como parâmetro
     require_once(__DIR__ . '/../../../controllers/CartController.php');
-    $cartController = new CartController($pdo);
-    $products = $cartController->index($user_id);
-    
+    require_once(__DIR__ . '/../../../controllers/ProductController.php');
+
+    if(isset($_SESSION['user_id'])){
+        $user_id = $_SESSION['user_id'];
+    }else {
+        $user_id = false;
+    }
+
+
+    // Verifique se o usuário está logado e se o user_id está na sessão
+    if ((isset($_SESSION['user_id']))) {
+
+        // Agora você pode chamar o controlador passando $user_id como parâmetro
+        $cartController = new CartController($pdo);
+        $products = $cartController->index($user_id);
+        
+        
+    }else {
+
+        $productController = new ProductController($pdo);
+        
+        if (isset($_SESSION['products']) && is_array($_SESSION['products'])) {
+            foreach ($_SESSION['products'] as $item) {
+                $product_id = $item['product_id'];
+                $quantity = $item['quantity'];
+        
+                // Obtém os detalhes do produto usando o ProductController
+                $product_details = $productController->getProductDetails($product_id);
+        
+                // Adiciona a quantidade ao array de detalhes do produto
+                $product_details['quantity'] = $quantity;
+        
+                // Adiciona o produto com detalhes e quantidade ao array $products
+                $products[] = $product_details;
+            }
+        }
+
+        
+                    
+    }
+
     // Verifique se a requisição para excluir um produto foi feita
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['increase_quantity'])) {
-            $product_id = $_POST['increase_quantity'];
-            $increaseResult = $cartController->updateQuantity($user_id, $product_id, 1);
+            if($user_id) {
+                $product_id = $_POST['increase_quantity'];
+                $increaseResult = $cartController->updateQuantity($user_id, $product_id, 1);
+                
+            }else {
+                        
+                if (isset($_POST['increase_quantity'])) {
+                    $product_id = $_POST['increase_quantity'];
+
+                    
+                    if (isset($_SESSION['products']) && is_array($_SESSION['products'])) {
+                        
+                        foreach ($_SESSION['products'] as $key => $item) {
+                            if ($item['product_id'] == $product_id) {
+                                
+                                $_SESSION['products'][$key]['quantity'] += 1;
+                                break; 
+                            }
+                        }
+                    }
+                }
+            }
+
             header("Location: ./index.php");
             include_once(__DIR__ . '/total.php');
             exit;
         }
     
         if (isset($_POST['decrease_quantity'])) {
-            $product_id = $_POST['decrease_quantity'];
-            $increaseResult = $cartController->updateQuantity($user_id, $product_id, -1);
+
+            if($user_id) {
+                $product_id = $_POST['decrease_quantity'];
+                $increaseResult = $cartController->updateQuantity($user_id, $product_id, -1);
+                
+            }else {
+                $product_id = $_POST['decrease_quantity'];
+                $increaseResult = $cartController->updateQuantity($user_id, $product_id, -1);
+                
+            }
             header("Location: ./index.php");
             include_once(__DIR__ . '/total.php');
             exit;
         }
     
         if (isset($_POST['delete_product'])) {
-            $product_id = $_POST['delete_product'];
-            $deleteResult = $cartController->delete($user_id, $product_id);
-            header("Location: ./index.php");
-            include_once(__DIR__ . '/total.php');
-            exit;
+
+            if($user_id){
+                $product_id = $_POST['delete_product'];
+                $deleteResult = $cartController->delete($user_id, $product_id);
+                header("Location: ./index.php");
+                include_once(__DIR__ . '/total.php');
+                exit;
+            }{
+                $product_id = $_POST['delete_product'];
+                if (isset($_SESSION['products']) && is_array($_SESSION['products'])) {
+                    $_SESSION['products'] = array_filter($_SESSION['products'], function ($item) use ($product_id) {
+                        return $item['product_id'] != $product_id;
+                    });
+                }
+                header("Location: ./index.php");
+                include_once(__DIR__ . '/total.php');
+                exit;
+            }
+
+            
         }
     }
+
+    
 
     
 
