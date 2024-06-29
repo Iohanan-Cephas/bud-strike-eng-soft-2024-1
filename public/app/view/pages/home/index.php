@@ -2,10 +2,10 @@
 // Iniciar a sessão
 session_start();
 
-// if (!(isset($_SESSION['user_id']))) {
-//     header("Location: ../login");
-//     exit();
-// }
+if (!(isset($_SESSION['user_id']))) {
+    header("Location: ../login");
+    exit();
+}
 
 require_once(__DIR__ . '/../../../config/config.php');
 require_once(__DIR__ . '/../../../controllers/ProductController.php');
