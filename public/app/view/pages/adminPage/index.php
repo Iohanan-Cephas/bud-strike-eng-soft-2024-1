@@ -1,15 +1,15 @@
 <?php
 require_once '../../../config/config.php';
-require_once(__DIR__ . '/../../../controllers/ProductController.php'); // Alterado para ProductController.php
+require_once(__DIR__ . '/../../../controllers/ProductController.php'); 
 
 $productController = new ProductController($pdo);
 
-// Verificação do usuário
-session_start(); // Certifique-se de iniciar a sessão antes de acessar $_SESSION
+
+session_start(); 
 $user_id = $_SESSION['user_id'] ?? null;
 
 if ($user_id !== 1) {
-    header("Location: ../home/index.php"); // Redireciona para a home se não for admin
+    header("Location: ../home/index.php"); 
     exit;
 }
 
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: index.php");
             exit;
         } else {
-            // echo "Erro ao adicionar produto.";
+            
         }
     }
 
