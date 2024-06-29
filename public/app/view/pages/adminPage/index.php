@@ -1,15 +1,15 @@
 <?php
 require_once '../../../config/config.php';
-require_once(__DIR__ . '/../../../controllers/ProductController.php'); // Alterado para ProductController.php
+require_once(__DIR__ . '/../../../controllers/ProductController.php'); 
 
 $productController = new ProductController($pdo);
 
-// Verificação do usuário
-session_start(); // Certifique-se de iniciar a sessão antes de acessar $_SESSION
+
+session_start(); 
 $user_id = $_SESSION['user_id'] ?? null;
 
 if ($user_id !== 1) {
-    header("Location: ../home/index.php"); // Redireciona para a home se não for admin
+    header("Location: ../home/index.php"); 
     exit;
 }
 
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: index.php");
             exit;
         } else {
-            // echo "Erro ao adicionar produto.";
+            
         }
     }
 
@@ -50,28 +50,16 @@ $products = $productController->index();
 <body>
     
     <div id="list">
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Descrição</th>
-                    <th>Preço (R$)</th>
-                    <th>Quantidade</th>
-                    <th>Imagem</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($products as $product): ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($product['id']); ?></td>
-                        <td><?php echo htmlspecialchars($product['nome']); ?></td>
-                        <td><?php echo htmlspecialchars($product['descricao']); ?></td>
-                        <td>R$ <?php echo number_format($product['preco'], 2, ',', '.'); ?></td>
-                        <td><?php echo htmlspecialchars($product['quantidade']); ?></td>
-                        <td><img src="<?php echo htmlspecialchars($product['imagem']); ?>" alt="Imagem do Produto" style="max-width: 100px;"></td>
-                        <td class="actions">
+        
+    <?php foreach ($products as $product): ?>
+                    <div id="product">
+                        <p class="id" ><?php echo htmlspecialchars($product['id']); ?><p>
+                        <p class="name" ><?php echo htmlspecialchars($product['nome']); ?></p>
+                        <p id="show-description" ><?php echo htmlspecialchars($product['descricao']); ?></p>
+                        <p class="price" >R$ <?php echo number_format($product['preco'], 2, ',', '.'); ?></p>
+                        <p class="quantity" ><?php echo htmlspecialchars($product['quantidade']); ?></p>
+                        <p class="productImage" ><img src="<?php echo htmlspecialchars($product['imagem']); ?>" alt="Imagem do Produto" style="max-width: 100px;"></p>
+                        <div class="actions">
                             <form method="POST" action="index.php">
                                 <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
                                 <button type="submit" name="delete" onclick="return confirm('Tem certeza que deseja excluir este produto?')">Excluir</button>
@@ -79,22 +67,20 @@ $products = $productController->index();
                             <a href="../productUpdate/index.php?id=<?php echo $product['id']; ?>">
                                 <button>Atualizar</button>
                             </a>
-                        </td>
-                    </tr>
+    </div>
+                    </div>
                 <?php endforeach; ?>
-            </tbody>
-        </table>
     </div>
     <div id="add">
         <h2>Adicionar Produto</h2>
         <form method="POST" action="index.php">
             <div id="form-container">
-                <div>
+                <div  >
                     <label for="name">Nome:</label><br>
                     <input type="text" id="name" name="name" required><br>
                 </div>
                 <div>
-                    <label for="description">Descrição:</label><br>
+                    <label  for="description">Descrição:</label><br>
                     <textarea id="description" name="description" required></textarea><br>
                 </div>
                 <div>

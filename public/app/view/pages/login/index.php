@@ -22,8 +22,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['user_id'] = $user['id']; 
         $_SESSION['username'] = $user['username'];
 
-        header("Location: ../home");
-        exit();
+        if (isset($_SESSION['products']) && is_array($_SESSION['products'])) {
+            require_once(__DIR__ . '/../../../controllers/CartController.php');
+            $cartController = new CartController($pdo);
+
+            foreach ($_SESSION['products'] as $item) {
+                $product_id = $item['product_id'];
+                $quantity = $item['quantity'];
+
+                $cartController->insert($user['id'], $product_id, $quantity);
+            }
+        }
+        
+        unset($_SESSION['products']);
+
+
+
+        if (isset($_SESSION['redirect_url'])) {
+            $redirect_url = $_SESSION['redirect_url'];
+            unset($_SESSION['redirect_url']); 
+            header("Location: $redirect_url");
+            exit();
+        } else {
+            header("Location: ../home");
+            exit();
+        }
     } else {
         $login_error = "Nome de usuário ou senha incorretos.";
     }

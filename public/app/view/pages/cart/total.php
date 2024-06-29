@@ -1,7 +1,38 @@
 <?php
   require_once(__DIR__ . '/../../../controllers/CartController.php');
+  require_once(__DIR__ . '/../../../controllers/ProductController.php');
+
   $cartController = new CartController($pdo);
-  $total = $cartController->getCartTotalValue($user_id);
+  $productController = new ProductController($pdo);
+  $total = 0;
+
+
+
+  if($user_id) {
+    $total = $cartController->getCartTotalValue($user_id);
+  }else {
+    // Verifica se há produtos na sessão
+    if (isset($_SESSION['products']) && is_array($_SESSION['products'])) {
+      foreach ($_SESSION['products'] as $item) {
+          $product_id = $item['product_id'];
+          $quantity = $item['quantity'];
+
+          // Obtém os detalhes do produto usando o ProductController
+          $product_details = $productController->getProductDetails($product_id);
+
+          // Calcula o subtotal do produto (preço * quantidade)
+          $subtotal = $product_details['preco'] * $quantity;
+
+          // Adiciona o subtotal ao total
+          $total += $subtotal;
+      }
+    }
+  }
+
+
+
+
+
   $formattedTotal = number_format($total, 2, ',', '.');
 ?>
 
@@ -39,10 +70,6 @@
     </section>
   <?php endif; ?>
   <script src="./script.js"></script>
-  <script>
-    document.getElementById('continue').addEventListener('click', function() {
-      window.location.href = '../confirmPurchase/index.php';
-    });
-  </script>
+  
 </body>
 </html>
