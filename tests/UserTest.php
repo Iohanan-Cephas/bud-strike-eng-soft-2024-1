@@ -18,15 +18,8 @@ class UserTest extends TestCase
     // Testa se o método create executa a query de inserção e retorna true
     public function testCreate_ExecutesInsertQueryAndReturnsTrue()
     {
-        // Parâmetros do usuário que serão inseridos
-        $username = 'testuser';
+        $username = 'mello';
         $password = 'password';
-        $email = 'testuser@example.com';
-        $first_name = 'Test';
-        $last_name = 'User';
-        $address = 'rua 5 9';
-        $city = 'Palmas';
-        $state = 'TO';
 
         // Cria uma mock de PDOStatement
         $stmt = $this->createMock(PDOStatement::class);
@@ -34,7 +27,7 @@ class UserTest extends TestCase
         // Espera que o método execute seja chamado uma vez com os parâmetros corretos
         $stmt->expects($this->once())
              ->method('execute')
-             ->with($this->equalTo([$username, $password, $email, $first_name, $last_name, $address, $city, $state]))
+             ->with($this->equalTo([$username, $password]))
              ->willReturn(true);
 
         // Espera que o método prepare do PDO seja chamado uma vez com a query correta
@@ -43,15 +36,15 @@ class UserTest extends TestCase
                   ->with($this->stringContains('INSERT INTO usuarios'))
                   ->willReturn($stmt);
 
-        // Chama o método create com todos os parâmetros necessários e verifica se o retorno é true
-        $result = $this->user->create($username, $password, $email, $first_name, $last_name, $address, $city, $state);
+        // Chama o método create e verifica se o retorno é true
+        $result = $this->user->create($username, $password);
         $this->assertTrue($result);
     }
 
     // Testa se o método findByUsername executa a query de seleção e retorna um array de usuário
     public function testFindByUsername_ExecutesSelectQueryAndReturnsUserArray()
     {
-        $username = 'testuser';
+        $username = 'mello';
 
         // Cria uma mock de PDOStatement
         $stmt = $this->createMock(PDOStatement::class);
@@ -82,7 +75,7 @@ class UserTest extends TestCase
     // Testa se o método findByUsername retorna false quando o usuário não é encontrado
     public function testFindByUsername_UserNotFound_ReturnsNull()
     {
-        $username = 'nonexistentuser';
+        $username = 'user_not_found';
 
         // Cria uma mock de PDOStatement
         $stmt = $this->createMock(PDOStatement::class);

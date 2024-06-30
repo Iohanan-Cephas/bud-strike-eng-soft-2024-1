@@ -4,81 +4,165 @@ use PHPUnit\Framework\TestCase;
 require_once(__DIR__ . '/../public/app/controllers/UserController.php');
 require_once(__DIR__ . '/../public/app/models/User.php');
 
-class UserControllerTest extends TestCase
-{
-    protected $pdo;
-    protected $user;
+class UserControllerTest extends TestCase {
+    private $pdo;
+    private $userController;
+    private $userModel;
 
-    protected function setUp(): void
-    {
-        // Configurar um PDO mockado para os testes
+    protected function setUp(): void {
+        // Configurar mock do PDO
         $this->pdo = $this->createMock(PDO::class);
-        $this->user = new User($this->pdo);
+        $this->userController = new UserController($this->pdo);
+        $this->userModel = $this->createMock(User::class);
+
+        // Iniciar a sessão para todos os testes
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
     }
 
-    public function testCreateUser()
-{
-    // Mock do PDOStatement para simular a execução bem-sucedida da query
-    $stmtMock = $this->createMock(PDOStatement::class);
-    $stmtMock->expects($this->once())
-             ->method('execute')
-             ->willReturn(true); // Simula a execução bem-sucedida da query
+    // Teste para o método handleRegister
+    public function testHandleRegisterWithEmptyFields() {
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+        $_POST = [];
 
-    $this->pdo->expects($this->once())
-              ->method('prepare')
-              ->willReturn($stmtMock);
-
-    // Testar o método create
-    $result = $this->user->create('testuser', 'hashedpassword', 'Doe', '123 Street', 'City', 'UF', '123456789', 'test@example.com');
-
-    $this->assertTrue($result);
-}
-
-
-    public function testFindByUsername()
-    {
-        // Simular o resultado de uma busca por username
-        $stmtMock = $this->createMock(PDOStatement::class);
-        $stmtMock->expects($this->once())
-                 ->method('execute')
-                 ->willReturn(true);
-
-        $stmtMock->expects($this->once())
-                 ->method('fetch')
-                 ->willReturn(['id' => 1, 'username' => 'testuser', 'password' => 'hashedpassword']); // Exemplo de dados retornados
-
-        $this->pdo->expects($this->once())
-                  ->method('prepare')
-                  ->willReturn($stmtMock);
-
-        // Testar o método findByUsername
-        $result = $this->user->findByUsername('testuser');
-
-        $this->assertArrayHasKey('id', $result);
-        $this->assertEquals('testuser', $result['username']);
+        $this->expectOutputString('Todos os campos são obrigatórios.');
+        $this->userController->handleRegister();
     }
 
-    public function testFindById()
-    {
-        // Simular o resultado de uma busca por ID
-        $stmtMock = $this->createMock(PDOStatement::class);
-        $stmtMock->expects($this->once())
-                 ->method('execute')
-                 ->willReturn(true);
+    public function testHandleRegisterWithPasswordsNotMatching() {
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+        $_POST = [
+            'username' => 'testuser',
+            'password' => 'password',
+            'password_confirm' => 'different_password',
+            'terms' => 'on'
+        ];
 
-        $stmtMock->expects($this->once())
-                 ->method('fetch')
-                 ->willReturn(['id' => 1, 'username' => 'testuser', 'password' => 'hashedpassword']); // Exemplo de dados retornados
+        $this->expectOutputString('As senhas não coincidem. Por favor, tente novamente.');
+        $this->userController->handleRegister();
+    }
 
-        $this->pdo->expects($this->once())
-                  ->method('prepare')
-                  ->willReturn($stmtMock);
+    public function testHandleRegisterWithExistingUsername() {
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+        $_POST = [
+            'username' => 'testuser',
+            'password' => 'password',
+            'password_confirm' => 'password',
+            'terms' => 'on'
+        ];
 
-        // Testar o método findById
-        $result = $this->user->findById(1);
+        $this->userModel->method('findByUsername')->willReturn(['username' => 'testuser']);
+        $this->userController = new UserController($this->pdo);
+        
+        // Usar reflection para injetar o mock do User no UserController
+        $reflection = new ReflectionClass($this->userController);
+        $property = $reflection->getProperty('userModel');
+        $property->setAccessible(true);
+        $property->setValue($this->userController, $this->userModel);
 
-        $this->assertArrayHasKey('id', $result);
-        $this->assertEquals('testuser', $result['username']);
+        $this->expectOutputString('Nome de usuário já existe. Por favor, escolha outro.');
+        $this->userController->handleRegister();
+    }
+
+    public function testHandleRegisterSuccessful() {
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+        $_POST = [
+            'username' => 'newuser',
+            'password' => 'password',
+            'password_confirm' => 'password',
+            'terms' => 'on'
+        ];
+
+        $this->userModel->method('findByUsername')->willReturn(false);
+        $this->userModel->method('create')->willReturn(true);
+        $this->userModel->method('findByUsername')->willReturn(['id' => 1]);
+
+        $this->userController = new UserController($this->pdo);
+        
+        // Usar reflection para injetar o mock do User no UserController
+        $reflection = new ReflectionClass($this->userController);
+        $property = $reflection->getProperty('userModel');
+        $property->setAccessible(true);
+        $property->setValue($this->userController, $this->userModel);
+
+        $this->expectOutputRegex('/^Location: \.\.\/home/');
+        $this->userController->handleRegister();
+    }
+
+    // Teste para o método handleLogin
+    public function testHandleLoginSuccessful() {
+        $username = 'testuser';
+        $password = 'password';
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+        $this->userModel->method('findByUsername')->willReturn(['id' => 1, 'username' => $username, 'password' => $hashedPassword]);
+
+        $this->userController = new UserController($this->pdo);
+        
+        // Usar reflection para injetar o mock do User no UserController
+        $reflection = new ReflectionClass($this->userController);
+        $property = $reflection->getProperty('userModel');
+        $property->setAccessible(true);
+        $property->setValue($this->userController, $this->userModel);
+
+        $this->expectOutputRegex('/^Location: index.php/');
+        $this->userController->handleLogin($username, $password);
+    }
+
+    public function testHandleLoginFailed() {
+        $username = 'testuser';
+        $password = 'wrongpassword';
+
+        $this->userModel->method('findByUsername')->willReturn(['id' => 1, 'username' => $username, 'password' => password_hash('password', PASSWORD_BCRYPT)]);
+
+        $this->userController = new UserController($this->pdo);
+        
+        // Usar reflection para injetar o mock do User no UserController
+        $reflection = new ReflectionClass($this->userController);
+        $property = $reflection->getProperty('userModel');
+        $property->setAccessible(true);
+        $property->setValue($this->userController, $this->userModel);
+
+        $this->expectOutputString('Usuário ou senha inválidos.');
+        $this->userController->handleLogin($username, $password);
+    }
+
+    // Teste para o método logout
+    public function testLogout() {
+        $_SESSION['user_id'] = 1;
+
+        $this->expectOutputRegex('/^Location: index.php/');
+        $this->userController->logout();
+        $this->assertArrayNotHasKey('user_id', $_SESSION);
+    }
+
+    // Teste para o método profile
+    public function testProfileWithLoggedInUser() {
+        $_SESSION['user_id'] = 1;
+
+        $this->userModel->method('findById')->willReturn(['id' => 1, 'username' => 'testuser']);
+
+        $this->userController = new UserController($this->pdo);
+        
+        // Usar reflection para injetar o mock do User no UserController
+        $reflection = new ReflectionClass($this->userController);
+        $property = $reflection->getProperty('userModel');
+        $property->setAccessible(true);
+        $property->setValue($this->userController, $this->userModel);
+
+        ob_start();
+        $this->userController->profile();
+        $output = ob_get_clean();
+
+        $this->assertStringContainsString('testuser', $output);
+    }
+
+    public function testProfileWithNoLoggedInUser() {
+        session_unset();
+
+        $this->expectOutputRegex('/^Location: index.php\?controller=user&action=login/');
+        $this->userController->profile();
     }
 }
 ?>

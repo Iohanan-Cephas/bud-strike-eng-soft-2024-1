@@ -13,12 +13,8 @@ use function func_get_args;
 use function function_exists;
 use ArrayAccess;
 use Countable;
-use DOMDocument;
-use DOMElement;
 use PHPUnit\Framework\Constraint\ArrayHasKey;
 use PHPUnit\Framework\Constraint\Callback;
-use PHPUnit\Framework\Constraint\ClassHasAttribute;
-use PHPUnit\Framework\Constraint\ClassHasStaticAttribute;
 use PHPUnit\Framework\Constraint\Constraint;
 use PHPUnit\Framework\Constraint\Count;
 use PHPUnit\Framework\Constraint\DirectoryExists;
@@ -36,6 +32,7 @@ use PHPUnit\Framework\Constraint\IsIdentical;
 use PHPUnit\Framework\Constraint\IsInfinite;
 use PHPUnit\Framework\Constraint\IsInstanceOf;
 use PHPUnit\Framework\Constraint\IsJson;
+use PHPUnit\Framework\Constraint\IsList;
 use PHPUnit\Framework\Constraint\IsNan;
 use PHPUnit\Framework\Constraint\IsNull;
 use PHPUnit\Framework\Constraint\IsReadable;
@@ -48,17 +45,16 @@ use PHPUnit\Framework\Constraint\LogicalNot;
 use PHPUnit\Framework\Constraint\LogicalOr;
 use PHPUnit\Framework\Constraint\LogicalXor;
 use PHPUnit\Framework\Constraint\ObjectEquals;
-use PHPUnit\Framework\Constraint\ObjectHasAttribute;
 use PHPUnit\Framework\Constraint\RegularExpression;
 use PHPUnit\Framework\Constraint\StringContains;
 use PHPUnit\Framework\Constraint\StringEndsWith;
+use PHPUnit\Framework\Constraint\StringEqualsStringIgnoringLineEndings;
 use PHPUnit\Framework\Constraint\StringMatchesFormatDescription;
 use PHPUnit\Framework\Constraint\StringStartsWith;
 use PHPUnit\Framework\Constraint\TraversableContainsEqual;
 use PHPUnit\Framework\Constraint\TraversableContainsIdentical;
 use PHPUnit\Framework\Constraint\TraversableContainsOnly;
 use PHPUnit\Framework\MockObject\Rule\AnyInvokedCount as AnyInvokedCountMatcher;
-use PHPUnit\Framework\MockObject\Rule\InvokedAtIndex as InvokedAtIndexMatcher;
 use PHPUnit\Framework\MockObject\Rule\InvokedAtLeastCount as InvokedAtLeastCountMatcher;
 use PHPUnit\Framework\MockObject\Rule\InvokedAtLeastOnce as InvokedAtLeastOnceMatcher;
 use PHPUnit\Framework\MockObject\Rule\InvokedAtMostCount as InvokedAtMostCountMatcher;
@@ -70,25 +66,97 @@ use PHPUnit\Framework\MockObject\Stub\ReturnCallback as ReturnCallbackStub;
 use PHPUnit\Framework\MockObject\Stub\ReturnSelf as ReturnSelfStub;
 use PHPUnit\Framework\MockObject\Stub\ReturnStub;
 use PHPUnit\Framework\MockObject\Stub\ReturnValueMap as ReturnValueMapStub;
-use SebastianBergmann\RecursionContext\InvalidArgumentException;
+use PHPUnit\Util\Xml\XmlException;
 use Throwable;
+
+if (!function_exists('PHPUnit\Framework\assertArrayIsEqualToArrayOnlyConsideringListOfKeys')) {
+    /**
+     * Asserts that two arrays are equal while only considering a list of keys.
+     *
+     * @psalm-param non-empty-list<array-key> $keysToBeConsidered
+     *
+     * @throws Exception
+     * @throws ExpectationFailedException
+     *
+     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
+     *
+     * @see Assert::assertArrayIsEqualToArrayOnlyConsideringListOfKeys
+     */
+    function assertArrayIsEqualToArrayOnlyConsideringListOfKeys(array $expected, array $actual, array $keysToBeConsidered, string $message = ''): void
+    {
+        Assert::assertArrayIsEqualToArrayOnlyConsideringListOfKeys(...func_get_args());
+    }
+}
+
+if (!function_exists('PHPUnit\Framework\assertArrayIsEqualToArrayIgnoringListOfKeys')) {
+    /**
+     * Asserts that two arrays are equal while ignoring a list of keys.
+     *
+     * @psalm-param non-empty-list<array-key> $keysToBeIgnored
+     *
+     * @throws Exception
+     * @throws ExpectationFailedException
+     *
+     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
+     *
+     * @see Assert::assertArrayIsEqualToArrayIgnoringListOfKeys
+     */
+    function assertArrayIsEqualToArrayIgnoringListOfKeys(array $expected, array $actual, array $keysToBeIgnored, string $message = ''): void
+    {
+        Assert::assertArrayIsEqualToArrayIgnoringListOfKeys(...func_get_args());
+    }
+}
+
+if (!function_exists('PHPUnit\Framework\assertArrayIsIdenticalToArrayOnlyConsideringListOfKeys')) {
+    /**
+     * Asserts that two arrays are identical while only considering a list of keys.
+     *
+     * @psalm-param non-empty-list<array-key> $keysToBeConsidered
+     *
+     * @throws Exception
+     * @throws ExpectationFailedException
+     *
+     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
+     *
+     * @see Assert::assertArrayIsIdenticalToArrayOnlyConsideringListOfKeys
+     */
+    function assertArrayIsIdenticalToArrayOnlyConsideringListOfKeys(array $expected, array $actual, array $keysToBeConsidered, string $message = ''): void
+    {
+        Assert::assertArrayIsIdenticalToArrayOnlyConsideringListOfKeys(...func_get_args());
+    }
+}
+
+if (!function_exists('PHPUnit\Framework\assertArrayIsIdenticalToArrayIgnoringListOfKeys')) {
+    /**
+     * Asserts that two arrays are equal while ignoring a list of keys.
+     *
+     * @psalm-param non-empty-list<array-key> $keysToBeIgnored
+     *
+     * @throws Exception
+     * @throws ExpectationFailedException
+     *
+     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
+     *
+     * @see Assert::assertArrayIsIdenticalToArrayIgnoringListOfKeys
+     */
+    function assertArrayIsIdenticalToArrayIgnoringListOfKeys(array $expected, array $actual, array $keysToBeIgnored, string $message = ''): void
+    {
+        Assert::assertArrayIsIdenticalToArrayIgnoringListOfKeys(...func_get_args());
+    }
+}
 
 if (!function_exists('PHPUnit\Framework\assertArrayHasKey')) {
     /**
      * Asserts that an array has a specified key.
      *
-     * @param int|string        $key
-     * @param array|ArrayAccess $array
-     *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      * @throws Exception
+     * @throws ExpectationFailedException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertArrayHasKey
      */
-    function assertArrayHasKey($key, $array, string $message = ''): void
+    function assertArrayHasKey(int|string $key, array|ArrayAccess $array, string $message = ''): void
     {
         Assert::assertArrayHasKey(...func_get_args());
     }
@@ -98,20 +166,30 @@ if (!function_exists('PHPUnit\Framework\assertArrayNotHasKey')) {
     /**
      * Asserts that an array does not have a specified key.
      *
-     * @param int|string        $key
-     * @param array|ArrayAccess $array
-     *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      * @throws Exception
+     * @throws ExpectationFailedException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertArrayNotHasKey
      */
-    function assertArrayNotHasKey($key, $array, string $message = ''): void
+    function assertArrayNotHasKey(int|string $key, array|ArrayAccess $array, string $message = ''): void
     {
         Assert::assertArrayNotHasKey(...func_get_args());
+    }
+}
+
+if (!function_exists('PHPUnit\Framework\assertIsList')) {
+    /**
+     * @throws ExpectationFailedException
+     *
+     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
+     *
+     * @see Assert::assertIsList
+     */
+    function assertIsList(mixed $array, string $message = ''): void
+    {
+        Assert::assertIsList(...func_get_args());
     }
 }
 
@@ -119,22 +197,28 @@ if (!function_exists('PHPUnit\Framework\assertContains')) {
     /**
      * Asserts that a haystack contains a needle.
      *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      * @throws Exception
+     * @throws ExpectationFailedException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertContains
      */
-    function assertContains($needle, iterable $haystack, string $message = ''): void
+    function assertContains(mixed $needle, iterable $haystack, string $message = ''): void
     {
         Assert::assertContains(...func_get_args());
     }
 }
 
 if (!function_exists('PHPUnit\Framework\assertContainsEquals')) {
-    function assertContainsEquals($needle, iterable $haystack, string $message = ''): void
+    /**
+     * @throws ExpectationFailedException
+     *
+     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
+     *
+     * @see Assert::assertContainsEquals
+     */
+    function assertContainsEquals(mixed $needle, iterable $haystack, string $message = ''): void
     {
         Assert::assertContainsEquals(...func_get_args());
     }
@@ -144,22 +228,28 @@ if (!function_exists('PHPUnit\Framework\assertNotContains')) {
     /**
      * Asserts that a haystack does not contain a needle.
      *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      * @throws Exception
+     * @throws ExpectationFailedException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertNotContains
      */
-    function assertNotContains($needle, iterable $haystack, string $message = ''): void
+    function assertNotContains(mixed $needle, iterable $haystack, string $message = ''): void
     {
         Assert::assertNotContains(...func_get_args());
     }
 }
 
 if (!function_exists('PHPUnit\Framework\assertNotContainsEquals')) {
-    function assertNotContainsEquals($needle, iterable $haystack, string $message = ''): void
+    /**
+     * @throws ExpectationFailedException
+     *
+     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
+     *
+     * @see Assert::assertNotContainsEquals
+     */
+    function assertNotContainsEquals(mixed $needle, iterable $haystack, string $message = ''): void
     {
         Assert::assertNotContainsEquals(...func_get_args());
     }
@@ -169,8 +259,8 @@ if (!function_exists('PHPUnit\Framework\assertContainsOnly')) {
     /**
      * Asserts that a haystack contains only values of a given type.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -186,8 +276,8 @@ if (!function_exists('PHPUnit\Framework\assertContainsOnlyInstancesOf')) {
     /**
      * Asserts that a haystack contains only instances of a given class name.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -203,8 +293,8 @@ if (!function_exists('PHPUnit\Framework\assertNotContainsOnly')) {
     /**
      * Asserts that a haystack does not contain only values of a given type.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -220,17 +310,15 @@ if (!function_exists('PHPUnit\Framework\assertCount')) {
     /**
      * Asserts the number of elements of an array, Countable or Traversable.
      *
-     * @param Countable|iterable $haystack
-     *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      * @throws Exception
+     * @throws ExpectationFailedException
+     * @throws GeneratorNotSupportedException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertCount
      */
-    function assertCount(int $expectedCount, $haystack, string $message = ''): void
+    function assertCount(int $expectedCount, Countable|iterable $haystack, string $message = ''): void
     {
         Assert::assertCount(...func_get_args());
     }
@@ -240,17 +328,15 @@ if (!function_exists('PHPUnit\Framework\assertNotCount')) {
     /**
      * Asserts the number of elements of an array, Countable or Traversable.
      *
-     * @param Countable|iterable $haystack
-     *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      * @throws Exception
+     * @throws ExpectationFailedException
+     * @throws GeneratorNotSupportedException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertNotCount
      */
-    function assertNotCount(int $expectedCount, $haystack, string $message = ''): void
+    function assertNotCount(int $expectedCount, Countable|iterable $haystack, string $message = ''): void
     {
         Assert::assertNotCount(...func_get_args());
     }
@@ -261,13 +347,12 @@ if (!function_exists('PHPUnit\Framework\assertEquals')) {
      * Asserts that two variables are equal.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertEquals
      */
-    function assertEquals($expected, $actual, string $message = ''): void
+    function assertEquals(mixed $expected, mixed $actual, string $message = ''): void
     {
         Assert::assertEquals(...func_get_args());
     }
@@ -278,13 +363,12 @@ if (!function_exists('PHPUnit\Framework\assertEqualsCanonicalizing')) {
      * Asserts that two variables are equal (canonicalizing).
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertEqualsCanonicalizing
      */
-    function assertEqualsCanonicalizing($expected, $actual, string $message = ''): void
+    function assertEqualsCanonicalizing(mixed $expected, mixed $actual, string $message = ''): void
     {
         Assert::assertEqualsCanonicalizing(...func_get_args());
     }
@@ -295,13 +379,12 @@ if (!function_exists('PHPUnit\Framework\assertEqualsIgnoringCase')) {
      * Asserts that two variables are equal (ignoring case).
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertEqualsIgnoringCase
      */
-    function assertEqualsIgnoringCase($expected, $actual, string $message = ''): void
+    function assertEqualsIgnoringCase(mixed $expected, mixed $actual, string $message = ''): void
     {
         Assert::assertEqualsIgnoringCase(...func_get_args());
     }
@@ -312,13 +395,12 @@ if (!function_exists('PHPUnit\Framework\assertEqualsWithDelta')) {
      * Asserts that two variables are equal (with delta).
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertEqualsWithDelta
      */
-    function assertEqualsWithDelta($expected, $actual, float $delta, string $message = ''): void
+    function assertEqualsWithDelta(mixed $expected, mixed $actual, float $delta, string $message = ''): void
     {
         Assert::assertEqualsWithDelta(...func_get_args());
     }
@@ -329,13 +411,12 @@ if (!function_exists('PHPUnit\Framework\assertNotEquals')) {
      * Asserts that two variables are not equal.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertNotEquals
      */
-    function assertNotEquals($expected, $actual, string $message = ''): void
+    function assertNotEquals(mixed $expected, mixed $actual, string $message = ''): void
     {
         Assert::assertNotEquals(...func_get_args());
     }
@@ -346,13 +427,12 @@ if (!function_exists('PHPUnit\Framework\assertNotEqualsCanonicalizing')) {
      * Asserts that two variables are not equal (canonicalizing).
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertNotEqualsCanonicalizing
      */
-    function assertNotEqualsCanonicalizing($expected, $actual, string $message = ''): void
+    function assertNotEqualsCanonicalizing(mixed $expected, mixed $actual, string $message = ''): void
     {
         Assert::assertNotEqualsCanonicalizing(...func_get_args());
     }
@@ -363,13 +443,12 @@ if (!function_exists('PHPUnit\Framework\assertNotEqualsIgnoringCase')) {
      * Asserts that two variables are not equal (ignoring case).
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertNotEqualsIgnoringCase
      */
-    function assertNotEqualsIgnoringCase($expected, $actual, string $message = ''): void
+    function assertNotEqualsIgnoringCase(mixed $expected, mixed $actual, string $message = ''): void
     {
         Assert::assertNotEqualsIgnoringCase(...func_get_args());
     }
@@ -380,13 +459,12 @@ if (!function_exists('PHPUnit\Framework\assertNotEqualsWithDelta')) {
      * Asserts that two variables are not equal (with delta).
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertNotEqualsWithDelta
      */
-    function assertNotEqualsWithDelta($expected, $actual, float $delta, string $message = ''): void
+    function assertNotEqualsWithDelta(mixed $expected, mixed $actual, float $delta, string $message = ''): void
     {
         Assert::assertNotEqualsWithDelta(...func_get_args());
     }
@@ -406,12 +484,26 @@ if (!function_exists('PHPUnit\Framework\assertObjectEquals')) {
     }
 }
 
+if (!function_exists('PHPUnit\Framework\assertObjectNotEquals')) {
+    /**
+     * @throws ExpectationFailedException
+     *
+     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
+     *
+     * @see Assert::assertObjectNotEquals
+     */
+    function assertObjectNotEquals(object $expected, object $actual, string $method = 'equals', string $message = ''): void
+    {
+        Assert::assertObjectNotEquals(...func_get_args());
+    }
+}
+
 if (!function_exists('PHPUnit\Framework\assertEmpty')) {
     /**
      * Asserts that a variable is empty.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
+     * @throws GeneratorNotSupportedException
      *
      * @psalm-assert empty $actual
      *
@@ -419,7 +511,7 @@ if (!function_exists('PHPUnit\Framework\assertEmpty')) {
      *
      * @see Assert::assertEmpty
      */
-    function assertEmpty($actual, string $message = ''): void
+    function assertEmpty(mixed $actual, string $message = ''): void
     {
         Assert::assertEmpty(...func_get_args());
     }
@@ -430,7 +522,7 @@ if (!function_exists('PHPUnit\Framework\assertNotEmpty')) {
      * Asserts that a variable is not empty.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
+     * @throws GeneratorNotSupportedException
      *
      * @psalm-assert !empty $actual
      *
@@ -438,7 +530,7 @@ if (!function_exists('PHPUnit\Framework\assertNotEmpty')) {
      *
      * @see Assert::assertNotEmpty
      */
-    function assertNotEmpty($actual, string $message = ''): void
+    function assertNotEmpty(mixed $actual, string $message = ''): void
     {
         Assert::assertNotEmpty(...func_get_args());
     }
@@ -449,13 +541,12 @@ if (!function_exists('PHPUnit\Framework\assertGreaterThan')) {
      * Asserts that a value is greater than another value.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertGreaterThan
      */
-    function assertGreaterThan($expected, $actual, string $message = ''): void
+    function assertGreaterThan(mixed $expected, mixed $actual, string $message = ''): void
     {
         Assert::assertGreaterThan(...func_get_args());
     }
@@ -466,13 +557,12 @@ if (!function_exists('PHPUnit\Framework\assertGreaterThanOrEqual')) {
      * Asserts that a value is greater than or equal to another value.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertGreaterThanOrEqual
      */
-    function assertGreaterThanOrEqual($expected, $actual, string $message = ''): void
+    function assertGreaterThanOrEqual(mixed $expected, mixed $actual, string $message = ''): void
     {
         Assert::assertGreaterThanOrEqual(...func_get_args());
     }
@@ -483,13 +573,12 @@ if (!function_exists('PHPUnit\Framework\assertLessThan')) {
      * Asserts that a value is smaller than another value.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertLessThan
      */
-    function assertLessThan($expected, $actual, string $message = ''): void
+    function assertLessThan(mixed $expected, mixed $actual, string $message = ''): void
     {
         Assert::assertLessThan(...func_get_args());
     }
@@ -500,13 +589,12 @@ if (!function_exists('PHPUnit\Framework\assertLessThanOrEqual')) {
      * Asserts that a value is smaller than or equal to another value.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertLessThanOrEqual
      */
-    function assertLessThanOrEqual($expected, $actual, string $message = ''): void
+    function assertLessThanOrEqual(mixed $expected, mixed $actual, string $message = ''): void
     {
         Assert::assertLessThanOrEqual(...func_get_args());
     }
@@ -518,7 +606,6 @@ if (!function_exists('PHPUnit\Framework\assertFileEquals')) {
      * file.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -536,7 +623,6 @@ if (!function_exists('PHPUnit\Framework\assertFileEqualsCanonicalizing')) {
      * file (canonicalizing).
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -554,7 +640,6 @@ if (!function_exists('PHPUnit\Framework\assertFileEqualsIgnoringCase')) {
      * file (ignoring case).
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -572,7 +657,6 @@ if (!function_exists('PHPUnit\Framework\assertFileNotEquals')) {
      * another file.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -590,7 +674,6 @@ if (!function_exists('PHPUnit\Framework\assertFileNotEqualsCanonicalizing')) {
      * file (canonicalizing).
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -608,7 +691,6 @@ if (!function_exists('PHPUnit\Framework\assertFileNotEqualsIgnoringCase')) {
      * file (ignoring case).
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -626,7 +708,6 @@ if (!function_exists('PHPUnit\Framework\assertStringEqualsFile')) {
      * to the contents of a file.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -644,7 +725,6 @@ if (!function_exists('PHPUnit\Framework\assertStringEqualsFileCanonicalizing')) 
      * to the contents of a file (canonicalizing).
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -662,7 +742,6 @@ if (!function_exists('PHPUnit\Framework\assertStringEqualsFileIgnoringCase')) {
      * to the contents of a file (ignoring case).
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -680,7 +759,6 @@ if (!function_exists('PHPUnit\Framework\assertStringNotEqualsFile')) {
      * to the contents of a file.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -698,7 +776,6 @@ if (!function_exists('PHPUnit\Framework\assertStringNotEqualsFileCanonicalizing'
      * to the contents of a file (canonicalizing).
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -716,7 +793,6 @@ if (!function_exists('PHPUnit\Framework\assertStringNotEqualsFileIgnoringCase'))
      * to the contents of a file (ignoring case).
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -733,7 +809,6 @@ if (!function_exists('PHPUnit\Framework\assertIsReadable')) {
      * Asserts that a file/dir is readable.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -750,7 +825,6 @@ if (!function_exists('PHPUnit\Framework\assertIsNotReadable')) {
      * Asserts that a file/dir exists and is not readable.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -762,33 +836,11 @@ if (!function_exists('PHPUnit\Framework\assertIsNotReadable')) {
     }
 }
 
-if (!function_exists('PHPUnit\Framework\assertNotIsReadable')) {
-    /**
-     * Asserts that a file/dir exists and is not readable.
-     *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     *
-     * @codeCoverageIgnore
-     *
-     * @deprecated https://github.com/sebastianbergmann/phpunit/issues/4062
-     *
-     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
-     *
-     * @see Assert::assertNotIsReadable
-     */
-    function assertNotIsReadable(string $filename, string $message = ''): void
-    {
-        Assert::assertNotIsReadable(...func_get_args());
-    }
-}
-
 if (!function_exists('PHPUnit\Framework\assertIsWritable')) {
     /**
      * Asserts that a file/dir exists and is writable.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -805,7 +857,6 @@ if (!function_exists('PHPUnit\Framework\assertIsNotWritable')) {
      * Asserts that a file/dir exists and is not writable.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -817,33 +868,11 @@ if (!function_exists('PHPUnit\Framework\assertIsNotWritable')) {
     }
 }
 
-if (!function_exists('PHPUnit\Framework\assertNotIsWritable')) {
-    /**
-     * Asserts that a file/dir exists and is not writable.
-     *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     *
-     * @codeCoverageIgnore
-     *
-     * @deprecated https://github.com/sebastianbergmann/phpunit/issues/4065
-     *
-     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
-     *
-     * @see Assert::assertNotIsWritable
-     */
-    function assertNotIsWritable(string $filename, string $message = ''): void
-    {
-        Assert::assertNotIsWritable(...func_get_args());
-    }
-}
-
 if (!function_exists('PHPUnit\Framework\assertDirectoryExists')) {
     /**
      * Asserts that a directory exists.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -860,7 +889,6 @@ if (!function_exists('PHPUnit\Framework\assertDirectoryDoesNotExist')) {
      * Asserts that a directory does not exist.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -872,33 +900,11 @@ if (!function_exists('PHPUnit\Framework\assertDirectoryDoesNotExist')) {
     }
 }
 
-if (!function_exists('PHPUnit\Framework\assertDirectoryNotExists')) {
-    /**
-     * Asserts that a directory does not exist.
-     *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     *
-     * @codeCoverageIgnore
-     *
-     * @deprecated https://github.com/sebastianbergmann/phpunit/issues/4068
-     *
-     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
-     *
-     * @see Assert::assertDirectoryNotExists
-     */
-    function assertDirectoryNotExists(string $directory, string $message = ''): void
-    {
-        Assert::assertDirectoryNotExists(...func_get_args());
-    }
-}
-
 if (!function_exists('PHPUnit\Framework\assertDirectoryIsReadable')) {
     /**
      * Asserts that a directory exists and is readable.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -915,7 +921,6 @@ if (!function_exists('PHPUnit\Framework\assertDirectoryIsNotReadable')) {
      * Asserts that a directory exists and is not readable.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -927,33 +932,11 @@ if (!function_exists('PHPUnit\Framework\assertDirectoryIsNotReadable')) {
     }
 }
 
-if (!function_exists('PHPUnit\Framework\assertDirectoryNotIsReadable')) {
-    /**
-     * Asserts that a directory exists and is not readable.
-     *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     *
-     * @codeCoverageIgnore
-     *
-     * @deprecated https://github.com/sebastianbergmann/phpunit/issues/4071
-     *
-     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
-     *
-     * @see Assert::assertDirectoryNotIsReadable
-     */
-    function assertDirectoryNotIsReadable(string $directory, string $message = ''): void
-    {
-        Assert::assertDirectoryNotIsReadable(...func_get_args());
-    }
-}
-
 if (!function_exists('PHPUnit\Framework\assertDirectoryIsWritable')) {
     /**
      * Asserts that a directory exists and is writable.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -970,7 +953,6 @@ if (!function_exists('PHPUnit\Framework\assertDirectoryIsNotWritable')) {
      * Asserts that a directory exists and is not writable.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -982,33 +964,11 @@ if (!function_exists('PHPUnit\Framework\assertDirectoryIsNotWritable')) {
     }
 }
 
-if (!function_exists('PHPUnit\Framework\assertDirectoryNotIsWritable')) {
-    /**
-     * Asserts that a directory exists and is not writable.
-     *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     *
-     * @codeCoverageIgnore
-     *
-     * @deprecated https://github.com/sebastianbergmann/phpunit/issues/4074
-     *
-     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
-     *
-     * @see Assert::assertDirectoryNotIsWritable
-     */
-    function assertDirectoryNotIsWritable(string $directory, string $message = ''): void
-    {
-        Assert::assertDirectoryNotIsWritable(...func_get_args());
-    }
-}
-
 if (!function_exists('PHPUnit\Framework\assertFileExists')) {
     /**
      * Asserts that a file exists.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -1025,7 +985,6 @@ if (!function_exists('PHPUnit\Framework\assertFileDoesNotExist')) {
      * Asserts that a file does not exist.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -1037,33 +996,11 @@ if (!function_exists('PHPUnit\Framework\assertFileDoesNotExist')) {
     }
 }
 
-if (!function_exists('PHPUnit\Framework\assertFileNotExists')) {
-    /**
-     * Asserts that a file does not exist.
-     *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     *
-     * @codeCoverageIgnore
-     *
-     * @deprecated https://github.com/sebastianbergmann/phpunit/issues/4077
-     *
-     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
-     *
-     * @see Assert::assertFileNotExists
-     */
-    function assertFileNotExists(string $filename, string $message = ''): void
-    {
-        Assert::assertFileNotExists(...func_get_args());
-    }
-}
-
 if (!function_exists('PHPUnit\Framework\assertFileIsReadable')) {
     /**
      * Asserts that a file exists and is readable.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -1080,7 +1017,6 @@ if (!function_exists('PHPUnit\Framework\assertFileIsNotReadable')) {
      * Asserts that a file exists and is not readable.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -1092,33 +1028,11 @@ if (!function_exists('PHPUnit\Framework\assertFileIsNotReadable')) {
     }
 }
 
-if (!function_exists('PHPUnit\Framework\assertFileNotIsReadable')) {
-    /**
-     * Asserts that a file exists and is not readable.
-     *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     *
-     * @codeCoverageIgnore
-     *
-     * @deprecated https://github.com/sebastianbergmann/phpunit/issues/4080
-     *
-     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
-     *
-     * @see Assert::assertFileNotIsReadable
-     */
-    function assertFileNotIsReadable(string $file, string $message = ''): void
-    {
-        Assert::assertFileNotIsReadable(...func_get_args());
-    }
-}
-
 if (!function_exists('PHPUnit\Framework\assertFileIsWritable')) {
     /**
      * Asserts that a file exists and is writable.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -1135,7 +1049,6 @@ if (!function_exists('PHPUnit\Framework\assertFileIsNotWritable')) {
      * Asserts that a file exists and is not writable.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -1147,33 +1060,11 @@ if (!function_exists('PHPUnit\Framework\assertFileIsNotWritable')) {
     }
 }
 
-if (!function_exists('PHPUnit\Framework\assertFileNotIsWritable')) {
-    /**
-     * Asserts that a file exists and is not writable.
-     *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     *
-     * @codeCoverageIgnore
-     *
-     * @deprecated https://github.com/sebastianbergmann/phpunit/issues/4083
-     *
-     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
-     *
-     * @see Assert::assertFileNotIsWritable
-     */
-    function assertFileNotIsWritable(string $file, string $message = ''): void
-    {
-        Assert::assertFileNotIsWritable(...func_get_args());
-    }
-}
-
 if (!function_exists('PHPUnit\Framework\assertTrue')) {
     /**
      * Asserts that a condition is true.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert true $condition
      *
@@ -1181,7 +1072,7 @@ if (!function_exists('PHPUnit\Framework\assertTrue')) {
      *
      * @see Assert::assertTrue
      */
-    function assertTrue($condition, string $message = ''): void
+    function assertTrue(mixed $condition, string $message = ''): void
     {
         Assert::assertTrue(...func_get_args());
     }
@@ -1192,7 +1083,6 @@ if (!function_exists('PHPUnit\Framework\assertNotTrue')) {
      * Asserts that a condition is not true.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert !true $condition
      *
@@ -1200,7 +1090,7 @@ if (!function_exists('PHPUnit\Framework\assertNotTrue')) {
      *
      * @see Assert::assertNotTrue
      */
-    function assertNotTrue($condition, string $message = ''): void
+    function assertNotTrue(mixed $condition, string $message = ''): void
     {
         Assert::assertNotTrue(...func_get_args());
     }
@@ -1211,7 +1101,6 @@ if (!function_exists('PHPUnit\Framework\assertFalse')) {
      * Asserts that a condition is false.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert false $condition
      *
@@ -1219,7 +1108,7 @@ if (!function_exists('PHPUnit\Framework\assertFalse')) {
      *
      * @see Assert::assertFalse
      */
-    function assertFalse($condition, string $message = ''): void
+    function assertFalse(mixed $condition, string $message = ''): void
     {
         Assert::assertFalse(...func_get_args());
     }
@@ -1230,7 +1119,6 @@ if (!function_exists('PHPUnit\Framework\assertNotFalse')) {
      * Asserts that a condition is not false.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert !false $condition
      *
@@ -1238,7 +1126,7 @@ if (!function_exists('PHPUnit\Framework\assertNotFalse')) {
      *
      * @see Assert::assertNotFalse
      */
-    function assertNotFalse($condition, string $message = ''): void
+    function assertNotFalse(mixed $condition, string $message = ''): void
     {
         Assert::assertNotFalse(...func_get_args());
     }
@@ -1249,7 +1137,6 @@ if (!function_exists('PHPUnit\Framework\assertNull')) {
      * Asserts that a variable is null.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert null $actual
      *
@@ -1257,7 +1144,7 @@ if (!function_exists('PHPUnit\Framework\assertNull')) {
      *
      * @see Assert::assertNull
      */
-    function assertNull($actual, string $message = ''): void
+    function assertNull(mixed $actual, string $message = ''): void
     {
         Assert::assertNull(...func_get_args());
     }
@@ -1268,7 +1155,6 @@ if (!function_exists('PHPUnit\Framework\assertNotNull')) {
      * Asserts that a variable is not null.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert !null $actual
      *
@@ -1276,7 +1162,7 @@ if (!function_exists('PHPUnit\Framework\assertNotNull')) {
      *
      * @see Assert::assertNotNull
      */
-    function assertNotNull($actual, string $message = ''): void
+    function assertNotNull(mixed $actual, string $message = ''): void
     {
         Assert::assertNotNull(...func_get_args());
     }
@@ -1287,13 +1173,12 @@ if (!function_exists('PHPUnit\Framework\assertFinite')) {
      * Asserts that a variable is finite.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertFinite
      */
-    function assertFinite($actual, string $message = ''): void
+    function assertFinite(mixed $actual, string $message = ''): void
     {
         Assert::assertFinite(...func_get_args());
     }
@@ -1304,13 +1189,12 @@ if (!function_exists('PHPUnit\Framework\assertInfinite')) {
      * Asserts that a variable is infinite.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertInfinite
      */
-    function assertInfinite($actual, string $message = ''): void
+    function assertInfinite(mixed $actual, string $message = ''): void
     {
         Assert::assertInfinite(...func_get_args());
     }
@@ -1321,127 +1205,14 @@ if (!function_exists('PHPUnit\Framework\assertNan')) {
      * Asserts that a variable is nan.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertNan
      */
-    function assertNan($actual, string $message = ''): void
+    function assertNan(mixed $actual, string $message = ''): void
     {
         Assert::assertNan(...func_get_args());
-    }
-}
-
-if (!function_exists('PHPUnit\Framework\assertClassHasAttribute')) {
-    /**
-     * Asserts that a class has a specified attribute.
-     *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     * @throws Exception
-     *
-     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
-     *
-     * @see Assert::assertClassHasAttribute
-     */
-    function assertClassHasAttribute(string $attributeName, string $className, string $message = ''): void
-    {
-        Assert::assertClassHasAttribute(...func_get_args());
-    }
-}
-
-if (!function_exists('PHPUnit\Framework\assertClassNotHasAttribute')) {
-    /**
-     * Asserts that a class does not have a specified attribute.
-     *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     * @throws Exception
-     *
-     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
-     *
-     * @see Assert::assertClassNotHasAttribute
-     */
-    function assertClassNotHasAttribute(string $attributeName, string $className, string $message = ''): void
-    {
-        Assert::assertClassNotHasAttribute(...func_get_args());
-    }
-}
-
-if (!function_exists('PHPUnit\Framework\assertClassHasStaticAttribute')) {
-    /**
-     * Asserts that a class has a specified static attribute.
-     *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     * @throws Exception
-     *
-     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
-     *
-     * @see Assert::assertClassHasStaticAttribute
-     */
-    function assertClassHasStaticAttribute(string $attributeName, string $className, string $message = ''): void
-    {
-        Assert::assertClassHasStaticAttribute(...func_get_args());
-    }
-}
-
-if (!function_exists('PHPUnit\Framework\assertClassNotHasStaticAttribute')) {
-    /**
-     * Asserts that a class does not have a specified static attribute.
-     *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     * @throws Exception
-     *
-     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
-     *
-     * @see Assert::assertClassNotHasStaticAttribute
-     */
-    function assertClassNotHasStaticAttribute(string $attributeName, string $className, string $message = ''): void
-    {
-        Assert::assertClassNotHasStaticAttribute(...func_get_args());
-    }
-}
-
-if (!function_exists('PHPUnit\Framework\assertObjectHasAttribute')) {
-    /**
-     * Asserts that an object has a specified attribute.
-     *
-     * @param object $object
-     *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     * @throws Exception
-     *
-     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
-     *
-     * @see Assert::assertObjectHasAttribute
-     */
-    function assertObjectHasAttribute(string $attributeName, $object, string $message = ''): void
-    {
-        Assert::assertObjectHasAttribute(...func_get_args());
-    }
-}
-
-if (!function_exists('PHPUnit\Framework\assertObjectNotHasAttribute')) {
-    /**
-     * Asserts that an object does not have a specified attribute.
-     *
-     * @param object $object
-     *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     * @throws Exception
-     *
-     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
-     *
-     * @see Assert::assertObjectNotHasAttribute
-     */
-    function assertObjectNotHasAttribute(string $attributeName, $object, string $message = ''): void
-    {
-        Assert::assertObjectNotHasAttribute(...func_get_args());
     }
 }
 
@@ -1450,14 +1221,12 @@ if (!function_exists('PHPUnit\Framework\assertObjectHasProperty')) {
      * Asserts that an object has a specified property.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     * @throws Exception
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertObjectHasProperty
      */
-    function assertObjectHasProperty(string $attributeName, object $object, string $message = ''): void
+    function assertObjectHasProperty(string $propertyName, object $object, string $message = ''): void
     {
         Assert::assertObjectHasProperty(...func_get_args());
     }
@@ -1468,14 +1237,12 @@ if (!function_exists('PHPUnit\Framework\assertObjectNotHasProperty')) {
      * Asserts that an object does not have a specified property.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     * @throws Exception
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertObjectNotHasProperty
      */
-    function assertObjectNotHasProperty(string $attributeName, object $object, string $message = ''): void
+    function assertObjectNotHasProperty(string $propertyName, object $object, string $message = ''): void
     {
         Assert::assertObjectNotHasProperty(...func_get_args());
     }
@@ -1488,7 +1255,6 @@ if (!function_exists('PHPUnit\Framework\assertSame')) {
      * the same object.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-template ExpectedType
      *
@@ -1500,7 +1266,7 @@ if (!function_exists('PHPUnit\Framework\assertSame')) {
      *
      * @see Assert::assertSame
      */
-    function assertSame($expected, $actual, string $message = ''): void
+    function assertSame(mixed $expected, mixed $actual, string $message = ''): void
     {
         Assert::assertSame(...func_get_args());
     }
@@ -1513,13 +1279,12 @@ if (!function_exists('PHPUnit\Framework\assertNotSame')) {
      * the same object.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertNotSame
      */
-    function assertNotSame($expected, $actual, string $message = ''): void
+    function assertNotSame(mixed $expected, mixed $actual, string $message = ''): void
     {
         Assert::assertNotSame(...func_get_args());
     }
@@ -1529,9 +1294,9 @@ if (!function_exists('PHPUnit\Framework\assertInstanceOf')) {
     /**
      * Asserts that a variable is of a given type.
      *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      * @throws Exception
+     * @throws ExpectationFailedException
+     * @throws UnknownClassOrInterfaceException
      *
      * @psalm-template ExpectedType of object
      *
@@ -1543,7 +1308,7 @@ if (!function_exists('PHPUnit\Framework\assertInstanceOf')) {
      *
      * @see Assert::assertInstanceOf
      */
-    function assertInstanceOf(string $expected, $actual, string $message = ''): void
+    function assertInstanceOf(string $expected, mixed $actual, string $message = ''): void
     {
         Assert::assertInstanceOf(...func_get_args());
     }
@@ -1553,9 +1318,8 @@ if (!function_exists('PHPUnit\Framework\assertNotInstanceOf')) {
     /**
      * Asserts that a variable is not of a given type.
      *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      * @throws Exception
+     * @throws ExpectationFailedException
      *
      * @psalm-template ExpectedType of object
      *
@@ -1567,7 +1331,7 @@ if (!function_exists('PHPUnit\Framework\assertNotInstanceOf')) {
      *
      * @see Assert::assertNotInstanceOf
      */
-    function assertNotInstanceOf(string $expected, $actual, string $message = ''): void
+    function assertNotInstanceOf(string $expected, mixed $actual, string $message = ''): void
     {
         Assert::assertNotInstanceOf(...func_get_args());
     }
@@ -1577,8 +1341,8 @@ if (!function_exists('PHPUnit\Framework\assertIsArray')) {
     /**
      * Asserts that a variable is of type array.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert array $actual
      *
@@ -1586,7 +1350,7 @@ if (!function_exists('PHPUnit\Framework\assertIsArray')) {
      *
      * @see Assert::assertIsArray
      */
-    function assertIsArray($actual, string $message = ''): void
+    function assertIsArray(mixed $actual, string $message = ''): void
     {
         Assert::assertIsArray(...func_get_args());
     }
@@ -1596,8 +1360,8 @@ if (!function_exists('PHPUnit\Framework\assertIsBool')) {
     /**
      * Asserts that a variable is of type bool.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert bool $actual
      *
@@ -1605,7 +1369,7 @@ if (!function_exists('PHPUnit\Framework\assertIsBool')) {
      *
      * @see Assert::assertIsBool
      */
-    function assertIsBool($actual, string $message = ''): void
+    function assertIsBool(mixed $actual, string $message = ''): void
     {
         Assert::assertIsBool(...func_get_args());
     }
@@ -1615,8 +1379,8 @@ if (!function_exists('PHPUnit\Framework\assertIsFloat')) {
     /**
      * Asserts that a variable is of type float.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert float $actual
      *
@@ -1624,7 +1388,7 @@ if (!function_exists('PHPUnit\Framework\assertIsFloat')) {
      *
      * @see Assert::assertIsFloat
      */
-    function assertIsFloat($actual, string $message = ''): void
+    function assertIsFloat(mixed $actual, string $message = ''): void
     {
         Assert::assertIsFloat(...func_get_args());
     }
@@ -1634,8 +1398,8 @@ if (!function_exists('PHPUnit\Framework\assertIsInt')) {
     /**
      * Asserts that a variable is of type int.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert int $actual
      *
@@ -1643,7 +1407,7 @@ if (!function_exists('PHPUnit\Framework\assertIsInt')) {
      *
      * @see Assert::assertIsInt
      */
-    function assertIsInt($actual, string $message = ''): void
+    function assertIsInt(mixed $actual, string $message = ''): void
     {
         Assert::assertIsInt(...func_get_args());
     }
@@ -1653,8 +1417,8 @@ if (!function_exists('PHPUnit\Framework\assertIsNumeric')) {
     /**
      * Asserts that a variable is of type numeric.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert numeric $actual
      *
@@ -1662,7 +1426,7 @@ if (!function_exists('PHPUnit\Framework\assertIsNumeric')) {
      *
      * @see Assert::assertIsNumeric
      */
-    function assertIsNumeric($actual, string $message = ''): void
+    function assertIsNumeric(mixed $actual, string $message = ''): void
     {
         Assert::assertIsNumeric(...func_get_args());
     }
@@ -1672,8 +1436,8 @@ if (!function_exists('PHPUnit\Framework\assertIsObject')) {
     /**
      * Asserts that a variable is of type object.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert object $actual
      *
@@ -1681,7 +1445,7 @@ if (!function_exists('PHPUnit\Framework\assertIsObject')) {
      *
      * @see Assert::assertIsObject
      */
-    function assertIsObject($actual, string $message = ''): void
+    function assertIsObject(mixed $actual, string $message = ''): void
     {
         Assert::assertIsObject(...func_get_args());
     }
@@ -1691,8 +1455,8 @@ if (!function_exists('PHPUnit\Framework\assertIsResource')) {
     /**
      * Asserts that a variable is of type resource.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert resource $actual
      *
@@ -1700,7 +1464,7 @@ if (!function_exists('PHPUnit\Framework\assertIsResource')) {
      *
      * @see Assert::assertIsResource
      */
-    function assertIsResource($actual, string $message = ''): void
+    function assertIsResource(mixed $actual, string $message = ''): void
     {
         Assert::assertIsResource(...func_get_args());
     }
@@ -1710,8 +1474,8 @@ if (!function_exists('PHPUnit\Framework\assertIsClosedResource')) {
     /**
      * Asserts that a variable is of type resource and is closed.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert resource $actual
      *
@@ -1719,7 +1483,7 @@ if (!function_exists('PHPUnit\Framework\assertIsClosedResource')) {
      *
      * @see Assert::assertIsClosedResource
      */
-    function assertIsClosedResource($actual, string $message = ''): void
+    function assertIsClosedResource(mixed $actual, string $message = ''): void
     {
         Assert::assertIsClosedResource(...func_get_args());
     }
@@ -1729,8 +1493,8 @@ if (!function_exists('PHPUnit\Framework\assertIsString')) {
     /**
      * Asserts that a variable is of type string.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert string $actual
      *
@@ -1738,7 +1502,7 @@ if (!function_exists('PHPUnit\Framework\assertIsString')) {
      *
      * @see Assert::assertIsString
      */
-    function assertIsString($actual, string $message = ''): void
+    function assertIsString(mixed $actual, string $message = ''): void
     {
         Assert::assertIsString(...func_get_args());
     }
@@ -1748,8 +1512,8 @@ if (!function_exists('PHPUnit\Framework\assertIsScalar')) {
     /**
      * Asserts that a variable is of type scalar.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert scalar $actual
      *
@@ -1757,7 +1521,7 @@ if (!function_exists('PHPUnit\Framework\assertIsScalar')) {
      *
      * @see Assert::assertIsScalar
      */
-    function assertIsScalar($actual, string $message = ''): void
+    function assertIsScalar(mixed $actual, string $message = ''): void
     {
         Assert::assertIsScalar(...func_get_args());
     }
@@ -1767,8 +1531,8 @@ if (!function_exists('PHPUnit\Framework\assertIsCallable')) {
     /**
      * Asserts that a variable is of type callable.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert callable $actual
      *
@@ -1776,7 +1540,7 @@ if (!function_exists('PHPUnit\Framework\assertIsCallable')) {
      *
      * @see Assert::assertIsCallable
      */
-    function assertIsCallable($actual, string $message = ''): void
+    function assertIsCallable(mixed $actual, string $message = ''): void
     {
         Assert::assertIsCallable(...func_get_args());
     }
@@ -1786,8 +1550,8 @@ if (!function_exists('PHPUnit\Framework\assertIsIterable')) {
     /**
      * Asserts that a variable is of type iterable.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert iterable $actual
      *
@@ -1795,7 +1559,7 @@ if (!function_exists('PHPUnit\Framework\assertIsIterable')) {
      *
      * @see Assert::assertIsIterable
      */
-    function assertIsIterable($actual, string $message = ''): void
+    function assertIsIterable(mixed $actual, string $message = ''): void
     {
         Assert::assertIsIterable(...func_get_args());
     }
@@ -1805,8 +1569,8 @@ if (!function_exists('PHPUnit\Framework\assertIsNotArray')) {
     /**
      * Asserts that a variable is not of type array.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert !array $actual
      *
@@ -1814,7 +1578,7 @@ if (!function_exists('PHPUnit\Framework\assertIsNotArray')) {
      *
      * @see Assert::assertIsNotArray
      */
-    function assertIsNotArray($actual, string $message = ''): void
+    function assertIsNotArray(mixed $actual, string $message = ''): void
     {
         Assert::assertIsNotArray(...func_get_args());
     }
@@ -1824,8 +1588,8 @@ if (!function_exists('PHPUnit\Framework\assertIsNotBool')) {
     /**
      * Asserts that a variable is not of type bool.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert !bool $actual
      *
@@ -1833,7 +1597,7 @@ if (!function_exists('PHPUnit\Framework\assertIsNotBool')) {
      *
      * @see Assert::assertIsNotBool
      */
-    function assertIsNotBool($actual, string $message = ''): void
+    function assertIsNotBool(mixed $actual, string $message = ''): void
     {
         Assert::assertIsNotBool(...func_get_args());
     }
@@ -1843,8 +1607,8 @@ if (!function_exists('PHPUnit\Framework\assertIsNotFloat')) {
     /**
      * Asserts that a variable is not of type float.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert !float $actual
      *
@@ -1852,7 +1616,7 @@ if (!function_exists('PHPUnit\Framework\assertIsNotFloat')) {
      *
      * @see Assert::assertIsNotFloat
      */
-    function assertIsNotFloat($actual, string $message = ''): void
+    function assertIsNotFloat(mixed $actual, string $message = ''): void
     {
         Assert::assertIsNotFloat(...func_get_args());
     }
@@ -1862,8 +1626,8 @@ if (!function_exists('PHPUnit\Framework\assertIsNotInt')) {
     /**
      * Asserts that a variable is not of type int.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert !int $actual
      *
@@ -1871,7 +1635,7 @@ if (!function_exists('PHPUnit\Framework\assertIsNotInt')) {
      *
      * @see Assert::assertIsNotInt
      */
-    function assertIsNotInt($actual, string $message = ''): void
+    function assertIsNotInt(mixed $actual, string $message = ''): void
     {
         Assert::assertIsNotInt(...func_get_args());
     }
@@ -1881,8 +1645,8 @@ if (!function_exists('PHPUnit\Framework\assertIsNotNumeric')) {
     /**
      * Asserts that a variable is not of type numeric.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert !numeric $actual
      *
@@ -1890,7 +1654,7 @@ if (!function_exists('PHPUnit\Framework\assertIsNotNumeric')) {
      *
      * @see Assert::assertIsNotNumeric
      */
-    function assertIsNotNumeric($actual, string $message = ''): void
+    function assertIsNotNumeric(mixed $actual, string $message = ''): void
     {
         Assert::assertIsNotNumeric(...func_get_args());
     }
@@ -1900,8 +1664,8 @@ if (!function_exists('PHPUnit\Framework\assertIsNotObject')) {
     /**
      * Asserts that a variable is not of type object.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert !object $actual
      *
@@ -1909,7 +1673,7 @@ if (!function_exists('PHPUnit\Framework\assertIsNotObject')) {
      *
      * @see Assert::assertIsNotObject
      */
-    function assertIsNotObject($actual, string $message = ''): void
+    function assertIsNotObject(mixed $actual, string $message = ''): void
     {
         Assert::assertIsNotObject(...func_get_args());
     }
@@ -1919,8 +1683,8 @@ if (!function_exists('PHPUnit\Framework\assertIsNotResource')) {
     /**
      * Asserts that a variable is not of type resource.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert !resource $actual
      *
@@ -1928,7 +1692,7 @@ if (!function_exists('PHPUnit\Framework\assertIsNotResource')) {
      *
      * @see Assert::assertIsNotResource
      */
-    function assertIsNotResource($actual, string $message = ''): void
+    function assertIsNotResource(mixed $actual, string $message = ''): void
     {
         Assert::assertIsNotResource(...func_get_args());
     }
@@ -1938,8 +1702,8 @@ if (!function_exists('PHPUnit\Framework\assertIsNotClosedResource')) {
     /**
      * Asserts that a variable is not of type resource.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert !resource $actual
      *
@@ -1947,7 +1711,7 @@ if (!function_exists('PHPUnit\Framework\assertIsNotClosedResource')) {
      *
      * @see Assert::assertIsNotClosedResource
      */
-    function assertIsNotClosedResource($actual, string $message = ''): void
+    function assertIsNotClosedResource(mixed $actual, string $message = ''): void
     {
         Assert::assertIsNotClosedResource(...func_get_args());
     }
@@ -1957,8 +1721,8 @@ if (!function_exists('PHPUnit\Framework\assertIsNotString')) {
     /**
      * Asserts that a variable is not of type string.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert !string $actual
      *
@@ -1966,7 +1730,7 @@ if (!function_exists('PHPUnit\Framework\assertIsNotString')) {
      *
      * @see Assert::assertIsNotString
      */
-    function assertIsNotString($actual, string $message = ''): void
+    function assertIsNotString(mixed $actual, string $message = ''): void
     {
         Assert::assertIsNotString(...func_get_args());
     }
@@ -1976,8 +1740,8 @@ if (!function_exists('PHPUnit\Framework\assertIsNotScalar')) {
     /**
      * Asserts that a variable is not of type scalar.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert !scalar $actual
      *
@@ -1985,7 +1749,7 @@ if (!function_exists('PHPUnit\Framework\assertIsNotScalar')) {
      *
      * @see Assert::assertIsNotScalar
      */
-    function assertIsNotScalar($actual, string $message = ''): void
+    function assertIsNotScalar(mixed $actual, string $message = ''): void
     {
         Assert::assertIsNotScalar(...func_get_args());
     }
@@ -1995,8 +1759,8 @@ if (!function_exists('PHPUnit\Framework\assertIsNotCallable')) {
     /**
      * Asserts that a variable is not of type callable.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert !callable $actual
      *
@@ -2004,7 +1768,7 @@ if (!function_exists('PHPUnit\Framework\assertIsNotCallable')) {
      *
      * @see Assert::assertIsNotCallable
      */
-    function assertIsNotCallable($actual, string $message = ''): void
+    function assertIsNotCallable(mixed $actual, string $message = ''): void
     {
         Assert::assertIsNotCallable(...func_get_args());
     }
@@ -2014,8 +1778,8 @@ if (!function_exists('PHPUnit\Framework\assertIsNotIterable')) {
     /**
      * Asserts that a variable is not of type iterable.
      *
+     * @throws Exception
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @psalm-assert !iterable $actual
      *
@@ -2023,7 +1787,7 @@ if (!function_exists('PHPUnit\Framework\assertIsNotIterable')) {
      *
      * @see Assert::assertIsNotIterable
      */
-    function assertIsNotIterable($actual, string $message = ''): void
+    function assertIsNotIterable(mixed $actual, string $message = ''): void
     {
         Assert::assertIsNotIterable(...func_get_args());
     }
@@ -2034,7 +1798,6 @@ if (!function_exists('PHPUnit\Framework\assertMatchesRegularExpression')) {
      * Asserts that a string matches a given regular expression.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -2046,33 +1809,11 @@ if (!function_exists('PHPUnit\Framework\assertMatchesRegularExpression')) {
     }
 }
 
-if (!function_exists('PHPUnit\Framework\assertRegExp')) {
-    /**
-     * Asserts that a string matches a given regular expression.
-     *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     *
-     * @codeCoverageIgnore
-     *
-     * @deprecated https://github.com/sebastianbergmann/phpunit/issues/4086
-     *
-     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
-     *
-     * @see Assert::assertRegExp
-     */
-    function assertRegExp(string $pattern, string $string, string $message = ''): void
-    {
-        Assert::assertRegExp(...func_get_args());
-    }
-}
-
 if (!function_exists('PHPUnit\Framework\assertDoesNotMatchRegularExpression')) {
     /**
      * Asserts that a string does not match a given regular expression.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -2084,44 +1825,20 @@ if (!function_exists('PHPUnit\Framework\assertDoesNotMatchRegularExpression')) {
     }
 }
 
-if (!function_exists('PHPUnit\Framework\assertNotRegExp')) {
-    /**
-     * Asserts that a string does not match a given regular expression.
-     *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     *
-     * @codeCoverageIgnore
-     *
-     * @deprecated https://github.com/sebastianbergmann/phpunit/issues/4089
-     *
-     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
-     *
-     * @see Assert::assertNotRegExp
-     */
-    function assertNotRegExp(string $pattern, string $string, string $message = ''): void
-    {
-        Assert::assertNotRegExp(...func_get_args());
-    }
-}
-
 if (!function_exists('PHPUnit\Framework\assertSameSize')) {
     /**
      * Assert that the size of two arrays (or `Countable` or `Traversable` objects)
      * is the same.
      *
-     * @param Countable|iterable $expected
-     * @param Countable|iterable $actual
-     *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      * @throws Exception
+     * @throws ExpectationFailedException
+     * @throws GeneratorNotSupportedException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertSameSize
      */
-    function assertSameSize($expected, $actual, string $message = ''): void
+    function assertSameSize(Countable|iterable $expected, Countable|iterable $actual, string $message = ''): void
     {
         Assert::assertSameSize(...func_get_args());
     }
@@ -2132,20 +1849,79 @@ if (!function_exists('PHPUnit\Framework\assertNotSameSize')) {
      * Assert that the size of two arrays (or `Countable` or `Traversable` objects)
      * is not the same.
      *
-     * @param Countable|iterable $expected
-     * @param Countable|iterable $actual
-     *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      * @throws Exception
+     * @throws ExpectationFailedException
+     * @throws GeneratorNotSupportedException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertNotSameSize
      */
-    function assertNotSameSize($expected, $actual, string $message = ''): void
+    function assertNotSameSize(Countable|iterable $expected, Countable|iterable $actual, string $message = ''): void
     {
         Assert::assertNotSameSize(...func_get_args());
+    }
+}
+
+if (!function_exists('PHPUnit\Framework\assertStringContainsStringIgnoringLineEndings')) {
+    /**
+     * @throws ExpectationFailedException
+     *
+     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
+     *
+     * @see Assert::assertStringContainsStringIgnoringLineEndings
+     */
+    function assertStringContainsStringIgnoringLineEndings(string $needle, string $haystack, string $message = ''): void
+    {
+        Assert::assertStringContainsStringIgnoringLineEndings(...func_get_args());
+    }
+}
+
+if (!function_exists('PHPUnit\Framework\assertStringEqualsStringIgnoringLineEndings')) {
+    /**
+     * Asserts that two strings are equal except for line endings.
+     *
+     * @throws ExpectationFailedException
+     *
+     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
+     *
+     * @see Assert::assertStringEqualsStringIgnoringLineEndings
+     */
+    function assertStringEqualsStringIgnoringLineEndings(string $expected, string $actual, string $message = ''): void
+    {
+        Assert::assertStringEqualsStringIgnoringLineEndings(...func_get_args());
+    }
+}
+
+if (!function_exists('PHPUnit\Framework\assertFileMatchesFormat')) {
+    /**
+     * Asserts that a string matches a given format string.
+     *
+     * @throws ExpectationFailedException
+     *
+     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
+     *
+     * @see Assert::assertFileMatchesFormat
+     */
+    function assertFileMatchesFormat(string $format, string $actualFile, string $message = ''): void
+    {
+        Assert::assertFileMatchesFormat(...func_get_args());
+    }
+}
+
+if (!function_exists('PHPUnit\Framework\assertFileMatchesFormatFile')) {
+    /**
+     * Asserts that a string matches a given format string.
+     *
+     * @throws ExpectationFailedException
+     *
+     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
+     *
+     * @see Assert::assertFileMatchesFormatFile
+     */
+    function assertFileMatchesFormatFile(string $formatFile, string $actualFile, string $message = ''): void
+    {
+        Assert::assertFileMatchesFormatFile(...func_get_args());
     }
 }
 
@@ -2154,7 +1930,6 @@ if (!function_exists('PHPUnit\Framework\assertStringMatchesFormat')) {
      * Asserts that a string matches a given format string.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -2171,7 +1946,8 @@ if (!function_exists('PHPUnit\Framework\assertStringNotMatchesFormat')) {
      * Asserts that a string does not match a given format string.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
+     *
+     * @deprecated https://github.com/sebastianbergmann/phpunit/issues/5472
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -2188,7 +1964,6 @@ if (!function_exists('PHPUnit\Framework\assertStringMatchesFormatFile')) {
      * Asserts that a string matches a given format file.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -2205,7 +1980,8 @@ if (!function_exists('PHPUnit\Framework\assertStringNotMatchesFormatFile')) {
      * Asserts that a string does not match a given format string.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
+     *
+     * @deprecated https://github.com/sebastianbergmann/phpunit/issues/5472
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -2220,6 +1996,8 @@ if (!function_exists('PHPUnit\Framework\assertStringNotMatchesFormatFile')) {
 if (!function_exists('PHPUnit\Framework\assertStringStartsWith')) {
     /**
      * Asserts that a string starts with a given prefix.
+     *
+     * @psalm-param non-empty-string $prefix
      *
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -2238,8 +2016,7 @@ if (!function_exists('PHPUnit\Framework\assertStringStartsNotWith')) {
     /**
      * Asserts that a string starts not with a given prefix.
      *
-     * @param string $prefix
-     * @param string $string
+     * @psalm-param non-empty-string $prefix
      *
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -2248,7 +2025,7 @@ if (!function_exists('PHPUnit\Framework\assertStringStartsNotWith')) {
      *
      * @see Assert::assertStringStartsNotWith
      */
-    function assertStringStartsNotWith($prefix, $string, string $message = ''): void
+    function assertStringStartsNotWith(string $prefix, string $string, string $message = ''): void
     {
         Assert::assertStringStartsNotWith(...func_get_args());
     }
@@ -2257,7 +2034,6 @@ if (!function_exists('PHPUnit\Framework\assertStringStartsNotWith')) {
 if (!function_exists('PHPUnit\Framework\assertStringContainsString')) {
     /**
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -2272,7 +2048,6 @@ if (!function_exists('PHPUnit\Framework\assertStringContainsString')) {
 if (!function_exists('PHPUnit\Framework\assertStringContainsStringIgnoringCase')) {
     /**
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -2287,7 +2062,6 @@ if (!function_exists('PHPUnit\Framework\assertStringContainsStringIgnoringCase')
 if (!function_exists('PHPUnit\Framework\assertStringNotContainsString')) {
     /**
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -2302,7 +2076,6 @@ if (!function_exists('PHPUnit\Framework\assertStringNotContainsString')) {
 if (!function_exists('PHPUnit\Framework\assertStringNotContainsStringIgnoringCase')) {
     /**
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -2317,6 +2090,8 @@ if (!function_exists('PHPUnit\Framework\assertStringNotContainsStringIgnoringCas
 if (!function_exists('PHPUnit\Framework\assertStringEndsWith')) {
     /**
      * Asserts that a string ends with a given suffix.
+     *
+     * @psalm-param non-empty-string $suffix
      *
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -2335,6 +2110,8 @@ if (!function_exists('PHPUnit\Framework\assertStringEndsNotWith')) {
     /**
      * Asserts that a string ends not with a given suffix.
      *
+     * @psalm-param non-empty-string $suffix
+     *
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      *
@@ -2352,9 +2129,9 @@ if (!function_exists('PHPUnit\Framework\assertXmlFileEqualsXmlFile')) {
     /**
      * Asserts that two XML files are equal.
      *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      * @throws Exception
+     * @throws ExpectationFailedException
+     * @throws XmlException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -2370,9 +2147,8 @@ if (!function_exists('PHPUnit\Framework\assertXmlFileNotEqualsXmlFile')) {
     /**
      * Asserts that two XML files are not equal.
      *
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      * @throws \PHPUnit\Util\Exception
+     * @throws ExpectationFailedException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -2388,17 +2164,14 @@ if (!function_exists('PHPUnit\Framework\assertXmlStringEqualsXmlFile')) {
     /**
      * Asserts that two XML documents are equal.
      *
-     * @param DOMDocument|string $actualXml
-     *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     * @throws \PHPUnit\Util\Xml\Exception
+     * @throws XmlException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertXmlStringEqualsXmlFile
      */
-    function assertXmlStringEqualsXmlFile(string $expectedFile, $actualXml, string $message = ''): void
+    function assertXmlStringEqualsXmlFile(string $expectedFile, string $actualXml, string $message = ''): void
     {
         Assert::assertXmlStringEqualsXmlFile(...func_get_args());
     }
@@ -2408,17 +2181,14 @@ if (!function_exists('PHPUnit\Framework\assertXmlStringNotEqualsXmlFile')) {
     /**
      * Asserts that two XML documents are not equal.
      *
-     * @param DOMDocument|string $actualXml
-     *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     * @throws \PHPUnit\Util\Xml\Exception
+     * @throws XmlException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertXmlStringNotEqualsXmlFile
      */
-    function assertXmlStringNotEqualsXmlFile(string $expectedFile, $actualXml, string $message = ''): void
+    function assertXmlStringNotEqualsXmlFile(string $expectedFile, string $actualXml, string $message = ''): void
     {
         Assert::assertXmlStringNotEqualsXmlFile(...func_get_args());
     }
@@ -2428,18 +2198,14 @@ if (!function_exists('PHPUnit\Framework\assertXmlStringEqualsXmlString')) {
     /**
      * Asserts that two XML documents are equal.
      *
-     * @param DOMDocument|string $expectedXml
-     * @param DOMDocument|string $actualXml
-     *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     * @throws \PHPUnit\Util\Xml\Exception
+     * @throws XmlException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertXmlStringEqualsXmlString
      */
-    function assertXmlStringEqualsXmlString($expectedXml, $actualXml, string $message = ''): void
+    function assertXmlStringEqualsXmlString(string $expectedXml, string $actualXml, string $message = ''): void
     {
         Assert::assertXmlStringEqualsXmlString(...func_get_args());
     }
@@ -2449,42 +2215,16 @@ if (!function_exists('PHPUnit\Framework\assertXmlStringNotEqualsXmlString')) {
     /**
      * Asserts that two XML documents are not equal.
      *
-     * @param DOMDocument|string $expectedXml
-     * @param DOMDocument|string $actualXml
-     *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     * @throws \PHPUnit\Util\Xml\Exception
+     * @throws XmlException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertXmlStringNotEqualsXmlString
      */
-    function assertXmlStringNotEqualsXmlString($expectedXml, $actualXml, string $message = ''): void
+    function assertXmlStringNotEqualsXmlString(string $expectedXml, string $actualXml, string $message = ''): void
     {
         Assert::assertXmlStringNotEqualsXmlString(...func_get_args());
-    }
-}
-
-if (!function_exists('PHPUnit\Framework\assertEqualXMLStructure')) {
-    /**
-     * Asserts that a hierarchy of DOMElements matches.
-     *
-     * @throws AssertionFailedError
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     *
-     * @codeCoverageIgnore
-     *
-     * @deprecated https://github.com/sebastianbergmann/phpunit/issues/4091
-     *
-     * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
-     *
-     * @see Assert::assertEqualXMLStructure
-     */
-    function assertEqualXMLStructure(DOMElement $expectedElement, DOMElement $actualElement, bool $checkAttributes = false, string $message = ''): void
-    {
-        Assert::assertEqualXMLStructure(...func_get_args());
     }
 }
 
@@ -2493,13 +2233,12 @@ if (!function_exists('PHPUnit\Framework\assertThat')) {
      * Evaluates a PHPUnit\Framework\Constraint matcher object.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertThat
      */
-    function assertThat($value, Constraint $constraint, string $message = ''): void
+    function assertThat(mixed $value, Constraint $constraint, string $message = ''): void
     {
         Assert::assertThat(...func_get_args());
     }
@@ -2510,13 +2249,12 @@ if (!function_exists('PHPUnit\Framework\assertJson')) {
      * Asserts that a string is a valid JSON string.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertJson
      */
-    function assertJson(string $actualJson, string $message = ''): void
+    function assertJson(string $actual, string $message = ''): void
     {
         Assert::assertJson(...func_get_args());
     }
@@ -2527,7 +2265,6 @@ if (!function_exists('PHPUnit\Framework\assertJsonStringEqualsJsonString')) {
      * Asserts that two given JSON encoded objects or arrays are equal.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -2543,17 +2280,13 @@ if (!function_exists('PHPUnit\Framework\assertJsonStringNotEqualsJsonString')) {
     /**
      * Asserts that two given JSON encoded objects or arrays are not equal.
      *
-     * @param string $expectedJson
-     * @param string $actualJson
-     *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
      * @see Assert::assertJsonStringNotEqualsJsonString
      */
-    function assertJsonStringNotEqualsJsonString($expectedJson, $actualJson, string $message = ''): void
+    function assertJsonStringNotEqualsJsonString(string $expectedJson, string $actualJson, string $message = ''): void
     {
         Assert::assertJsonStringNotEqualsJsonString(...func_get_args());
     }
@@ -2564,7 +2297,6 @@ if (!function_exists('PHPUnit\Framework\assertJsonStringEqualsJsonFile')) {
      * Asserts that the generated JSON encoded object and the content of the given file are equal.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -2581,7 +2313,6 @@ if (!function_exists('PHPUnit\Framework\assertJsonStringNotEqualsJsonFile')) {
      * Asserts that the generated JSON encoded object and the content of the given file are not equal.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -2598,7 +2329,6 @@ if (!function_exists('PHPUnit\Framework\assertJsonFileEqualsJsonFile')) {
      * Asserts that two JSON files are equal.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -2615,7 +2345,6 @@ if (!function_exists('PHPUnit\Framework\assertJsonFileNotEqualsJsonFile')) {
      * Asserts that two JSON files are not equal.
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
      *
@@ -2628,14 +2357,14 @@ if (!function_exists('PHPUnit\Framework\assertJsonFileNotEqualsJsonFile')) {
 }
 
 if (!function_exists('PHPUnit\Framework\logicalAnd')) {
-    function logicalAnd(): LogicalAnd
+    function logicalAnd(mixed ...$constraints): LogicalAnd
     {
         return Assert::logicalAnd(...func_get_args());
     }
 }
 
 if (!function_exists('PHPUnit\Framework\logicalOr')) {
-    function logicalOr(): LogicalOr
+    function logicalOr(mixed ...$constraints): LogicalOr
     {
         return Assert::logicalOr(...func_get_args());
     }
@@ -2649,7 +2378,7 @@ if (!function_exists('PHPUnit\Framework\logicalNot')) {
 }
 
 if (!function_exists('PHPUnit\Framework\logicalXor')) {
-    function logicalXor(): LogicalXor
+    function logicalXor(mixed ...$constraints): LogicalXor
     {
         return Assert::logicalXor(...func_get_args());
     }
@@ -2666,13 +2395,6 @@ if (!function_exists('PHPUnit\Framework\isTrue')) {
     function isTrue(): IsTrue
     {
         return Assert::isTrue(...func_get_args());
-    }
-}
-
-if (!function_exists('PHPUnit\Framework\callback')) {
-    function callback(callable $callback): Callback
-    {
-        return Assert::callback(...func_get_args());
     }
 }
 
@@ -2719,14 +2441,14 @@ if (!function_exists('PHPUnit\Framework\isNan')) {
 }
 
 if (!function_exists('PHPUnit\Framework\containsEqual')) {
-    function containsEqual($value): TraversableContainsEqual
+    function containsEqual(mixed $value): TraversableContainsEqual
     {
         return Assert::containsEqual(...func_get_args());
     }
 }
 
 if (!function_exists('PHPUnit\Framework\containsIdentical')) {
-    function containsIdentical($value): TraversableContainsIdentical
+    function containsIdentical(mixed $value): TraversableContainsIdentical
     {
         return Assert::containsIdentical(...func_get_args());
     }
@@ -2747,35 +2469,42 @@ if (!function_exists('PHPUnit\Framework\containsOnlyInstancesOf')) {
 }
 
 if (!function_exists('PHPUnit\Framework\arrayHasKey')) {
-    function arrayHasKey($key): ArrayHasKey
+    function arrayHasKey(int|string $key): ArrayHasKey
     {
         return Assert::arrayHasKey(...func_get_args());
     }
 }
 
+if (!function_exists('PHPUnit\Framework\isList')) {
+    function isList(): IsList
+    {
+        return Assert::isList(...func_get_args());
+    }
+}
+
 if (!function_exists('PHPUnit\Framework\equalTo')) {
-    function equalTo($value): IsEqual
+    function equalTo(mixed $value): IsEqual
     {
         return Assert::equalTo(...func_get_args());
     }
 }
 
 if (!function_exists('PHPUnit\Framework\equalToCanonicalizing')) {
-    function equalToCanonicalizing($value): IsEqualCanonicalizing
+    function equalToCanonicalizing(mixed $value): IsEqualCanonicalizing
     {
         return Assert::equalToCanonicalizing(...func_get_args());
     }
 }
 
 if (!function_exists('PHPUnit\Framework\equalToIgnoringCase')) {
-    function equalToIgnoringCase($value): IsEqualIgnoringCase
+    function equalToIgnoringCase(mixed $value): IsEqualIgnoringCase
     {
         return Assert::equalToIgnoringCase(...func_get_args());
     }
 }
 
 if (!function_exists('PHPUnit\Framework\equalToWithDelta')) {
-    function equalToWithDelta($value, float $delta): IsEqualWithDelta
+    function equalToWithDelta(mixed $value, float $delta): IsEqualWithDelta
     {
         return Assert::equalToWithDelta(...func_get_args());
     }
@@ -2817,42 +2546,21 @@ if (!function_exists('PHPUnit\Framework\fileExists')) {
 }
 
 if (!function_exists('PHPUnit\Framework\greaterThan')) {
-    function greaterThan($value): GreaterThan
+    function greaterThan(mixed $value): GreaterThan
     {
         return Assert::greaterThan(...func_get_args());
     }
 }
 
 if (!function_exists('PHPUnit\Framework\greaterThanOrEqual')) {
-    function greaterThanOrEqual($value): LogicalOr
+    function greaterThanOrEqual(mixed $value): LogicalOr
     {
         return Assert::greaterThanOrEqual(...func_get_args());
     }
 }
 
-if (!function_exists('PHPUnit\Framework\classHasAttribute')) {
-    function classHasAttribute(string $attributeName): ClassHasAttribute
-    {
-        return Assert::classHasAttribute(...func_get_args());
-    }
-}
-
-if (!function_exists('PHPUnit\Framework\classHasStaticAttribute')) {
-    function classHasStaticAttribute(string $attributeName): ClassHasStaticAttribute
-    {
-        return Assert::classHasStaticAttribute(...func_get_args());
-    }
-}
-
-if (!function_exists('PHPUnit\Framework\objectHasAttribute')) {
-    function objectHasAttribute($attributeName): ObjectHasAttribute
-    {
-        return Assert::objectHasAttribute(...func_get_args());
-    }
-}
-
 if (!function_exists('PHPUnit\Framework\identicalTo')) {
-    function identicalTo($value): IsIdentical
+    function identicalTo(mixed $value): IsIdentical
     {
         return Assert::identicalTo(...func_get_args());
     }
@@ -2873,14 +2581,14 @@ if (!function_exists('PHPUnit\Framework\isType')) {
 }
 
 if (!function_exists('PHPUnit\Framework\lessThan')) {
-    function lessThan($value): LessThan
+    function lessThan(mixed $value): LessThan
     {
         return Assert::lessThan(...func_get_args());
     }
 }
 
 if (!function_exists('PHPUnit\Framework\lessThanOrEqual')) {
-    function lessThanOrEqual($value): LogicalOr
+    function lessThanOrEqual(mixed $value): LogicalOr
     {
         return Assert::lessThanOrEqual(...func_get_args());
     }
@@ -2901,7 +2609,7 @@ if (!function_exists('PHPUnit\Framework\matches')) {
 }
 
 if (!function_exists('PHPUnit\Framework\stringStartsWith')) {
-    function stringStartsWith($prefix): StringStartsWith
+    function stringStartsWith(string $prefix): StringStartsWith
     {
         return Assert::stringStartsWith(...func_get_args());
     }
@@ -2921,6 +2629,13 @@ if (!function_exists('PHPUnit\Framework\stringEndsWith')) {
     }
 }
 
+if (!function_exists('PHPUnit\Framework\stringEqualsStringIgnoringLineEndings')) {
+    function stringEqualsStringIgnoringLineEndings(string $string): StringEqualsStringIgnoringLineEndings
+    {
+        return Assert::stringEqualsStringIgnoringLineEndings(...func_get_args());
+    }
+}
+
 if (!function_exists('PHPUnit\Framework\countOf')) {
     function countOf(int $count): Count
     {
@@ -2932,6 +2647,20 @@ if (!function_exists('PHPUnit\Framework\objectEquals')) {
     function objectEquals(object $object, string $method = 'equals'): ObjectEquals
     {
         return Assert::objectEquals(...func_get_args());
+    }
+}
+
+if (!function_exists('PHPUnit\Framework\callback')) {
+    /**
+     * @psalm-template CallbackInput of mixed
+     *
+     * @psalm-param callable(CallbackInput $callback): bool $callback
+     *
+     * @psalm-return Callback<CallbackInput>
+     */
+    function callback(callable $callback): Callback
+    {
+        return Assert::callback($callback);
     }
 }
 
@@ -3011,19 +2740,8 @@ if (!function_exists('PHPUnit\Framework\atMost')) {
     }
 }
 
-if (!function_exists('PHPUnit\Framework\at')) {
-    /**
-     * Returns a matcher that matches when the method is executed
-     * at the given index.
-     */
-    function at(int $index): InvokedAtIndexMatcher
-    {
-        return new InvokedAtIndexMatcher($index);
-    }
-}
-
 if (!function_exists('PHPUnit\Framework\returnValue')) {
-    function returnValue($value): ReturnStub
+    function returnValue(mixed $value): ReturnStub
     {
         return new ReturnStub($value);
     }
@@ -3044,7 +2762,7 @@ if (!function_exists('PHPUnit\Framework\returnArgument')) {
 }
 
 if (!function_exists('PHPUnit\Framework\returnCallback')) {
-    function returnCallback($callback): ReturnCallbackStub
+    function returnCallback(callable $callback): ReturnCallbackStub
     {
         return new ReturnCallbackStub($callback);
     }
@@ -3072,8 +2790,8 @@ if (!function_exists('PHPUnit\Framework\throwException')) {
 if (!function_exists('PHPUnit\Framework\onConsecutiveCalls')) {
     function onConsecutiveCalls(): ConsecutiveCallsStub
     {
-        $args = func_get_args();
+        $arguments = func_get_args();
 
-        return new ConsecutiveCallsStub($args);
+        return new ConsecutiveCallsStub($arguments);
     }
 }

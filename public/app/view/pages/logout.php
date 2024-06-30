@@ -9,3 +9,4 @@ unset($_SESSION['username']);
 
 header("Location: ./home");
 exit();
+?>
