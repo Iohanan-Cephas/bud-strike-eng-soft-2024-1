@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../login");
-    exit();
-}
+// if (!isset($_SESSION['user_id'])) {
+//     header("Location: ../login");
+//     exit();
+// }
 
 require_once(__DIR__ . '/../../../config/config.php');
 require_once(__DIR__ . '/../../../controllers/ProductController.php');
@@ -26,32 +26,65 @@ try {
 
 // Verifica se o formulário de "Adicionar ao carrinho" foi submetido
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
-    try {
-        $user_id = $_SESSION['user_id'];
-        $product_id = $_POST['product_id'];
-        $quantity = 1;
 
-        $cartController = new CartController($pdo);
-
-        // Insere o produto no carrinho
-        $success = $cartController->insert($user_id, $product_id, $quantity);
-
-        if ($success) {
-            // Redireciona para a mesma página com o ID do produto
-            header("Location: {$_SERVER['PHP_SELF']}?id=$product_id");
-            exit();
-        } else {
-            // Trate caso não seja bem sucedido
+    if(isset($_SESSION['user_id'])) {
+        try {
+            $user_id = $_SESSION['user_id'];
+            $product_id = $_POST['product_id'];
+            $quantity = 1;
+    
+            $cartController = new CartController($pdo);
+    
+            // Insere o produto no carrinho
+            $success = $cartController->insert($user_id, $product_id, $quantity);
+    
+            if ($success) {
+                // Redireciona para a mesma página com o ID do produto
+                header("Location: {$_SERVER['PHP_SELF']}?id=$product_id");
+                exit();
+            } else {
+                // Trate caso não seja bem sucedido
+            }
+        } catch (PDOException $e) {
+            // Em caso de erro na conexão PDO
+            echo 'Erro de conexão: ' . $e->getMessage();
+            exit;
+        } catch (Exception $e) {
+            // Em caso de outras exceções
+            echo 'Erro: ' . $e->getMessage();
+            exit;
         }
-    } catch (PDOException $e) {
-        // Em caso de erro na conexão PDO
-        echo 'Erro de conexão: ' . $e->getMessage();
-        exit;
-    } catch (Exception $e) {
-        // Em caso de outras exceções
-        echo 'Erro: ' . $e->getMessage();
+    } else {
+        $product_id = $_POST['product_id'];
+
+        // Verifique se a variável de sessão existe antes de adicioná-la
+        if (!isset($_SESSION['products'])) {
+            $_SESSION['products'] = [];
+        }
+
+        // Verifica se o produto já está na sessão
+        $product_exists = false;
+        foreach ($_SESSION['products'] as &$item) {
+            if ($item['product_id'] == $product_id) {
+                // Se o produto já existir na sessão, aumente a quantidade
+                $item['quantity']++;
+                $product_exists = true;
+                break;
+            }
+        }
+
+        // Se o produto não existir na sessão, adicione-o com quantidade 1
+        if (!$product_exists) {
+            $quantity = 1;
+            $_SESSION['products'][] = ['product_id' => $product_id, 'quantity' => $quantity];
+        }
+
+        // Redirecione de volta para a página atual com o ID do produto
+        header("Location: {$_SERVER['PHP_SELF']}?id=$product_id");
         exit;
     }
+
+    
 }
 
 // Verifica se o formulário de "Comprar agora" foi submetido

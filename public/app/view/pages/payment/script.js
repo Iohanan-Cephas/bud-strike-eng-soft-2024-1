@@ -32,4 +32,4 @@ const timerInterval = setInterval(updateTimer, 1000);
 
 setTimeout(()=> {
   window.location = "../paymentConfirmed/index.php"
-}, 15000)
+}, 5000)

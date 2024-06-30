@@ -1,7 +1,6 @@
 <?php
-session_start(); // Inicie a sessão se ainda não estiver iniciada
+session_start(); 
 
-// Verifique se o usuário está logado e se o user_id está na sessão
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../login");
     exit();
@@ -9,25 +8,20 @@ if (!isset($_SESSION['user_id'])) {
 
 require_once(__DIR__ . '/../../../controllers/ProductController.php');
 
-// Supondo que $pdo já está configurado anteriormente
+
 
 $productController = new ProductController($pdo);
 
-// Verifica se foi passado um ID de produto pela URL
 if (isset($_GET['id'])) {
     $productId = $_GET['id'];
 
-    // Obtém os detalhes do produto específico
     $productDetails = $productController->getProductDetails($productId);
 
-    // Verifica se o produto foi encontrado
     if (!$productDetails) {
-        // Redireciona para uma página de erro ou tratamento adequado
         header("Location: ../error.php");
         exit();
     }
 } else {
-    // Redireciona para uma página de erro ou tratamento adequado
     header("Location: ../error.php");
     exit();
 }

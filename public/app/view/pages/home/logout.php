@@ -7,6 +7,6 @@ unset($_SESSION['user_id']);
 unset($_SESSION['username']);
 
 // Redirecionar para a tela de login
-header("Location: ../login");
+header("Location: ../home");
 exit();
 ?>
