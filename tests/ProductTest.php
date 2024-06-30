@@ -26,7 +26,11 @@ class ProductTest extends TestCase
     public function testGetAllProducts()
     {
         $stmt = $this->createMock(PDOStatement::class);
-        $stmt->expects($this->once())->method('fetch')->willReturnOnConsecutiveCalls(['id' => 1, 'nome' => 'Produto 1'], false);
+        $stmt->expects($this->exactly(2))->method('fetch')
+            ->will($this->onConsecutiveCalls(
+                ['id' => 1, 'nome' => 'Produto 1'],
+                false
+            ));
         $this->pdo->expects($this->once())->method('query')->willReturn($stmt);
 
         $result = $this->product->all();
