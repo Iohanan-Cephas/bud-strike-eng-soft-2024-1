@@ -14,7 +14,8 @@ class Purchase {
       
       try {
           // Prepara a consulta SQL com parâmetros
-          $stmt = $this->pdo->prepare("INSERT INTO purchases (user_id, product_id, purchase_date, quantity, price_paid)
+          $stmt = $this->pdo->prepare("
+              INSERT INTO purchases (user_id, product_id, purchase_date, quantity, price_paid)
               SELECT 
                   c.user_id,
                   c.product_id,
@@ -40,7 +41,8 @@ class Purchase {
 
   public function insertOne($user_id, $product_id, $quantity) {
     try {
-        $stmt = $this->pdo->prepare("INSERT INTO purchases (user_id, product_id, purchase_date, quantity, price_paid)
+        $stmt = $this->pdo->prepare("
+            INSERT INTO purchases (user_id, product_id, purchase_date, quantity, price_paid)
             SELECT 
                 :user_id as user_id,
                 :product_id as product_id,
@@ -67,7 +69,12 @@ class Purchase {
   public function findByUserId($user_id) {
     try {
         // Prepara a consulta SQL
-        $stmt = $this->pdo->prepare("SELECT * FROM purchases WHERE user_id = :user_id");
+        $stmt = $this->pdo->prepare("
+            SELECT *
+            FROM purchases
+            WHERE user_id = :user_id
+            
+        ");
 
         $stmt->execute([
             ':user_id' => $user_id
@@ -80,4 +87,7 @@ class Purchase {
     }
 }
 }
+
+    
+
 ?>

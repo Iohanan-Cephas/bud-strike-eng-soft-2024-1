@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-require_once(__DIR__ . '/../public/app/models/Product.php');
+
 class ProductTest extends TestCase
 {
     private $pdo;
@@ -26,11 +26,7 @@ class ProductTest extends TestCase
     public function testGetAllProducts()
     {
         $stmt = $this->createMock(PDOStatement::class);
-        $stmt->expects($this->exactly(2))->method('fetch')
-            ->will($this->onConsecutiveCalls(
-                ['id' => 1, 'nome' => 'Produto 1'],
-                false
-            ));
+        $stmt->expects($this->once())->method('fetch')->willReturnOnConsecutiveCalls(['id' => 1, 'nome' => 'Produto 1'], false);
         $this->pdo->expects($this->once())->method('query')->willReturn($stmt);
 
         $result = $this->product->all();

@@ -1,7 +1,6 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-require_once(__DIR__ . '/../public/app/models/Cart.php');
 
 class Cart_Test extends TestCase
 {

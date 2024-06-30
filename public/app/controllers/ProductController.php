@@ -20,9 +20,8 @@ class ProductController {
     }
 
     public function delete($productId) {
-        $stmt = $this->pdo->prepare('DELETE FROM produtos WHERE id = :id');
-        $success = $stmt->execute(['id' => $productId]);
-        return $success;
+        $productModel = new Product($this->pdo);
+        $productModel->delete($productId);
     }
 
     public function update($productId, $nome, $descricao, $preco, $quantidade, $imagem) {
