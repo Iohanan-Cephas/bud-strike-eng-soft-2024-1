@@ -15,7 +15,8 @@
 ### Descrição
 
 BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última geração. Nosso compromisso é proporcionar uma experiência de compra excepcional, impulsionando a velocidade de processamento de dados e garantindo entregas rápidas aos nossos clientes. Estamos constantemente refinando nossos processos para atingir a excelência, dando passos calculados em direção ao nosso objetivo.
-
+---
+### [**Landing Page**](iohanan-cephas.github.io)
 ---
 ### [**Quadro Kanban**](https://trello.com/invite/b/tPgaPmj9/ATTI9322d3ccbbdcf979852e4b31748fad8846F0ABED/budstrike)
 
@@ -34,6 +35,12 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 ---
 
 ### [**Histórico de Versões e Atualizações**](https://github.com/Iohanan-Cephas/bud-strike-eng-soft-2024-1/tags)
+
+---
+
+### [**Apresentação final**](https://www.canva.com/design/DAGJ2JYu9jo/4FJ-I7OW2LUsGMU0dCFKJw/edit?utm_content=DAGJ2JYu9jo&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+
+---
 
 [**v1.0.0**](https://github.com/Iohanan-Cephas/bud-strike-eng-soft-2024-1/releases/tag/v1.0.0) - Primeira Iteração: Levantamento de Rquisitos para o estudo compreenção dos Casos de Uso e User Story
 
