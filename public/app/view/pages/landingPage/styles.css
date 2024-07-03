@@ -1,0 +1,189 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px rgb(226, 226, 226) inset; /* Substitua 'white' pela cor desejada */
+}
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 30px rgb(226, 226, 226) inset; /* Substitua 'white' pela cor desejada */
+}
+
+body {
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  font-style: normal;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+header {
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
+  font-family: "League Spartan", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal; 
+  font-weight: bold; 
+}
+
+main{
+  
+  
+}
+
+section  {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 800px;
+  max-width: 800px;
+  min-width: 800px;
+  
+}
+
+section img {
+  width: 300px;
+}
+
+.banner .left h1{
+  font-size: 2em;
+  margin-bottom: 5%;
+}
+.banner {
+  height: 100vh;
+  animation: open-banner 1s ease;
+
+}
+
+.banner .left p.msg{
+  margin-bottom: 5%;
+  max-width: 400px;
+  font-size: 1.2em
+}
+
+
+
+.banner .left button {
+  background-color: #AD37C0;
+  border: none;
+  border-radius: 5px;
+  width: 175px;
+  height: 35px;
+  font-size: .8em;
+  color: white;
+  margin-bottom: 2%;  
+  cursor: pointer;
+}
+
+.login {
+  font-size: .6em;
+}
+
+.login span {
+  color: #AD37C0;
+  cursor: pointer;
+}
+
+
+
+.quemsomos p{
+  max-width: 400px ;
+}
+
+.quemsomos img {
+  width: 30vh;
+}
+
+.quemsomos h2{
+  margin-bottom: 10px;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 100px;
+  margin-bottom: 200px;
+}
+
+.ajuda h2{
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.ajuda form {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius:10px ;
+}
+
+.ajuda p {
+  max-width: 400px;
+}
+.ajuda form input {
+  width: 200px;
+  height: 20%;
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  font-style: normal;
+  padding: 15px;
+}
+
+.ajuda form textarea.msg {
+  resize: none;
+  width: 200px;
+  height: 50%;
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  font-style: normal;
+  padding: 15px;
+
+}
+
+footer {
+  padding: 10px;
+  font-size: .8em;
+}
+
+@keyframes open-banner {
+  from{
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+
+.quemsomos.animate {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.ajuda.animate {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+/* Defina o estilo inicial com opacidade 0 e um deslocamento */
+.quemsomos, .ajuda {
+  opacity: 0;
+  transform: translateY(80px);
+}
