@@ -48,6 +48,38 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 [**v2.2.0**](https://github.com/Iohanan-Cephas/bud-strike-eng-soft-2024-1/releases/tag/v2.2.0) - Sexta Iteração: Implementação dos Testes Unitários para garantir a funcionalidade do programa.
 
 ---
+### Rodando o projeto
+
+- Pré-requisitos
+
+    Certifique-se de que estejam instalados em seu PC as seguintes ferramentas:
+    
+    - [PHP](https://www.php.net/downloads.php) (versão 7.4 ou superior)
+    - [Composer](https://getcomposer.org/download/)
+    - [Git](https://git-scm.com/downloads)
+
+- Passo a passo
+   1. Clone o Repositório
+
+      Clone o repositório para sua máquina local usando o seguinte comando:
+      ```bash
+      git clone https://github.com/Iohanan-Cephas/bud-strike-eng-soft-2024-1.git
+       ```
+   2. Execute o Composer
+      
+      Na raíz do projeto clonado, utilize o seguinte comando para fazer a conexão automática com o banco de dados:
+      ```bash
+      docker-compose up -d
+      ```
+  1. Abra seu navegador
+     
+     Após terminada a conexão, abra seu navegador de preferência e busque a página:
+     ```bash
+     localhost:8080
+     ```
+     Você será direcionado para uma página em que está escrito "Infelizmente a versão para PC ainda não está disponível". Inspecionando a página coloque a resolução para mobile L (ou abaixo) e após se deparar com a tela de login, crie uma conta para utilizar o site e testar suas funcionalidades.
+
+---
 
 ### [**Primeira Iteração**](/requisitos.md) - 13/03 - 27/03
 
