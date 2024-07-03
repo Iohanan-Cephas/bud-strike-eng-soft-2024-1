@@ -271,3 +271,12 @@ footer {
   justify-content: center;
   font-size: 10px !important;
 }
+
+.quantity{
+  font-size: .8em;
+}
+.name-and-quantity{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

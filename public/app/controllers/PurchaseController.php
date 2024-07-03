@@ -23,5 +23,10 @@ class PurchaseController {
         $purchaseModel = new Purchase($this->pdo);
         return $purchaseModel->findByUserId($user_id);
       }
+
+      public function indexAll() {
+        $purchaseModel = new Purchase($this->pdo);
+        return $purchaseModel->indexAll();
+      }
 }
 ?>

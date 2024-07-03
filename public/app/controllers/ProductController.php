@@ -19,6 +19,11 @@ class ProductController {
         return $productModel->all();
     }
 
+    public function adminIndex() {
+        $productModel = new Product($this->pdo);
+        return $productModel->adminIndex();
+    }
+
     public function delete($productId) {
         $stmt = $this->pdo->prepare('DELETE FROM produtos WHERE id = :id');
         $success = $stmt->execute(['id' => $productId]);
