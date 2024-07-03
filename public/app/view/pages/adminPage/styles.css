@@ -9,8 +9,7 @@
 
 body{
   height: 100vh;
-  display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 30px;
   align-items: center;
   justify-content: center;
@@ -19,7 +18,7 @@ body{
 div#list {
   padding: 20px;
   border-radius: 10px;
-  width: 800px;
+  width: 900px;
   height:60vh;
 
   overflow-y: scroll;
@@ -28,11 +27,7 @@ div#list {
   flex-direction: column;
   gap: 10px;
 }
-#description{
-  max-width: 50%;
-  max-height: 50%;
-  overflow-y: scroll;
-}
+
 
 div#product{
   display: flex;
@@ -53,7 +48,7 @@ div#product{
 }
 
 .show-description{
-  width: 35%;
+  max-width: 500px;
 }
 .price{
   width: 15%;
@@ -76,9 +71,7 @@ div#list thead {
   
 }
 
-#description{
-  width: 100%;
-}
+
 
 tbody {
   display: flex;
@@ -103,12 +96,11 @@ div#add {
   display: flex;
   align-items: center;
   flex-direction: column;
-  height: 70vh;
 }
 
 div#add input {
-  width: 180px;
-  height: 30px;
+  width: 100%;
+  height: 40px;
   border-radius: 5px;
   border: 1px solid rgba(187, 115, 255, 0.37);;
   margin-top: 5px;
@@ -116,25 +108,32 @@ div#add input {
   padding: 10px;
 }
 
-div#add textarea {
-  margin-top: 5px;
+div#add #description{
+  width: 100%;
+  height: 70px;
   resize: none;
   border-radius: 5px;
   border: 1px solid rgba(187, 115, 255, 0.37);;
+  margin-top: 5px;
   outline: none;
   padding: 10px;
-  height: 60px;
+
 }
 
 #form-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 15px;
   background-color: aliceblue;
   padding: 20px;
   border-radius: 10px;
+  width: 300px;
+  align-items: center;
 }
+#form-container div{
+  width: 100%;
+}
+
 #list button {
   width: 60px;
   height: 20px;
@@ -156,3 +155,42 @@ div#add textarea {
   font-weight: bold;
 }
 
+main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 40px
+}
+.pedidos {
+  width: 200px;
+  height: 50px;
+  border: none;
+  background-color: rgb(188, 118, 253);
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  margin-top: 5px;
+  font-size: 1em;
+  align-self: flex-start;
+}
+
+section{
+  display: flex;
+  align-items: center;
+}
+
+.body-add-page{
+  display: flex;
+  align-items: center;
+}
+
+button {
+  cursor: pointer;
+}
+
+.buttons{
+  display: flex;
+  gap: 20px;
+}

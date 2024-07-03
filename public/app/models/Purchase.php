@@ -37,9 +37,9 @@ class Purchase {
           error_log('Erro ao inserir compras do carrinho: ' . $e->getMessage());
           return false;
       }
-  }
+    }
 
-  public function insertOne($user_id, $product_id, $quantity) {
+    public function insertOne($user_id, $product_id, $quantity) {
     try {
         $stmt = $this->pdo->prepare("
             INSERT INTO purchases (user_id, product_id, purchase_date, quantity, price_paid)
@@ -64,9 +64,9 @@ class Purchase {
         error_log('Erro ao inserir compra de um produto: ' . $e->getMessage());
         return false;
     }
-}
+    }
 
-  public function findByUserId($user_id) {
+    public function findByUserId($user_id) {
     try {
         // Prepara a consulta SQL
         $stmt = $this->pdo->prepare("
@@ -85,7 +85,34 @@ class Purchase {
         error_log('Erro ao buscar compras do usuário: ' . $e->getMessage());
         return []; 
     }
-}
+    }
+    public function indexAll() {
+        try {
+            // Prepara a consulta SQL
+            $stmt = $this->pdo->prepare("
+                SELECT 
+                    u.username AS user_name,
+                    p.nome AS product_name,
+                    pu.product_id,
+                    pu.user_id,
+                    pu.price_paid,
+                    pu.quantity,
+                    pu.purchase_date
+                FROM purchases pu
+                JOIN usuarios u ON pu.user_id = u.id
+                JOIN produtos p ON pu.product_id = p.id
+            ");
+
+            // Executa a consulta
+            $stmt->execute();
+
+            // Retorna os resultados
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log('Erro ao buscar todas as compras: ' . $e->getMessage());
+            return [];
+        }
+    }
 }
 
     
