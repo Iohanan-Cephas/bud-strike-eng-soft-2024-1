@@ -45,6 +45,8 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 
 [**v2.1.0**](https://github.com/Iohanan-Cephas/bud-strike-eng-soft-2024-1/releases/tag/v2.1.0) - Quinta Iteração: Implementação de uma API RESTful para gerenciar produtos. Isso inclui a criação de endpoints para listar, criar, atualizar e deletar produtos.
 
+[**v2.2.0**](https://github.com/Iohanan-Cephas/bud-strike-eng-soft-2024-1/releases/tag/v2.2.0) - Sexta Iteração: Implementação dos Testes Unitários para garantir a funcionalidade do programa.
+
 ---
 
 ### [**Primeira Iteração**](/requisitos.md) - 13/03 - 27/03
@@ -130,6 +132,12 @@ Planejamento e Execução:
 
 ### **Sexta Iteração**
 
-Valor: Implementação de Teste Unitários
+Valor: Implementação dos Testes Unitários para garantir a funcionalidade do programa.
 
 Planejamento e Execução:
+
+- [X] RF23 - Implementação de Testes Unitários nos Controllers. Por [Antonio André Barcelos Chagas](https://github.com/andrebarceloschagas) e Por [João Pedro Oliveira Barbosa](https://github.com/Iohanan-Cephas) Revisado por [Wanderson Almeida de Mello](https://github.com/sadMello)
+- [X] RF24 - Implementação de Testes Unitários nos Models. [Laura Barbosa Henrique](https://github.com/tinywin) e [Wanderson Almeida de Mello](https://github.com/sadMello) Revisado por [Micael Ribeiro dos Santos](https://github.com/messiribeiro)
+- [X] RF25 - Implementação dos requisitos atrasados. Por [Micael Ribeiro dos Santos](https://github.com/messiribeiro) Revisado por [João Pedro Oliveira Barbosa](https://github.com/Iohanan-Cephas)
+
+---
