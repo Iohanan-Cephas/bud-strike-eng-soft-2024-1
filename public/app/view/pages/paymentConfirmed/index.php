@@ -23,7 +23,7 @@
     }else{
         try{
             $purchaseController->insertAllCart($user_id);
-        }catch(err){
+        }catch(Exception $e){
     
         }
     
@@ -31,7 +31,7 @@
         
         try{
           $cartController->cleanCart($user_id);
-        }catch(err){
+        }catch(Exception $e){
             
         }
     }
