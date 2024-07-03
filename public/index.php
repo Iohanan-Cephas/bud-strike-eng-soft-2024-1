@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,8 +8,8 @@
 </head>
 <body>
     <script>
-        window.location.href = './app/view/pages/home';
+        window.location.href = './app/view/pages/login';
     </script>
 </body>
 </html>
-    
+

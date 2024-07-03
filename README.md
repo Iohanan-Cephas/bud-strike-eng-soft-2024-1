@@ -15,7 +15,8 @@
 ### Descrição
 
 BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última geração. Nosso compromisso é proporcionar uma experiência de compra excepcional, impulsionando a velocidade de processamento de dados e garantindo entregas rápidas aos nossos clientes. Estamos constantemente refinando nossos processos para atingir a excelência, dando passos calculados em direção ao nosso objetivo.
-
+---
+### [Landing Page](https://iohanan-cephas.github.io)
 ---
 ### [**Quadro Kanban**](https://trello.com/invite/b/tPgaPmj9/ATTI9322d3ccbbdcf979852e4b31748fad8846F0ABED/budstrike)
 
@@ -35,6 +36,12 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 
 ### [**Histórico de Versões e Atualizações**](https://github.com/Iohanan-Cephas/bud-strike-eng-soft-2024-1/tags)
 
+---
+
+### [**Apresentação final**](https://www.canva.com/design/DAGJ2JYu9jo/4FJ-I7OW2LUsGMU0dCFKJw/edit?utm_content=DAGJ2JYu9jo&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+
+---
+
 [**v1.0.0**](https://github.com/Iohanan-Cephas/bud-strike-eng-soft-2024-1/releases/tag/v1.0.0) - Primeira Iteração: Levantamento de Rquisitos para o estudo compreenção dos Casos de Uso e User Story
 
 [**v1.0.1**](https://github.com/Iohanan-Cephas/bud-strike-eng-soft-2024-1/releases/tag/v1.0.1) - Segunda Iteração: CRUD dos produtos a serem vendidos.
@@ -44,6 +51,40 @@ BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última g
 [**v2.0.0**](https://github.com/Iohanan-Cephas/bud-strike-eng-soft-2024-1/releases/tag/v2.0.0) - Quarta Iteração: Readequação do projeto para o modelo arquitetural MVC e Readequação da Documentação.
 
 [**v2.1.0**](https://github.com/Iohanan-Cephas/bud-strike-eng-soft-2024-1/releases/tag/v2.1.0) - Quinta Iteração: Implementação de uma API RESTful para gerenciar produtos. Isso inclui a criação de endpoints para listar, criar, atualizar e deletar produtos.
+
+[**v2.2.0**](https://github.com/Iohanan-Cephas/bud-strike-eng-soft-2024-1/releases/tag/v2.2.0) - Sexta Iteração: Implementação dos Testes Unitários para garantir a funcionalidade do programa.
+
+---
+### Rodando o projeto
+
+- Pré-requisitos
+
+    Certifique-se de que estejam instalados em seu PC as seguintes ferramentas:
+    
+    - [PHP](https://www.php.net/downloads.php) (versão 7.4 ou superior)
+    - [Composer](https://getcomposer.org/download/)
+    - [Git](https://git-scm.com/downloads)
+
+- Passo a passo
+   1. Clone o Repositório
+
+      Clone o repositório para sua máquina local usando o seguinte comando:
+      ```bash
+      git clone https://github.com/Iohanan-Cephas/bud-strike-eng-soft-2024-1.git
+       ```
+   2. Execute o Composer
+      
+      Na raíz do projeto clonado, utilize o seguinte comando para fazer a conexão automática com o banco de dados:
+      ```bash
+      docker-compose up -d
+      ```
+  1. Abra seu navegador
+     
+     Após terminada a conexão, abra seu navegador de preferência e busque a página:
+     ```bash
+     localhost:8080
+     ```
+     Você será direcionado para uma página em que está escrito "Infelizmente a versão para PC ainda não está disponível". Inspecionando a página coloque a resolução para mobile L (ou abaixo) e após se deparar com a tela de login, crie uma conta para utilizar o site e testar suas funcionalidades.
 
 ---
 
@@ -130,6 +171,12 @@ Planejamento e Execução:
 
 ### **Sexta Iteração**
 
-Valor: Implementação de Teste Unitários
+Valor: Implementação dos Testes Unitários para garantir a funcionalidade do programa.
 
 Planejamento e Execução:
+
+- [X] RF23 - Implementação de Testes Unitários nos Controllers. Por [Antonio André Barcelos Chagas](https://github.com/andrebarceloschagas) e Por [João Pedro Oliveira Barbosa](https://github.com/Iohanan-Cephas) Revisado por [Wanderson Almeida de Mello](https://github.com/sadMello)
+- [X] RF24 - Implementação de Testes Unitários nos Models. [Laura Barbosa Henrique](https://github.com/tinywin) e [Wanderson Almeida de Mello](https://github.com/sadMello) Revisado por [Micael Ribeiro dos Santos](https://github.com/messiribeiro)
+- [X] RF25 - Implementação dos requisitos atrasados. Por [Micael Ribeiro dos Santos](https://github.com/messiribeiro) Revisado por [João Pedro Oliveira Barbosa](https://github.com/Iohanan-Cephas)
+
+---
