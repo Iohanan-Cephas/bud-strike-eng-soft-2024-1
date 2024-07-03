@@ -16,6 +16,17 @@ class Product {
     }
 
     public function all() {
+        $stmt = $this->pdo->query('SELECT * FROM produtos WHERE quantidade > 0');
+        $products = [];
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $products[] = $row;
+        }
+
+        return $products;
+    }
+
+    public function adminIndex() {
         $stmt = $this->pdo->query('SELECT * FROM produtos');
         $products = [];
 

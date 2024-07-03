@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-$products = $productController->index();
+$products = $productController->adminIndex();
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
