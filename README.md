@@ -16,7 +16,7 @@
 
 BudStrike é o seu destino exclusivo para dispositivos eletrônicos de última geração. Nosso compromisso é proporcionar uma experiência de compra excepcional, impulsionando a velocidade de processamento de dados e garantindo entregas rápidas aos nossos clientes. Estamos constantemente refinando nossos processos para atingir a excelência, dando passos calculados em direção ao nosso objetivo.
 ---
-### [**Landing Page**](iohanan-cephas.github.io)
+### [**Landing Page**](https://iohanan-cephas.github.io)
 ---
 ### [**Quadro Kanban**](https://trello.com/invite/b/tPgaPmj9/ATTI9322d3ccbbdcf979852e4b31748fad8846F0ABED/budstrike)
 
